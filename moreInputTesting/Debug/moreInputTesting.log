@@ -1,0 +1,5 @@
+﻿  moreInputTesting.cpp
+d:\nhendley\desktop\moreinputtesting\moreinputtesting.cpp(103): warning C4018: '>=': signed/unsigned mismatch
+d:\nhendley\desktop\moreinputtesting\moreinputtesting.cpp(28): warning C4101: 'single': unreferenced local variable
+  moreInputTesting.vcxproj -> D:\nhendley\Desktop\moreInputTesting\\moreInputTestingDebug.exe
+  Copying DLLs & shaders...
