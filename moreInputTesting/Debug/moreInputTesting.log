@@ -1,5 +1,13 @@
-﻿  moreInputTesting.cpp
-d:\nhendley\desktop\moreinputtesting\moreinputtesting.cpp(103): warning C4018: '>=': signed/unsigned mismatch
-d:\nhendley\desktop\moreinputtesting\moreinputtesting.cpp(28): warning C4101: 'single': unreferenced local variable
-  moreInputTesting.vcxproj -> D:\nhendley\Desktop\moreInputTesting\\moreInputTestingDebug.exe
+﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  moreInputTesting.cpp
+d:\uni stuff!\2nd year\professional skills\profskillsgame\moreinputtesting\moreinputtesting.cpp(114): warning C4018: '>=': signed/unsigned mismatch
+d:\uni stuff!\2nd year\professional skills\profskillsgame\moreinputtesting\moreinputtesting.cpp(131): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\uni stuff!\2nd year\professional skills\profskillsgame\moreinputtesting\moreinputtesting.cpp(144): warning C4018: '<': signed/unsigned mismatch
+d:\uni stuff!\2nd year\professional skills\profskillsgame\moreinputtesting\moreinputtesting.cpp(150): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\uni stuff!\2nd year\professional skills\profskillsgame\moreinputtesting\moreinputtesting.cpp(154): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\uni stuff!\2nd year\professional skills\profskillsgame\moreinputtesting\moreinputtesting.cpp(158): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\uni stuff!\2nd year\professional skills\profskillsgame\moreinputtesting\moreinputtesting.cpp(162): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\uni stuff!\2nd year\professional skills\profskillsgame\moreinputtesting\moreinputtesting.cpp(166): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\uni stuff!\2nd year\professional skills\profskillsgame\moreinputtesting\moreinputtesting.cpp(28): warning C4101: 'single': unreferenced local variable
+  moreInputTesting.vcxproj -> D:\Uni Stuff!\2nd Year\Professional Skills\ProfSkillsGame\moreInputTesting\\moreInputTestingDebug.exe
   Copying DLLs & shaders...

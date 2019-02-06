@@ -38,7 +38,7 @@ void main()
 	int count = 0;
 
 	ifstream levelFile;
-	levelFile.open("level1.txt");
+	levelFile.open("level2.txt");
 	if (!levelFile)
 	{
 		return;
@@ -76,28 +76,28 @@ void main()
 
 				if (nodeCode[0] == '0')
 				{
-					row.insert(it, Air);	//only air begins with zero, so..
+					row.push_back(Air);	//only air begins with zero, so..
 				}
 				if (nodeCode[0] == '1')
 				{
-					row.insert(it, Block);	//block is a 1 type object too. 
+					row.push_back(Block);	//block is a 1 type object too. 
 				}
 				if (nodeCode[0] == '2')
 				{
-					row.insert(it, Coin);	//... as above
+					row.push_back(Coin);	//... as above
 				}
 				if (nodeCode[0] == '3')
 				{
 					//can add more ifs to expand	(See enemy for example on how to expand
-					row.insert(it, Item); //Is a placeholder for now. There is no just 'item'
+					row.push_back(Item); //Is a placeholder for now. There is no just 'item'
 				}
 				if (nodeCode[0] == '4')
 				{
-					row.insert(it, Ground);
+					row.push_back(Ground);
 				}
 				if (nodeCode[0] == '5')
 				{
-					row.insert(it, Enemy); // << Is a placeholder for now. There is no just 'enemy'
+					row.push_back(Enemy); // << Is a placeholder for now. There is no just 'enemy'
 					//add more ifs to expand, for example;
 					// if ([nodeCode[3] == 2)
 					//	{
@@ -125,6 +125,68 @@ void main()
 
 	/**** Set up your scene here ****/
 
+	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0, 0, -15);
+
+	IMesh* playerMesh = myEngine->LoadMesh("planet.x");
+	IModel* player = playerMesh->CreateModel(startCoods[0], startCoods[1], 0);
+	IMesh* floorMesh = myEngine->LoadMesh("Box.x");
+	vector<IModel*> floor;
+	IMesh* itemBoxMesh = myEngine->LoadMesh("Torus.x");
+	vector<IModel*> itemBox;
+	IMesh* coinMesh = myEngine->LoadMesh("Sphere.x");
+	vector<IModel*> coin;
+	IMesh* enemyMesh = myEngine->LoadMesh("TwoPence.x");
+	vector<IModel*> enemy;
+	IMesh* blockMesh = myEngine->LoadMesh("Arrow.x");
+	vector<IModel*> block;
+
+	//actually builds the level
+	for (int i = 0; i < map.size(); i++)
+	{
+		for (int j = 0; j < mapWidth; j++)
+		{
+			if (map[i][j] == Ground)
+			{
+				floor.push_back(floorMesh->CreateModel(j, i, 0));
+			}
+			if (map[i][j] == Item)
+			{
+				itemBox.push_back(itemBoxMesh->CreateModel(j, i, 0));
+			}
+			if (map[i][j] == Coin)
+			{
+				coin.push_back(coinMesh->CreateModel(j, i, 0));
+			}
+			if (map[i][j] == Enemy)
+			{
+				enemy.push_back(enemyMesh->CreateModel(j, i, 0));
+			}
+			if (map[i][j] == Block)
+			{
+				block.push_back(blockMesh->CreateModel(j, i, 0));
+			}
+		}
+	}
+	for (auto it = enemy.begin(); it != enemy.end(); ++it)
+	{
+		(*it)->Scale(0.15);
+	}
+	for (auto it = block.begin(); it != block.end(); ++it)
+	{
+		(*it)->Scale(0.5);
+	}
+	for (auto it = floor.begin(); it != floor.end(); ++it)
+	{
+		(*it)->Scale(0.15);
+	}
+	for (auto it = coin.begin(); it != coin.end(); ++it)
+	{
+		(*it)->Scale(0.1);
+	}
+	for (auto it = itemBox.begin(); it != itemBox.end(); ++it)
+	{
+		(*it)->Scale(0.08);
+	}
 
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
