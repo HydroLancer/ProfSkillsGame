@@ -17,8 +17,8 @@ void main()
 	float mapHeight = 13;
 
 	FullLevel level;  //2D Vector
-
-	MapLoad->LoadTheMap(level, startCoods, checkpointCoords, endCoords, timeLimit, mapWidth, mapHeight);
+	string levelName = "level1.txt";
+	MapLoad->LoadTheMap(level, startCoods, checkpointCoords, endCoords, timeLimit, mapWidth, mapHeight, levelName );
 	
 	vector<IModel*> floor;
 	vector<IModel*> itemBox;

@@ -4,7 +4,8 @@ LoadingMap::LoadingMap()
 {
 }
 
-bool LoadingMap::LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[], float& timeLimit, float& mapWidth, float mapHeight)
+bool LoadingMap::LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[],
+ float endCoords[], float& timeLimit, float& mapWidth, float mapHeight, string levelName)
 {
 	ifstream levelFile; //input file - Should be variations of level[x].txt
 
@@ -15,7 +16,7 @@ bool LoadingMap::LoadTheMap(FullLevel& map, float startCoods[], float checkpoint
 	int counter = 0;
 	int count = 0;
 
-	levelFile.open("level1.txt"); //change this for a parameter passed from main, usually set at the end of a level
+	levelFile.open(levelName); //change this for a parameter passed from main, usually set at the end of a level
 	if (!levelFile)
 	{
 		return false;
