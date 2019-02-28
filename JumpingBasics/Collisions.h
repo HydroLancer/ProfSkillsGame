@@ -1,5 +1,4 @@
 #pragma once
 #include "ControlHeader.h"
-enum boxSide { leftSide, rightSide, frontSide, backSide, noSide };
-boxSide sphereToBox(float sphereX, float sphereZ,float sphereRadius, float sphereOldX, float sphereOldZ, float boxX, float boxZ, float length, float width); // collsion detection
-//boxSide noCollision(float sphereX, float sphereZ, float sphereRadius, float sphereOldX, float sphereOldZ, float boxX, float boxZ, float length, float width);
+enum boxSide { leftSide, rightSide, topSide, bottomSide, noSide };
+boxSide BoxToBox(float x1, float y1, float height1, float width1, float x2, float y2, float height2, float width2); // collsion detection

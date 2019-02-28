@@ -15,11 +15,9 @@ void main()
 	/**** Set up your scene here ****/
 	ICamera* myCamera;
 	myCamera = myEngine->CreateCamera(kFPS);
-	myCamera->SetPosition(-70.0f, 10.0f, 10.0f);
-	myCamera->RotateY(90.0f);
+	myCamera->SetPosition(0.0f, 10.0f, -50.0f);
 	const EKeyCode kExit = Key_Escape;
 	float frameTime = myEngine->Timer();
-	float oldFrameTime = frameTime;
 	//
 	CPlayer* playerObj = new CPlayer(myEngine);
 	CMap* mapObj = new CMap(myEngine);
@@ -28,9 +26,8 @@ void main()
 	{
 		// Draw the scene
 		myEngine->DrawScene();
-		oldFrameTime = frameTime;
 		/**** Update your scene each frame here ****/
-		playerObj->update(myEngine, frameTime, oldFrameTime, mapObj);
+		playerObj->update(myEngine, frameTime, mapObj);
 		/*playerObj->playerJumping(myEngine, frameTime, oldFrameTime);*/
 		if (myEngine->KeyHit(kExit))
 		{
