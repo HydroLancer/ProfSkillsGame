@@ -1,0 +1,15 @@
+﻿  ShapeSprint.cpp
+  Generating Code...
+  Compiling...
+  CGameMap.cpp
+d:\wmtbarnes\desktop\shapesprint\shapesprint\cgamemap.cpp(184): warning C4018: '<': signed/unsigned mismatch
+d:\wmtbarnes\desktop\shapesprint\shapesprint\cgamemap.cpp(190): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\wmtbarnes\desktop\shapesprint\shapesprint\cgamemap.cpp(194): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\wmtbarnes\desktop\shapesprint\shapesprint\cgamemap.cpp(198): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\wmtbarnes\desktop\shapesprint\shapesprint\cgamemap.cpp(202): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\wmtbarnes\desktop\shapesprint\shapesprint\cgamemap.cpp(206): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  CPlayer.cpp
+  ShapeSprint.vcxproj -> D:\wmtbarnes\Desktop\ShapeSprint\ShapeSprint\\ShapeSprintDebug.exe
+  ShapeSprint.vcxproj -> D:\wmtbarnes\Desktop\ShapeSprint\ShapeSprint\\ShapeSprint.pdb (Full PDB)
