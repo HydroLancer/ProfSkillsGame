@@ -7,8 +7,6 @@
 #include "CCamera.h"
 #include "Collisions.h"
 
-using namespace tle;
-
 //TO DO
 /*
 Change the collisions for the map to loop through all the objects
@@ -24,8 +22,9 @@ void main()
 	myEngine->AddMediaFolder("media");
 	/**** Set up your scene here ****/
 		// Load the map file in
+	float frameTime = myEngine->Timer();
 	CGameMap* map = new CGameMap; // Create a map loader object
-
+	CPlayer* player = new CPlayer(myEngine); // create a player object
 	CGameMap::FullLevel level; //2D Vector
 	const string levelName = "level1.txt"; // File name for the map
 	map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName);
@@ -36,8 +35,7 @@ void main()
 		// Draw the scene
 		myEngine->DrawScene();
 		/**** Update your scene each frame here ****/
-
-
+		frameTime = myEngine->Timer();
 	}
 
 	// Delete the 3D engine now we are finished with it
