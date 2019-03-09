@@ -35,6 +35,7 @@ void main()
 		// Draw the scene
 		myEngine->DrawScene();
 		/**** Update your scene each frame here ****/
+		player->update(myEngine, frameTime, map);
 		frameTime = myEngine->Timer();
 	}
 
