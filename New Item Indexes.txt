@@ -1,0 +1,46 @@
+SQUARE TYPES:
+0 Air
+1 Block
+2 Spike
+3 Jump Pad
+4 Floor Block
+5 Spinning Wheel
+6 Coin
+
+SPIKE TYPES:
+0 1x1
+1 1x2
+2 2x3
+
+JUMP HEIGHT:
+3-6
+
+WHEEL TYPE:
+0 1x2
+1 2x2
+2 3x3
+3 5x3
+
+--------------- BLOCK ID's ---------------
+
+000 Air
+
+100 Block
+
+200 Spike (1x1)
+210 Spike (1x2)
+220 Spike (2x3)
+
+303 Jump Pad (Jump Height = 3)
+304 Jump Pad (Jump Height = 4)
+305 Jump Pad (Jump Height = 5)
+306 Jump Pad (Jump Height = 6)
+
+400 Floor Block
+
+500 Spinning Wheel (1x2)
+501 Spinning Wheel (2x2)
+502 Spinning Wheel (3x3)
+503 Spinning Wheel (5x3)
+
+600 Coin
