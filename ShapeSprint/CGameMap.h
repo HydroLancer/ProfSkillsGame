@@ -6,40 +6,35 @@ class CGameMap
 private:
 	enum BlockType
 	{
-		//Enemies
-		GoombaEnemy = 500,
-		GreenKoopaEnemy = 501,
-		RedKoopaEnemy = 502,
-		DryBonesEnemy = 503,
+		//coin
+		Coin = 600,
 
-		Ground = 400,
+		//Wheels
+		Wheel1x2 = 500, //1x2
+		Wheel2x2 = 501, //2x2
+		Wheel3x3 = 502, //3x3
+		Wheel5x3 = 503, //5x3
 
-		//Items
-		Item = 300,
-		CoinItem = 310,
-		SuperMushroomItem = 320,
-		FireFlowerItem = 330,
-		BlueShellItem = 340,
-		StamanItem = 350,
-		MegamushroomItem = 360,
-		MiniMushroomItem = 370,
-		OneUpItem = 380,
+		//floor
+		Floor = 400,
 
-		Coin = 200,
+		//Jump Pad (Number proceeding it is the height it gives)
+		JumpPad3 = 303,
+		JumpPad4 = 304,
+		JumpPad5 = 305,
+		JumpPad6 = 306,
 
-		//Blocks
+		//Spikes
+		Spike1x1 = 200,
+		Spike1x2 = 210,
+		Spike2x3 = 220,
+
+		//Block
 		Block = 100,
-		CoinBlock = 110,
-		SuperMushroomBlock = 120,
-		FireFlowerBlock = 130,
-		BlueShellBlock = 140,
-		StamanBlock = 150,
-		MegamushroomBlock = 160,
-		MiniMushroomBlock = 170,
-		OneUpBlock = 180,
 
+		//Air
 		Air = 0
-	}; //Contains about 5 million enums for all item/enemy types.
+	}; 
 
 public:
 	CGameMap();
@@ -52,10 +47,21 @@ public:
 	float timeLimit;
 	float mapWidth;
 
+	//pile o' vectors
+	vector<IModel*> floor;
+	vector<IModel*> blocks;
+	vector<IModel*> coins;
+	vector<IModel*> wheels;		//After messing with all this, I realised I can probably just make a single 2D vector with every single model in it.
+	vector<IModel*> spikes;		//--Nathan
+	vector<IModel*> jumpPads3;
+	vector<IModel*> jumpPads4;
+	vector<IModel*> jumpPads5;
+	vector<IModel*> jumpPads6;
+
 	using FullLevel = vector<vector<BlockType>>;
 
 	bool LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[], float& timeLimit, float& mapWidth, float mapHeight, string levelName);
-	bool LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel level, float mapWidth, vector<IModel*>& floor, vector<IModel*>& itemBox, vector<IModel*>& coin, vector<IModel*>& enemy, vector<IModel*>& block);
+	bool LevelBuild(I3DEngine * myEngine, float startCoods[], FullLevel& level, float mapWidth);
 
 	float GetX(IModel* model);
 	float GetY(IModel* model);
