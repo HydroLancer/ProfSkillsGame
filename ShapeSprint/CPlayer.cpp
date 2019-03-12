@@ -3,11 +3,11 @@
 CPlayer::CPlayer(I3DEngine* myEngine)
 {
 	playerMesh = myEngine->LoadMesh(PLAYER_MODEL);
-	player = playerMesh->CreateModel(0.0f, 2.0f, 0.0f);
+	player = playerMesh->CreateModel(0.0f, 1.0f, 0.0f);
 	player->SetSkin(PLAYER_SKIN);
 	player->Scale(0.1f);
 	oldX = 0.0f;
-	
+	rotation = 0.0f;
 	jumpState = noJump;
 }
 
@@ -111,12 +111,8 @@ boxSide CPlayer::checkCollisions(I3DEngine* myEngine, CGameMap* map)
 	for (auto floor : map->floor)
 	{
 		collision = BoxToBox(getX(), getY(), HEIGHT, WIDTH, map->GetX(floor), map->GetY(floor), HEIGHT, WIDTH);
+		return collision;
 	}
-	//if (collision != noSide)
-	//{
-	//	collision = noSide; // seeing what state is on
-	//}
-	return collision;
 }
 
 CPlayer::~CPlayer()
