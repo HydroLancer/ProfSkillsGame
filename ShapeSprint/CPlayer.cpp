@@ -12,6 +12,12 @@ CPlayer::CPlayer(I3DEngine* myEngine)
 	jumpState = noJump;
 }
 
+//getter
+IModel* CPlayer::GetModel()
+{
+	return player;
+}
+
 void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxSide collision) // Controls player movement
 {
 	if (collision == leftSide || collision == rightSide) // Check to see if there is collision on either side of the model

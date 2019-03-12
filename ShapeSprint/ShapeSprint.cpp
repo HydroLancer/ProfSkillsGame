@@ -31,7 +31,8 @@ void main()
 	map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
 
 	//temporary//
-	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0, 0, 0);
+	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0, 0, -5.0f); //fuckin' with testing. 
+	myCamera->AttachToParent(player->GetModel());
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
 	{

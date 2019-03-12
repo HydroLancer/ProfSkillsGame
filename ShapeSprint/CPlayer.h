@@ -12,6 +12,8 @@ public:
 
 	enum EplayerJump { noJump, Jump, DoubleJump }; // Jump state for the player model
 
+	IModel * GetModel();
+
 	void playerMovement(I3DEngine* myEngine, float frameTime, boxSide collision); // Controls player movement
 	
 	void playerJump(I3DEngine* myEngine, float frameTime, boxSide collision); // Controls player jumping mechanic
