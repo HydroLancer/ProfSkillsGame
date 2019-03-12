@@ -22,9 +22,9 @@ private:
 	const EKeyCode RIGHT = Key_D; // Move model right
 	const EKeyCode JUMP = Key_Space; // Make model jump
 
-	const float JUMP_RESET = 10.0f;	// Reset the jump speed 100
+	const float JUMP_RESET = 20.0f;	// Reset the jump speed 100
 	const float ROTATE = 240.0f; // Rotates the cube round when double jumping
-	const float playerSpeed = 2.0f; // The speed of the player
+	const float playerSpeed = 10.0f; // The speed of the player
 
 
 
@@ -47,7 +47,7 @@ public:
 	void playerMovement(I3DEngine* myEngine, float frameTime, boxSide collision); // Controls player movement
 
 	void playerJump(I3DEngine* myEngine, float frameTime, boxSide collision); // Controls player jumping mechanic
-	void update(I3DEngine* myEngine, float frameTime, CGameMap* map); // Updates the scene each frame
+	void update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera); // Updates the scene each frame
 	void setX(float x) { player->SetX(x); }	// Sets the 'X' value of a given model
 	void setY(float y) { player->SetY(y); } // Sets the 'Y' value of a given model
 	void setOldX() { setX(oldX); } // Sets the previous 'X' value of a given model

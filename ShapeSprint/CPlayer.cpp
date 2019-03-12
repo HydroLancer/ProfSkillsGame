@@ -55,12 +55,14 @@ void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxSide colli
 	}
 }
 
-void CPlayer::update(I3DEngine* myEngine, float frameTime, CGameMap* map) // Updates the scene each frame
+void CPlayer::update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera) // Updates the scene each frame
 {
 	boxSide collision; // Box side object
 	collision = checkCollisions(myEngine, map); // Check which side the collision is on
 	playerMovement(myEngine, frameTime, collision); // Update the player movement
 	playerJump(myEngine, frameTime, collision); // Update the jump state every frame
+	camera->SetX(player->GetX());
+	camera->SetY(player->GetY());
 }
 
 // NEEDS COMMENTING //

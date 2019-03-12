@@ -29,8 +29,8 @@ void main()
 	const string levelName = "ShapeTest.txt"; // File name for the map
 	map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName);
 	map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
-	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0, 0, -60.0f); //fuckin' with testing. 
-	myCamera->AttachToParent(player->GetModel());
+	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0, 0, -25.0f); //fuckin' with testing. 
+	//myCamera->AttachToParent(player->GetModel());
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
 	{
@@ -38,7 +38,7 @@ void main()
 		// Draw the scene
 		myEngine->DrawScene();
 		/**** Update your scene each frame here ****/
-		player->update(myEngine, frameTime, map);
+		player->update(myEngine, frameTime, map,myCamera);
 		if (myEngine->KeyHit(EXIT)) // exits the game
 		{
 			myEngine->Stop();
