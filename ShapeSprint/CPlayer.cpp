@@ -110,8 +110,11 @@ boxSide CPlayer::checkCollisions(I3DEngine* myEngine, CGameMap* map)
 	boxSide collision;
 	for (auto floor : map->floor)
 	{
-		collision = BoxToBox(getX(), getY(), HEIGHT, WIDTH, map->GetX(floor), map->GetY(floor), HEIGHT, WIDTH);
-		return collision;
+	//for each(IModel* flooring in map->floor)
+	//{
+		collision = BoxToBox(getX(), getY(), HEIGHT, WIDTH, floor->GetX(), floor->GetY(), 1.0f, 1.0f);
+		return collision; // What i think is happening its fine for the first jump but its going through the list passing back some topside the rest noSide so thats why it falls through
+	//}
 	}
 }
 
