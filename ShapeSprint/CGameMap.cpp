@@ -148,7 +148,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	vector<IModel*>::iterator it;
 	IMesh* playerMesh = myEngine->LoadMesh("Planet.x");
 	IModel* player = playerMesh->CreateModel(startCoods[0], startCoods[1], 0.0f);
-	IMesh* floorMesh = myEngine->LoadMesh("Cube.x");
+	IMesh* floorMesh = myEngine->LoadMesh("Box.x");
 	IMesh* coinMesh = myEngine->LoadMesh("Sphere.x");
 	IMesh* blockMesh = myEngine->LoadMesh("Box.x");
 	IMesh* jumpPadMesh = myEngine->LoadMesh("Arrow.x");
@@ -157,7 +157,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 
 	/*This essentially goes through the 2d vector formed by loading the text file, and makes the level appear on screen by loading
 	all the models needed for the level's layout into vectors of their types*/
-	for (int i = 1; i < level.size(); i++)
+	for (int i = 0; i < level.size(); i++)
 	{
 		for (int j = 0; j < mapWidth; j++)
 		{
