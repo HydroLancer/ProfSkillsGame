@@ -22,6 +22,7 @@ void main()
 	myEngine->AddMediaFolder("media");
 	/**** Set up your scene here ****/
 		// Load the map file in
+	const EKeyCode EXIT = Key_Escape;// exits the game
 	float frameTime = myEngine->Timer();
 	CGameMap* map = new CGameMap; // Create a map loader object
 	CPlayer* player = new CPlayer(myEngine); // create a player object
@@ -31,15 +32,20 @@ void main()
 	map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
 
 	//temporary//
-	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0, 0, -5.0f); //fuckin' with testing. 
-	myCamera->AttachToParent(player->GetModel());
+	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0, 0, -20.0f); //fuckin' with testing. 
+	/*myCamera->AttachToParent(player->GetModel());*/
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
 	{
+		frameTime = myEngine->Timer();
 		// Draw the scene
 		myEngine->DrawScene();
 		/**** Update your scene each frame here ****/
-		frameTime = myEngine->Timer();
+		player->update(myEngine, frameTime, map);
+		if (myEngine->KeyHit(EXIT)) // exits the game
+		{
+			myEngine->Stop();
+		}
 	}
 
 	// Delete the 3D engine now we are finished with it

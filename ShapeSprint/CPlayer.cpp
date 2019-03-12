@@ -3,12 +3,11 @@
 CPlayer::CPlayer(I3DEngine* myEngine)
 {
 	playerMesh = myEngine->LoadMesh(PLAYER_MODEL);
-	player = playerMesh->CreateModel(0.0f, 0.0f, 0.0f);
-
+	player = playerMesh->CreateModel(0.0f, 2.0f, 0.0f);
 	player->SetSkin(PLAYER_SKIN);
-
+	player->Scale(0.1f);
 	oldX = 0.0f;
-
+	
 	jumpState = noJump;
 }
 
@@ -48,11 +47,11 @@ void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxSide colli
 	// Movement Mechanic
 	if (myEngine->KeyHeld(LEFT)) // If the left movement key is pressed
 	{
-		player->MoveX(-PLAYER_SPEED * frameTime); // Move the model negative x
+		player->MoveX(-playerSpeed * frameTime); // Move the model negative x
 	}
 	else if (myEngine->KeyHeld(RIGHT))
 	{
-		player->MoveX(PLAYER_SPEED * frameTime); // Move the model positive x
+		player->MoveX(playerSpeed * frameTime); // Move the model positive x
 	}
 }
 
@@ -67,7 +66,7 @@ void CPlayer::update(I3DEngine* myEngine, float frameTime, CGameMap* map) // Upd
 // NEEDS COMMENTING //
 void CPlayer::playerJump(I3DEngine* myEngine, float frameTime, boxSide collision) // Controls player jumping mechanic
 {
-	// Check for collision
+	/* Check for collision*/
 	if (collision == topSide)
 	{
 		jumpState = noJump;
@@ -92,7 +91,7 @@ void CPlayer::playerJump(I3DEngine* myEngine, float frameTime, boxSide collision
 		player->SetY(player->GetY() + (jumpSpeed *frameTime)); // same as before
 
 	}
-	//else  // gravity on all the time i disabled this since the floor.x isnt going to be used in the main game and all of the map will be some type of block
+	//else // gravity on all the time i disabled this since the floor.x isnt going to be used in the main game and all of the map will be some type of block
 	//{
 	//	/*gravity/falling*/
 	//	if (collision != topSide) //
@@ -106,8 +105,11 @@ void CPlayer::playerJump(I3DEngine* myEngine, float frameTime, boxSide collision
 // NEEDS COMMENTING //
 boxSide CPlayer::checkCollisions(I3DEngine* myEngine, CGameMap* map)
 {
-	boxSide collision; 
-	collision = BoxToBox(getX(), getY(), HEIGHT, WIDTH, map->GetX(player), map->GetY(player), HEIGHT, WIDTH);
+	boxSide collision;
+	for (auto floor : map->floor)
+	{
+		collision = BoxToBox(getX(), getY(), HEIGHT, WIDTH, map->GetX(floor), map->GetY(floor), HEIGHT, WIDTH);
+	}
 	//if (collision != noSide)
 	//{
 	//	collision = noSide; // seeing what state is on

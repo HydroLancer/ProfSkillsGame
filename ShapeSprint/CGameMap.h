@@ -65,8 +65,7 @@ public:
 
 	float GetX(IModel* model);
 	float GetY(IModel* model);
-	float GetZ(IModel* model);
-
+	float GetZ(IModel* model); //WHY i am going to kill you james you made the player detect itself to then have a seizure
 	~CGameMap();
 };
 
