@@ -11,9 +11,6 @@
     <ClCompile Include="Collisions.cpp">
       <Filter>Class Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CCamera.cpp">
-      <Filter>Class Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -40,9 +37,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Collisions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

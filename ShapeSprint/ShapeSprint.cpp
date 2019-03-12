@@ -4,7 +4,6 @@
 #include "ControlHeader.h"
 #include "CPlayer.h"
 #include "CGameMap.h"
-#include "CCamera.h"
 #include "Collisions.h"
 
 //TO DO
@@ -30,10 +29,8 @@ void main()
 	const string levelName = "ShapeTest.txt"; // File name for the map
 	map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName);
 	map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
-
-	//temporary//
-	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0, 0, -20.0f); //fuckin' with testing. 
-	/*myCamera->AttachToParent(player->GetModel());*/
+	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0, 0, -60.0f); //fuckin' with testing. 
+	myCamera->AttachToParent(player->GetModel());
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
 	{
