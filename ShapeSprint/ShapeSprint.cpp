@@ -26,9 +26,12 @@ void main()
 	CGameMap* map = new CGameMap; // Create a map loader object
 	CPlayer* player = new CPlayer(myEngine); // create a player object
 	CGameMap::FullLevel level; //2D Vector
-	const string levelName = "level1.txt"; // File name for the map
+	const string levelName = "ShapeTest.txt"; // File name for the map
 	map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName);
+	map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
 
+	//temporary//
+	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0, 0, 0);
 	// The main game loop, repeat until engine is stopped
 	while (myEngine->IsRunning())
 	{

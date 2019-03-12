@@ -48,109 +48,80 @@ bool CGameMap::LoadTheMap(FullLevel& map, float startCoods[], float checkpointCo
 				nodeCode[1] = levelFile.get();
 				nodeCode[2] = levelFile.get();	//gets a 3 number code from the input file ready for comparisons below
 
-												//For the below, the map uses a 3 digit code to identify objects in a scene. for example, 000 - Air, 302 - Green Koopa
-												//So for comparison, just use the first and third 'digit' to identify which exact item needs to be put in.
-												//just add more ifs within the main if to differentiate between an item block that releases a mushroom or a coin.
-												//below has more explanation and examples anyhoo. Just need an expansion of the enum BlockType above.
+				//For the below, the map uses a 3 digit code to identify objects in a scene. for example, 000 - Air, 302 - Green Koopa
+				//So for comparison, just use the first and third 'digit' to identify which exact item needs to be put in.
+				//just add more ifs within the main if to differentiate between an item block that releases a mushroom or a coin.
+				//below has more explanation and examples anyhoo. Just need an expansion of the enum BlockType above.
 
 				if (nodeCode[0] == '0')
 				{
 					row.push_back(Air);	//only air begins with zero, so..
 				}
+
 				if (nodeCode[0] == '1')
 				{
-					switch (nodeCode[1])
-					{
-					case 1:
-						row.push_back(CoinBlock);
-						break;
-					case 2:
-						row.push_back(SuperMushroomBlock);
-						break;
-					case 3:
-						row.push_back(FireFlowerBlock);
-						break;
-					case 4:									//As blocks can have items within, set depending on the 2nd number
-						row.push_back(BlueShellBlock);		//blocks are usually coded 1[x]0
-						break;
-					case 5:
-						row.push_back(StamanBlock);
-						break;
-					case 6:
-						row.push_back(MegamushroomBlock);
-						break;
-					case 7:
-						row.push_back(MiniMushroomBlock);
-						break;
-					case 8:
-						row.push_back(OneUpBlock);
-						break;
-					default:
-						row.push_back(Block);		//Empty block
-						break;
-					}
+					row.push_back(Block); //No fancy blocks this time.
 				}
+
 				if (nodeCode[0] == '2')
 				{
-					row.push_back(Coin);	//... as above
-				}
-				if (nodeCode[0] == '3') //Block Type. Anything within in what pops out. 0 is an empty one. 
-				{
 					switch (nodeCode[1])
 					{
-					case 1:
-						row.push_back(CoinItem);
+					case '0':
+						row.push_back(Spike1x1);
 						break;
-					case 2:
-						row.push_back(SuperMushroomItem);
+					case '1':
+						row.push_back(Spike1x2);		
+						break;							//Middle numbers in the 3 digit code refer to spike type
+					case '2':								//So the switch checks the 2nd digit and acts accordingly
+						row.push_back(Spike2x3);		
 						break;
-					case 3:
-						row.push_back(FireFlowerItem);
+					
+					}
+				}
+				if (nodeCode[0] == '3') 
+				{
+					switch (nodeCode[2])
+					{
+					case '3':
+						row.push_back(JumpPad3);
 						break;
-					case 4:
-						row.push_back(BlueShellItem);
+					case '4':
+						row.push_back(JumpPad4);
 						break;
-					case 5:
-						row.push_back(StamanItem);
+					case '5':								
+						row.push_back(JumpPad5);
 						break;
-					case 6:
-						row.push_back(MegamushroomItem);
-						break;
-					case 7:
-						row.push_back(MiniMushroomItem);
-						break;
-					case 8:
-						row.push_back(OneUpItem);
-						break;
-					default:
-						row.push_back(Item);		//Just to be safe. Essentially a dummy item block
+					case '6':
+						row.push_back(JumpPad6);
 						break;
 					}
 				}
 				if (nodeCode[0] == '4')
 				{
-					row.push_back(Ground);
+					row.push_back(Floor);
 				}
 				if (nodeCode[0] == '5')
 				{
 					switch (nodeCode[2])
 					{
-					case 1:
-						row.push_back(GoombaEnemy);
+					case '0':
+						row.push_back(Wheel1x2);
 						break;
-					case 2:
-						row.push_back(GreenKoopaEnemy);
+					case '1':
+						row.push_back(Wheel2x2);
 						break;
-					case 3:
-						row.push_back(RedKoopaEnemy);
+					case '2':
+						row.push_back(Wheel3x3);
 						break;
-					case 4:
-						row.push_back(DryBonesEnemy);
+					case '3':
+						row.push_back(Wheel5x3);
 						break;
-					default:
-						row.push_back(GoombaEnemy); // Just so if someone forgets to name a specific enemy, default to goomba0
-					}
-
+					}				
+				}
+				if (nodeCode[0] == '6')
+				{
+					row.push_back(Coin);
 				}
 				counter++;
 			}
@@ -167,53 +138,122 @@ bool CGameMap::LoadTheMap(FullLevel& map, float startCoods[], float checkpointCo
 	return true;
 }
 
-// NEEDS COMMENTING //
-bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel level, float mapWidth, vector<IModel*>& floor,	vector<IModel*>& itemBox, vector<IModel*>& coin, vector<IModel*>& enemy, vector<IModel*>& block)
+/*Goes through the 2D Vector looking at each node in the vector and pushes a new model pointer into a vector of type Model pointer. (It has the position too because
+the 2d vector essentially functions as a grid.) then in the game engine, the game actually places each model.*/ 
+bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& level, float mapWidth) 
 {
-	//Passes the engine into this function so that the class can load the meshes and push the models into the vectors that have been
-	//defined in main.
+	/*Passes the engine into this function so that the class can load the meshes and push the models into the vectors that have been
+	defined in main.*/
+
 	vector<IModel*>::iterator it;
 	IMesh* playerMesh = myEngine->LoadMesh("Planet.x");
 	IModel* player = playerMesh->CreateModel(startCoods[0], startCoods[1], 0.0f);
-	IMesh* floorMesh = myEngine->LoadMesh("Box.x");
-	IMesh* itemBoxMesh = myEngine->LoadMesh("Torus.x");
+	IMesh* floorMesh = myEngine->LoadMesh("Cube.x");
 	IMesh* coinMesh = myEngine->LoadMesh("Sphere.x");
-	IMesh* enemyMesh = myEngine->LoadMesh("TwoPence.x");
-	IMesh* blockMesh = myEngine->LoadMesh("Arrow.x");
+	IMesh* blockMesh = myEngine->LoadMesh("Box.x");
+	IMesh* jumpPadMesh = myEngine->LoadMesh("Arrow.x");
+	IMesh* spikeMesh = myEngine->LoadMesh("Teapot.x");
+	IMesh* wheelMesh = myEngine->LoadMesh("Torus.x");
 
-	for (int i = 0; i < level.size(); i++)
+	/*This essentially goes through the 2d vector formed by loading the text file, and makes the level appear on screen by loading
+	all the models needed for the level's layout into vectors of their types*/
+	for (int i = 1; i < level.size(); i++)
 	{
 		for (int j = 0; j < mapWidth; j++)
 		{
-			if (level[i][j] == Ground)
+			if (level[i][j] == Floor)
 			{
 				floor.push_back(floorMesh->CreateModel(j, i, 0.0f));
 			}
-			if (level[i][j] == Item)
-			{
-				itemBox.push_back(itemBoxMesh->CreateModel(j, i, 0.0f));
-			}
 			if (level[i][j] == Coin)
 			{
-				coin.push_back(coinMesh->CreateModel(j, i, 0.0f));
+				coins.push_back(coinMesh->CreateModel(j, i, 0.0f));
 			}
-			if (level[i][j] == GoombaEnemy)
+
+			/*These are all the jumpPad vectors. So many.  All do the same thing, so condensed them down to be less overwhelming.
+			Splitting them up purely because each pad gives you different height jumps. Stuff like spikes and wheels all do the same thing when you hit them (as far as I'm aware)
+			so fine detail isn't too urgent with them*/
+			if (level[i][j] == JumpPad3)
 			{
-				enemy.push_back(enemyMesh->CreateModel(j, i, 0.0f));
+				jumpPads3.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
+				//Set Skin?
 			}
+			if (level[i][j] == JumpPad4)
+			{
+				jumpPads4.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
+				//Set Skin?
+			}
+			if (level[i][j] == JumpPad5)
+			{
+				jumpPads5.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
+				//Set Skin?
+			}
+			if (level[i][j] == JumpPad6)
+			{
+				jumpPads6.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
+				//Set Skin?
+			}
+			
 			if (level[i][j] == Block)
 			{
-				block.push_back(blockMesh->CreateModel(j, i, 0.0f));
+				blocks.push_back(blockMesh->CreateModel(j, i, 0.0f));
+			}
+
+			//kind of the same with spikes, except they all go in the same vector, but resized beforehand. 
+			if (level[i][j] == Spike1x1)
+			{
+				IModel* spike = spikeMesh->CreateModel(j, i, 0.0f);
+				spike->Scale(0.5f);
+				spikes.push_back(spike);
+			}
+			if (level[i][j] == Spike1x2)
+			{
+				IModel* spikyBoye = spikeMesh->CreateModel(j, i, 0.0f);
+				spikyBoye->Scale(0.7f);
+				spikes.push_back(spikyBoye);
+			}
+			if (level[i][j] == Spike2x3)
+			{
+				IModel* spikyBoye = spikeMesh->CreateModel(j, i, 0.0f);
+				spikyBoye->Scale(1.3f);
+				spikes.push_back(spikyBoye);
+			}
+
+			//...and wheels. 
+			if (level[i][j] == Wheel1x2)
+			{
+				IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
+				wheel->RotateLocalX(90.0f);
+				wheel->Scale(0.05f);
+				wheels.push_back(wheel);
+			}
+			if (level[i][j] == Wheel2x2)
+			{
+				IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
+				wheel->Scale(0.1f);
+				wheel->RotateLocalX(90.0f);
+				wheels.push_back(wheel);
+			}
+			if (level[i][j] == Wheel3x3)
+			{
+				IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
+				wheel->Scale(0.2f);
+				wheel->RotateLocalX(90.0f);
+				wheels.push_back(wheel);
+			}
+			if (level[i][j] == Wheel5x3)
+			{
+				IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
+				wheel->Scale(0.35f);
+				wheel->RotateLocalX(90.0f);
+				wheels.push_back(wheel);
 			}
 		}
 	}
 
 	//Once the models are loaded into their corresponding vectors, adjusts the scaling on them to make the level look sane.
-	for (auto it = enemy.begin(); it != enemy.end(); ++it)
-	{
-		(*it)->Scale(0.095f);
-	}
-	for (auto it = block.begin(); it != block.end(); ++it)
+	
+	for (auto it = blocks.begin(); it != blocks.end(); ++it)
 	{
 		(*it)->Scale(0.1f);
 	}
@@ -221,13 +261,9 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel lev
 	{
 		(*it)->Scale(0.1f);
 	}
-	for (auto it = coin.begin(); it != coin.end(); ++it)
+	for (auto it = coins.begin(); it != coins.end(); ++it)
 	{
 		(*it)->Scale(0.1f);
-	}
-	for (auto it = itemBox.begin(); it != itemBox.end(); ++it)
-	{
-		(*it)->Scale(0.08f);
 	}
 	return true;
 }
