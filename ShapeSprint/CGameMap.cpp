@@ -147,7 +147,6 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 
 	vector<IModel*>::iterator it;
 	IMesh* playerMesh = myEngine->LoadMesh("Planet.x");
-	IModel* player = playerMesh->CreateModel(startCoods[0], startCoods[1], 0.0f);
 	IMesh* floorMesh = myEngine->LoadMesh("Cube.x");
 	IMesh* coinMesh = myEngine->LoadMesh("Sphere.x");
 	IMesh* blockMesh = myEngine->LoadMesh("Cube.x");

@@ -1,13 +1,14 @@
 #include "CPlayer.h"
 
-CPlayer::CPlayer(I3DEngine* myEngine)
+CPlayer::CPlayer(I3DEngine* myEngine, CGameMap* m)
 {
 	playerMesh = myEngine->LoadMesh(PLAYER_MODEL);
-	player = playerMesh->CreateModel(0.0f, 1.0f, 0.0f);
+	player = playerMesh->CreateModel(0, 1.0f, 0.0f);
 	player->SetSkin(PLAYER_SKIN);
 	player->Scale(0.1f);
 	oldX = 0.0f;
 	rotation = 0.0f;
+	jumpSpeed = 0.0f;
 	jumpState = noJump;
 }
 
@@ -17,7 +18,7 @@ IModel* CPlayer::GetModel()
 	return player;
 }
 
-void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxSide collision) // Controls player movement
+void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxSide collision, CGameMap* map) // Controls player movement
 {
 	if (collision == leftSide || collision == rightSide) // Check to see if there is collision on either side of the model
 	{
@@ -57,22 +58,31 @@ void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxSide colli
 
 void CPlayer::update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera) // Updates the scene each frame
 {
-	boxSide collision; // Box side object
+	boxSide collision = noSide; // Box side object
+	
 	collision = checkCollisions(myEngine, map); // Check which side the collision is on
-	playerMovement(myEngine, frameTime, collision); // Update the player movement
-	playerJump(myEngine, frameTime, collision); // Update the jump state every frame
+	playerMovement(myEngine, frameTime, collision, map); // Update the player movement
+	
+	collision = checkCollisions(myEngine, map); // Check which side the collision is on
+	playerJump(myEngine, frameTime, collision, map); // Update the jump state every frame
+
 	camera->SetX(player->GetX());
 	camera->SetY(player->GetY());
 }
 
 // NEEDS COMMENTING //
-void CPlayer::playerJump(I3DEngine* myEngine, float frameTime, boxSide collision) // Controls player jumping mechanic
+void CPlayer::playerJump(I3DEngine* myEngine, float frameTime, boxSide collision, CGameMap* map) // Controls player jumping mechanic
 {
-	/* Check for collision*/
+	/* Collision Resolution */
 	if (collision == topSide)
 	{
+		if (jumpState != noJump)
+		{
 		jumpState = noJump;
-		player->RotateZ(-rotation); // counter the rotation to reset to its original position
+		jumpSpeed = 0.0f;
+		}
+
+		/*player->RotateZ(-rotation); */// counter the rotation to reset to its original position
 	}
 	else if (collision == bottomSide)
 	{
@@ -87,35 +97,39 @@ void CPlayer::playerJump(I3DEngine* myEngine, float frameTime, boxSide collision
 	}
 	else if (jumpState == DoubleJump)
 	{
-		rotation += (ROTATE * frameTime);
-		player->RotateZ(ROTATE * frameTime); // cool spin
+		/*rotation += (ROTATE * frameTime);*/
+		/*player->RotateZ(ROTATE * frameTime);*/ // cool spin
 		jumpSpeed -= GRAVITY;
 		player->SetY(player->GetY() + (jumpSpeed *frameTime)); // same as before
 
 	}
-	//else // gravity on all the time i disabled this since the floor.x isnt going to be used in the main game and all of the map will be some type of block
-	//{
-	//	/*gravity/falling*/
-	//	if (collision != topSide) //
-	//	{ //hit floor (needs to replace)
-	//		jumpSpeed -= GRAVITY;
-	//		player->SetY(player->GetY() + (jumpSpeed *frameTime));
-	//	}
-	//}
+	else // gravity on all the time i disabled this since the floor.x isnt going to be used in the main game and all of the map will be some type of block
+	{
+		/*gravity/falling*/
+		if (collision != topSide) //
+		{ //hit floor (needs to replace)
+			jumpSpeed -= GRAVITY;
+			player->SetY(player->GetY() + (jumpSpeed * frameTime));
+		}
+	}
 }
 
 // NEEDS COMMENTING //
 boxSide CPlayer::checkCollisions(I3DEngine* myEngine, CGameMap* map)
 {
 	boxSide collision;
-	for (auto floor : map->floor)
+
+	for each(IModel* flooring in map->floor)
 	{
-	//for each(IModel* flooring in map->floor)
-	//{
-		collision = BoxToBox(getX(), getY(), HEIGHT, WIDTH, floor->GetX(), floor->GetY(), 1.0f, 1.0f);
-		return collision; // What i think is happening its fine for the first jump but its going through the list passing back some topside the rest noSide so thats why it falls through
-	//}
+		collision = BoxToBox(getX(), getY(), HEIGHT, WIDTH, flooring->GetX(), flooring->GetY(), 1.0f, 1.0f);
 	}
+	
+	/*for each(IModel* block in map->blocks)
+	{
+		collision = BoxToBox(getX(), getY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
+	}*/
+
+	return collision; // What i think is happening its fine for the first jump but its going through the list passing back some topside the rest noSide so thats why it falls through
 }
 
 CPlayer::~CPlayer()

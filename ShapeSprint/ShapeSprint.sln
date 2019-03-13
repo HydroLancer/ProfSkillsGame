@@ -4,6 +4,11 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShapeSprint", "ShapeSprint.vcxproj", "{09E3BFC2-BE9D-42C6-AD13-08A2F474390E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{444471AC-C1FA-4B5F-A3FA-0DF14918B6B4}"
+	ProjectSection(SolutionItems) = preProject
+		ShapeTest.txt = ShapeTest.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

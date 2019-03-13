@@ -24,6 +24,7 @@ boxSide BoxToBox(float x1, float y1, float height1, float width1, float x2, floa
 	//collision is true
 	//check each side
 	bool tr = false, br = false, tl = false, bl = false;
+	
 	if (maxX1 <= maxX2 && maxX1 >= minX2)
 	{
 		//bottom right point
@@ -57,32 +58,65 @@ boxSide BoxToBox(float x1, float y1, float height1, float width1, float x2, floa
 		//either be top or right
 		c1 = maxX2 - minX1; //if more of X value then top
 		c2 = maxY2 - minY1; // if more of Y value then right
-		if (c1 >= c2) return topSide;
-		if (c1 <= c2) return rightSide;
+		if (c1 >= c2)
+		{
+			cout << "TOP SIDE" << endl;
+			return topSide;
+		}
+		if (c1 <= c2)
+		{
+			cout << "RIGHT SIDE" << endl;
+			return rightSide;
+		}
 	}
 	if (tl)
 	{
 		//either be bottom or right
 		c1 = maxX2 - minX1; //if more of X value then top
 		c2 = maxY1 - minY2; // if more of Y value then right
-		if (c1 >= c2) return bottomSide;
-		if (c1 <= c2) return rightSide;
+		if (c1 >= c2)
+		{
+			cout << "BOTTOM SIDE" << endl;
+			return bottomSide;
+		}
+		if (c1 <= c2)
+		{
+			cout << "RIGHT SIDE" << endl;
+			return rightSide;
+		}
 	}
 	if (br)
 	{
 		//either be top or left
 		c1 = maxX1 - minX2; //if more of X value then top
 		c2 = maxY2 - minY1; // if more of Y value then right
-		if (c1 >= c2) return topSide;
-		if (c1 <= c2) return leftSide;
+		if (c1 >= c2)
+		{
+			cout << "TOP SIDE" << endl;
+			return topSide;
+		}
+		if (c1 <= c2)
+		{
+			cout << "LEFT SIDE" << endl;
+			return leftSide;
+		}
 	}
 	if (tr)
 	{
 		//either be bottom or left
 		c1 = maxX1 - minX2; //if more of X value then top
 		c2 = maxY1 - minY2; // if more of Y value then right
-		if (c1 >= c2) return bottomSide;
-		if (c1 <= c2) return leftSide;
+		if (c1 >= c2)
+		{
+			cout << "BOTTOM SIDE" << endl;
+			return bottomSide;
+		}
+		if (c1 <= c2)
+		{
+			cout << "LEFT SIDE" << endl;
+			return leftSide;
+		}
 	}
+	cout << "NO SIDE" << endl;
 	return noSide;
 }

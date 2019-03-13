@@ -41,6 +41,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="level1.txt" />
+    <Text Include="ShapeTest.txt" />
   </ItemGroup>
 </Project>

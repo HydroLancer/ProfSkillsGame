@@ -38,15 +38,15 @@ private:
 	// Gravity Controls
 	const float GRAVITY = 0.025f; // How much gravity affects the model
 public:
-	CPlayer(I3DEngine* myEngine); // Class Constructor
+	CPlayer(I3DEngine* myEngine, CGameMap* m); // Class Constructor
 
-	enum EplayerJump { noJump, Jump, DoubleJump }; // Jump state for the player model
+	enum EplayerJump { noJump, Jump, DoubleJump, preJump }; // Jump state for the player model
 
 	IModel * GetModel();
 
-	void playerMovement(I3DEngine* myEngine, float frameTime, boxSide collision); // Controls player movement
+	void playerMovement(I3DEngine* myEngine, float frameTime, boxSide collision, CGameMap* map); // Controls player movement
 
-	void playerJump(I3DEngine* myEngine, float frameTime, boxSide collision); // Controls player jumping mechanic
+	void playerJump(I3DEngine* myEngine, float frameTime, boxSide collision, CGameMap* map); // Controls player jumping mechanic
 	void update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera); // Updates the scene each frame
 	void setX(float x) { player->SetX(x); }	// Sets the 'X' value of a given model
 	void setY(float y) { player->SetY(y); } // Sets the 'Y' value of a given model
