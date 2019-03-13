@@ -16,7 +16,7 @@ private:
 	IModel* player;
 
 	float oldX;	// Models previous 'X' position
-
+	float oldY;	// Models previous 'X' position
 	// Movement
 	const EKeyCode LEFT = Key_A; // Move model left
 	const EKeyCode RIGHT = Key_D; // Move model right
@@ -25,42 +25,38 @@ private:
 	const float JUMP_RESET = 20.0f;	// Reset the jump speed 
 	const float ROTATE = 240.0f; // Rotates the cube round when double jumping
 	const float playerSpeed = 10.0f; // The speed of the player
-
-
+	boxMovementSide collisionMovement; // for when the player is moving left and right
+	boxJumpingSide  collisionJumping; // for when the player is jumping
 
 	float jumpSpeed; // The speed at which the player model jumps
 	float rotation;	// How much the cube has been rotated by
 
 	// Collision Controls
-	const float HEIGHT = 1.0f; // Height of the model
-	const float WIDTH = 1.0f; // Width of the model
-
+	const float HEIGHT = 0.9f; // Height of the model
+	const float WIDTH = 0.9f; // Width of the model
+	float rotate;
 	// Gravity Controls
 	const float GRAVITY = 0.025f; // How much gravity affects the model
 public:
 	CPlayer(I3DEngine* myEngine, CGameMap* m); // Class Constructor
 
 	enum EplayerJump { noJump, Jump, DoubleJump, preJump }; // Jump state for the player model
+	void playerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collision, CGameMap* map); // Controls player movement
 
-	IModel * GetModel();
-
-	void playerMovement(I3DEngine* myEngine, float frameTime, boxSide collision, CGameMap* map); // Controls player movement
-
-	void playerJump(I3DEngine* myEngine, float frameTime, boxSide collision, CGameMap* map); // Controls player jumping mechanic
+	void playerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collision, CGameMap* map); // Controls player jumping mechanic
 	void update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera); // Updates the scene each frame
 	void setX(float x) { player->SetX(x); }	// Sets the 'X' value of a given model
 	void setY(float y) { player->SetY(y); } // Sets the 'Y' value of a given model
 	void setOldX() { setX(oldX); } // Sets the previous 'X' value of a given model
-
+	void setOldY() { setY(oldY); }
 	float getX() { return player->GetX(); }	// Returns the 'X' value of a given model
 	float getY() { return player->GetY(); } // Returns the 'Y' value of a given model
 	float getOldX() { return oldX; } // Returns the previous 'X' value of a given model
 
-	boxSide checkCollisions(I3DEngine* myEngine, CGameMap* map); // Checks for collisions between the player model and other models
-
+	boxMovementSide checkMovementCollisions(I3DEngine* myEngine, CGameMap* map); // Checks for collisions between the player model and other models
+	boxJumpingSide checkJumpingCollisions(I3DEngine* myEngine, CGameMap* map);
 	~CPlayer();	// Class destructor
 private:
 	EplayerJump jumpState; // Jump state object
-
 };
 
