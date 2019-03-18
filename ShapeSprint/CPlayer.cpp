@@ -107,7 +107,8 @@ void CPlayer::playerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		rotation += rotate * frameTime;
 	}
 
-	if (collision == noJSide) {
+	if (collision == noJSide) 
+	{
 		oldY = player->GetY();
 	}
 
@@ -127,11 +128,14 @@ boxMovementSide CPlayer::checkMovementCollisions(I3DEngine* myEngine, CGameMap* 
 			break;
 		}
 	}
-	
-	/*for each(IModel* block in map->blocks)
+	for each(IModel* block in map->blocks)
 	{
-		collision = BoxToBox(getX(), getY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
-	}*/
+		collision = movementCollision(getX(), getY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
+		if (collision != noMSide)
+		{
+			break;
+		}
+	}
 
 	return collision; // What i think is happening its fine for the first jump but its going through the list passing back some topside the rest noSide so thats why it falls through
 }
@@ -147,11 +151,15 @@ boxJumpingSide CPlayer::checkJumpingCollisions(I3DEngine* myEngine, CGameMap* ma
 			break;
 		}
 	}
-
-	/*for each(IModel* block in map->blocks)
+	for each(IModel* block in map->blocks)
 	{
-		collision = BoxToBox(getX(), getY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
-	}*/
+		collision = jumpingCollision(getX(), getY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
+		if (collision != noJSide)
+		{
+			break;
+		}
+	}
+
 	return collision; // What i think is happening its fine for the first jump but its going through the list passing back some topside the rest noSide so thats why it falls through
 }
 CPlayer::~CPlayer()

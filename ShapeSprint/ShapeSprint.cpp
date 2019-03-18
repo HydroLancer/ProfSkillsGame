@@ -26,7 +26,7 @@ void main()
 	CGameMap* map = new CGameMap; // Create a map loader object
 	CPlayer* player = new CPlayer(myEngine,map); // create a player object
 	CGameMap::FullLevel level; //2D Vector
-	const string levelName = "floormap.txt"; // File name for the map
+	const string levelName = "ShapeTest.txt"; // File name for the map
 	map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName);
 	map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
 	ICamera* myCamera = myEngine->CreateCamera(kManual, 0, 0, -25.0f); 
