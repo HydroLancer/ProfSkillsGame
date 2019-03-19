@@ -5,7 +5,7 @@
 #include "CPlayer.h"
 #include "CGameMap.h"
 #include "Collisions.h"
-
+#include "Sound.h"
 //TO DO
 /*
 Change the collisions for the map to loop through all the objects

@@ -5,5 +5,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
-
+#include <conio.h>
+#include <ctype.h>
+#include <time.h>
 using namespace tle;
