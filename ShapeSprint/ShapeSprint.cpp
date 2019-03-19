@@ -20,7 +20,6 @@ void main()
 	// Add default folder for meshes and other media
 	myEngine->AddMediaFolder( "C:\\ProgramData\\TL-Engine\\Media" );
 	myEngine->AddMediaFolder("media");
-	myEngine->AddMediaFolder("mediaT");
 	/**** Set up your scene here ****/
 		// Load the map file in
 	const EKeyCode EXIT = Key_Escape;// exits the game
