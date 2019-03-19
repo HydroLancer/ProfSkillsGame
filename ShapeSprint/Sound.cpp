@@ -51,6 +51,27 @@ void playJumpSound()
 	sf::Listener::setUpVector(listenerUp);
 	sound.play();
 }
+void playMenuSound()
+{
+	if (!buffer.loadFromFile("Menu.wav")) //tada
+	{
+		cout << "Error loading sound file" << endl;
+		while (!_kbhit());
+		return;
+	}
+	// Indicate that our sound source will use the buffer we just loaded
+	sound.setBuffer(buffer);
+	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
+	sound.setVolume(100.0f); // 0 to 100
+	sound.setPitch(0.5f);
+	sound.setLoop(true);
+	sound.setPosition(soundPos);
+	sf::Listener::setGlobalVolume(100.0f); // 0 to 100
+	sf::Listener::setPosition(listenerPos);
+	sf::Listener::setDirection(listenerForward);
+	sf::Listener::setUpVector(listenerUp);
+	sound.play();
+}
 // Simple timer function, similar to that in TL-Engine. Used for later exercises
 // Returns time in seconds since it was last called
 float Timer()

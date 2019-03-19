@@ -3,4 +3,4 @@
 #include <SFML/Audio.hpp>
 float Timer();
 void playJumpSound();
-
+void playMenuSound();
