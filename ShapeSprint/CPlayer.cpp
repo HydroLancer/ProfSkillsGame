@@ -34,11 +34,13 @@ void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		{
 			jumpState = Jump; // Set the jump state to 'Jump'
 			jumpSpeed = JUMP_RESET; // Reset the jump after gravity has dimmished it
+			playJumpSound();
 		}
 		else if (jumpState == Jump) // If the model is currently jumping
 		{
 			jumpState = DoubleJump; // Set the jump state to 'DoubleJump'
 			jumpSpeed = JUMP_RESET; // Reset the jump after gravity has diminished it
+			playJumpSound();
 			if (playerSpeed < 0) // different directions of player spinning
 			{
 				rotate = -ROTATE;

@@ -17,9 +17,6 @@ sf::Sound sound;
 //if you want to do Doppler in your own projects
 sf::Vector3f soundPos(20.0, 0.0, -1.0);
 sf::Vector3f soundVelocity(-5.0, 0.0, 0.0);
-
-sf::Vector3f soundPos2(20.0, 0.0, -1.0);
-sf::Vector3f soundVelocity2(-5.0, 0.0, 0.0);
 //There is always assumed to be a listener in the wold although we don't need a specific listener variable.
 //Listeners also have properties (examples in code). Here we store the listener's position
 sf::Vector3f listenerPos(0.0, 0.0, -1.0);
@@ -33,78 +30,27 @@ sf::Vector3f listenerPos(0.0, 0.0, -1.0);
 sf::Vector3f listenerForward(0.0, 0.0, -1.0);
 sf::Vector3f listenerUp(0.0, 1.0, -1.0);
 float updateTime = Timer();
-void Sounds()
+void playJumpSound()
 {
-  if (!buffer.loadFromFile("shoot.wav")) //tada
-  {
-	cout << "Error loading sound file" << endl;
-		while (!_kbhit());
-	return;
-  }
-	//****************
-	// Sources
-
-  // Indicate that our sound source will use the buffer we just loaded
-  sound.setBuffer(buffer);
-	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
-  sound.setVolume(100.0f); // 0 to 100
-  sound.setPitch(1.0f);
-  sound.setLoop(false);
-  sound.setPosition(soundPos);
-
-	//****************
-	// Listener
-
-	// Set the properties of the listener. These are all the available listener properties
-  // Note how this is doen with static member functions - there is no listener variable
-  sf::Listener::setGlobalVolume(100.0f); // 0 to 100
-  sf::Listener::setPosition(listenerPos);
-  sf::Listener::setDirection(listenerForward);
-  sf::Listener::setUpVector(listenerUp);
-
-
-	//****************
-	// Playback
-
-	// Main loop
-	cout << "P : Play,  S : Stop,  H : Pause,  Q : Quit" << endl;
-	char c = 'S'; // Keypress to start playing sound immediately
-	do
+	if (!buffer.loadFromFile("1.wav")) //tada
 	{
-		// Start, stop and pause the sound source based on keypress
-		switch (c)
-		{
-			case 'P':
-				sound.play();
-				break;
-			case 'S':
-				sound.stop();
-				break;
-
-			case 'H':
-		if (sound.getStatus() ==  sf::SoundSource::Status::Paused)
-		{
-		  // If sound already paused, play it again
-		  sound.play();
-		}
-		else
-		{
-				  sound.pause();
-		}
-				break;
-		}
-		updateTime = Timer();
-		soundPos = soundVelocity * updateTime;
-		sf::Vector3f soundPos(0.0, 0.0, 0.0);
-		sf::Vector3f soundVelocity(0.0, 0.0, 0.0);
-		// Get any new keypresses - set keypress to ' ' if none
-		c = ' ';
-		if (_kbhit()) { c = toupper(_getch()); }
-
-	} while ( c != 'Q');
+		cout << "Error loading sound file" << endl;
+		while (!_kbhit());
+		return;
+	}
+	// Indicate that our sound source will use the buffer we just loaded
+	sound.setBuffer(buffer);
+	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
+	sound.setVolume(100.0f); // 0 to 100
+	sound.setPitch(0.5f);
+	sound.setLoop(false);
+	sound.setPosition(soundPos);
+	sf::Listener::setGlobalVolume(100.0f); // 0 to 100
+	sf::Listener::setPosition(listenerPos);
+	sf::Listener::setDirection(listenerForward);
+	sf::Listener::setUpVector(listenerUp);
+	sound.play();
 }
-
-
 // Simple timer function, similar to that in TL-Engine. Used for later exercises
 // Returns time in seconds since it was last called
 float Timer()
