@@ -138,7 +138,6 @@ boxMovementSide CPlayer::checkMovementCollisions(I3DEngine* myEngine, CGameMap* 
 			break;
 		}
 	}
-
 	return collision; // What i think is happening its fine for the first jump but its going through the list passing back some topside the rest noSide so thats why it falls through
 }
 boxJumpingSide CPlayer::checkJumpingCollisions(I3DEngine* myEngine, CGameMap* map)

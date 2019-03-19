@@ -4,6 +4,7 @@
 #include "ControlHeader.h"
 #include "CPlayer.h"
 #include "CGameMap.h"
+#include "CScenery.h"
 #include "Collisions.h"
 #include "Sound.h"
 //TO DO
@@ -19,10 +20,12 @@ void main()
 	// Add default folder for meshes and other media
 	myEngine->AddMediaFolder( "C:\\ProgramData\\TL-Engine\\Media" );
 	myEngine->AddMediaFolder("media");
+	myEngine->AddMediaFolder("mediaT");
 	/**** Set up your scene here ****/
 		// Load the map file in
 	const EKeyCode EXIT = Key_Escape;// exits the game
 	float frameTime = myEngine->Timer();
+	CScenery* scenery = new CScenery(myEngine);
 	CGameMap* map = new CGameMap; // Create a map loader object
 	CPlayer* player = new CPlayer(myEngine,map); // create a player object
 	CGameMap::FullLevel level; //2D Vector

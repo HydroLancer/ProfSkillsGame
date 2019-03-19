@@ -63,7 +63,7 @@ void playMenuSound()
 	sound.setBuffer(buffer);
 	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
 	sound.setVolume(100.0f); // 0 to 100
-	sound.setPitch(0.5f);
+	sound.setPitch(1.0f);
 	sound.setLoop(true);
 	sound.setPosition(soundPos);
 	sf::Listener::setGlobalVolume(100.0f); // 0 to 100

@@ -14,6 +14,7 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="CScenery.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -45,8 +46,10 @@
     <ClInclude Include="Sound.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="CScenery.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ShapeTest.txt" />
+    <Text Include="Scenery.txt" />
   </ItemGroup>
 </Project>
