@@ -255,10 +255,12 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	for (auto it = blocks.begin(); it != blocks.end(); ++it)
 	{
 		(*it)->Scale(0.1f);
+		(*it)->SetSkin("FloorTexture.png");
 	}
 	for (auto it = floor.begin(); it != floor.end(); ++it)
 	{
 		(*it)->Scale(0.1f);
+		(*it)->SetSkin("FloorTexture.png");
 	}
 	for (auto it = coins.begin(); it != coins.end(); ++it)
 	{

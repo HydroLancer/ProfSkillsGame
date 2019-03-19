@@ -10,7 +10,7 @@ class CPlayer // Class for the playable character in the game
 private:
 	// Player
 	const string PLAYER_MODEL = "Cube.x";
-	const string PLAYER_SKIN = "YellowBall.jpg";
+	const string PLAYER_SKIN = "playertexture.png";
 
 	IMesh* playerMesh;
 	IModel* player;
