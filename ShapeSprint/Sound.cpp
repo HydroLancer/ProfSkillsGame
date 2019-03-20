@@ -43,7 +43,7 @@ void playJumpSound()
 	// Indicate that our sound source will use the buffer we just loaded
 	jumpSound.setBuffer(jumpBuffer);
 	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
-	jumpSound.setVolume(100.0f); // 0 to 100
+	jumpSound.setVolume(500.0f); // 0 to 100
 	jumpSound.setPitch(0.5f);
 	jumpSound.setLoop(false);
 	jumpSound.setPosition(soundPos);
@@ -64,7 +64,7 @@ void playMenuSound()
 	// Indicate that our sound source will use the buffer we just loaded
 	menuSound.setBuffer(menuBuffer);
 	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
-	menuSound.setVolume(100.0f); // 0 to 100
+	menuSound.setVolume(15.0f); // 0 to 100
 	menuSound.setPitch(1.0f);
 	menuSound.setLoop(true);
 	menuSound.setPosition(soundPos);

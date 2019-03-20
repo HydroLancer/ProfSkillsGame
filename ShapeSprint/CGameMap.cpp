@@ -152,9 +152,17 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	IMesh* spikeMesh = myEngine->LoadMesh("Teapot.x");
 	IMesh* wheelMesh = myEngine->LoadMesh("Torus.x");
 
+	// Skybox
 	IMesh* skyboxMesh = myEngine->LoadMesh("stars.x");
-	IModel* skybox = skyboxMesh->CreateModel(0, 300.0f, 0);
-	skybox->SetSkin("Background new.png");
+	skyBox = skyboxMesh->CreateModel(0, 300.0f, 0);
+	skyBox->SetSkin("Background new.png");
+
+	/* Level Flooring (aesthetic only)
+	IMesh* quadMesh = myEngine->LoadMesh("quad.x");
+	IModel* quadFloor = quadMesh->CreateModel(0.0f, 0.0f, 0.0f);
+
+	quadFloor->SetSkin("menu_floor.png");
+	quadFloor->ScaleX(100.0f);*/ // [JE] - Doesn't seem to load the quad mesh
 
 	/*This essentially goes through the 2d vector formed by loading the text file, and makes the level appear on screen by loading
 	all the models needed for the level's layout into vectors of their types*/

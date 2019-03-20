@@ -58,6 +58,8 @@ public:
 	vector<IModel*> jumpPads5;
 	vector<IModel*> jumpPads6;
 
+	IModel* skyBox;
+
 	using FullLevel = vector<vector<BlockType>>;
 
 	bool LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[], float& timeLimit, float& mapWidth, float mapHeight, string levelName);

@@ -24,7 +24,7 @@ private:
 
 	const float JUMP_RESET = 20.0f;	// Reset the jump speed 
 	const float ROTATE = 240.0f; // Rotates the cube round when double jumping
-	const float playerSpeed = 10.0f; // The speed of the player
+	const float playerSpeed = 18.0f; // The speed of the player
 	boxMovementSide collisionMovement; // for when the player is moving left and right
 	boxJumpingSide  collisionJumping; // for when the player is jumping
 

@@ -31,7 +31,7 @@ void main()
 	const string levelName = "ShapeTest.txt"; // File name for the map
 	map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName);
 	map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
-	ICamera* myCamera = myEngine->CreateCamera(kManual, 0, 0, -15.0f); 
+	ICamera* myCamera = myEngine->CreateCamera(kManual, 0, 5.0f, -12.0f); 
 	// The main game loop, repeat until engine is stopped
 	playMenuSound();
 	while (myEngine->IsRunning())
@@ -41,6 +41,14 @@ void main()
 		myEngine->DrawScene();
 		/**** Update your scene each frame here ****/
 		player->update(myEngine, frameTime, map,myCamera);
+		map->skyBox->RotateY(100.0f * frameTime);
+		
+		
+		for (auto it = map->coins.begin(); it != map->coins.end(); ++it)
+		{
+			(*it)->RotateY(230.0f * frameTime);
+		}
+
 		if (myEngine->KeyHit(EXIT)) // exits the game
 		{
 			myEngine->Stop();

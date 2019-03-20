@@ -69,7 +69,7 @@ void CPlayer::update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamer
 	playerMovement(myEngine, frameTime, collisionMovement, map); // Update the player movement
 	playerJump(myEngine, frameTime, collisionJumping, map); // Update the jump state every frame
 	camera->SetX(player->GetX());
-	camera->SetY(player->GetY());
+	//camera->SetY(player->GetY());
 }
 
 // NEEDS COMMENTING //
