@@ -1,7 +1,5 @@
 #include "CGameMap.h"
 
-
-
 CGameMap::CGameMap()
 {
 }
@@ -148,15 +146,15 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	vector<IModel*>::iterator it;
 	IMesh* playerMesh = myEngine->LoadMesh("Planet.x");
 	IMesh* floorMesh = myEngine->LoadMesh("Cube.x");
-	IMesh* coinMesh = myEngine->LoadMesh("Sphere.x");
+	IMesh* coinMesh = myEngine->LoadMesh("TwoPence.x");
 	IMesh* blockMesh = myEngine->LoadMesh("Cube.x");
 	IMesh* jumpPadMesh = myEngine->LoadMesh("Arrow.x");
 	IMesh* spikeMesh = myEngine->LoadMesh("Teapot.x");
 	IMesh* wheelMesh = myEngine->LoadMesh("Torus.x");
 
 	IMesh* skyboxMesh = myEngine->LoadMesh("stars.x");
-	IModel* skybox = skyboxMesh->CreateModel(0, -5, 0);
-	skybox->SetSkin("background.jpg");
+	IModel* skybox = skyboxMesh->CreateModel(0, 300.0f, 0);
+	skybox->SetSkin("Background new.png");
 
 	/*This essentially goes through the 2d vector formed by loading the text file, and makes the level appear on screen by loading
 	all the models needed for the level's layout into vectors of their types*/
@@ -268,7 +266,8 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	}
 	for (auto it = coins.begin(); it != coins.end(); ++it)
 	{
-		(*it)->Scale(0.1f);
+		(*it)->Scale(0.038f);
+		(*it)->RotateY(90.0f);
 	}
 	return true;
 }
