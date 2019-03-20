@@ -33,6 +33,7 @@ void main()
 	map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
 	ICamera* myCamera = myEngine->CreateCamera(kManual, 0, 0, -15.0f); 
 	// The main game loop, repeat until engine is stopped
+	playMenuSound();
 	while (myEngine->IsRunning())
 	{
 		frameTime = myEngine->Timer();

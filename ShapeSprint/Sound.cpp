@@ -6,10 +6,12 @@
 // Globals
 // A "buffer" holds sound data, but the creation of a buffer on its own doesn't play a sound. It is the
 // equivalent of a mesh in the TL-Engine
-sf::SoundBuffer buffer;
+sf::SoundBuffer jumpBuffer;
+sf::SoundBuffer menuBuffer;
 //A "sound" is an actual sound in the world. A sound must be associated with a buffer to indicate
 //which sound data to play. Sources are equivalent to models in the TL-Engine
-sf::Sound sound;
+sf::Sound jumpSound;
+sf::Sound menuSound;
 //Each sound source has several properties, see the code for examples. Here we store position and 
 //velocity of the sound source above, using a SFML class Vector3f to hold the xyz values
 //The velocity is to move the sound around and also for the Doppler effect. In fact SFML does not
@@ -32,45 +34,45 @@ sf::Vector3f listenerUp(0.0, 1.0, -1.0);
 float updateTime = Timer();
 void playJumpSound()
 {
-	if (!buffer.loadFromFile("1.wav")) //tada
+	if (!jumpBuffer.loadFromFile("1.wav")) //tada
 	{
 		cout << "Error loading sound file" << endl;
 		while (!_kbhit());
 		return;
 	}
 	// Indicate that our sound source will use the buffer we just loaded
-	sound.setBuffer(buffer);
+	jumpSound.setBuffer(jumpBuffer);
 	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
-	sound.setVolume(100.0f); // 0 to 100
-	sound.setPitch(0.5f);
-	sound.setLoop(false);
-	sound.setPosition(soundPos);
+	jumpSound.setVolume(100.0f); // 0 to 100
+	jumpSound.setPitch(0.5f);
+	jumpSound.setLoop(false);
+	jumpSound.setPosition(soundPos);
 	sf::Listener::setGlobalVolume(100.0f); // 0 to 100
 	sf::Listener::setPosition(listenerPos);
 	sf::Listener::setDirection(listenerForward);
 	sf::Listener::setUpVector(listenerUp);
-	sound.play();
+	jumpSound.play();
 }
 void playMenuSound()
 {
-	if (!buffer.loadFromFile("Menu.wav")) //tada
+	if (!menuBuffer.loadFromFile("Menu.wav")) //tada
 	{
 		cout << "Error loading sound file" << endl;
 		while (!_kbhit());
 		return;
 	}
 	// Indicate that our sound source will use the buffer we just loaded
-	sound.setBuffer(buffer);
+	menuSound.setBuffer(menuBuffer);
 	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
-	sound.setVolume(100.0f); // 0 to 100
-	sound.setPitch(1.0f);
-	sound.setLoop(true);
-	sound.setPosition(soundPos);
+	menuSound.setVolume(100.0f); // 0 to 100
+	menuSound.setPitch(1.0f);
+	menuSound.setLoop(true);
+	menuSound.setPosition(soundPos);
 	sf::Listener::setGlobalVolume(100.0f); // 0 to 100
 	sf::Listener::setPosition(listenerPos);
 	sf::Listener::setDirection(listenerForward);
 	sf::Listener::setUpVector(listenerUp);
-	sound.play();
+	menuSound.play();
 }
 // Simple timer function, similar to that in TL-Engine. Used for later exercises
 // Returns time in seconds since it was last called
