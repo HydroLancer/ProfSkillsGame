@@ -4,7 +4,7 @@
 #include "ControlHeader.h"
 #include "Collisions.h"
 #include "CGameMap.h"
-
+#include "Sound.h"
 class CPlayer // Class for the playable character in the game
 {
 private:

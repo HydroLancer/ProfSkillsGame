@@ -128,7 +128,9 @@ copy "C:\ProgramData\TL-Engine\3rd Party\TL-Xtreme\shader\*.*" "$(OutDir)" &gt; 
     <ClCompile Include="CGameMap.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="CPlayer.cpp" />
+    <ClCompile Include="CScenery.cpp" />
     <ClCompile Include="ShapeSprint.cpp" />
+    <ClCompile Include="Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -138,8 +140,11 @@ copy "C:\ProgramData\TL-Engine\3rd Party\TL-Xtreme\shader\*.*" "$(OutDir)" &gt; 
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="ControlHeader.h" />
     <ClInclude Include="CPlayer.h" />
+    <ClInclude Include="CScenery.h" />
+    <ClInclude Include="Sound.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Scenery.txt" />
     <Text Include="ShapeTest.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

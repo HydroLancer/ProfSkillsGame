@@ -34,11 +34,13 @@ void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		{
 			jumpState = Jump; // Set the jump state to 'Jump'
 			jumpSpeed = JUMP_RESET; // Reset the jump after gravity has dimmished it
+			playJumpSound();
 		}
 		else if (jumpState == Jump) // If the model is currently jumping
 		{
 			jumpState = DoubleJump; // Set the jump state to 'DoubleJump'
 			jumpSpeed = JUMP_RESET; // Reset the jump after gravity has diminished it
+			playJumpSound();
 			if (playerSpeed < 0) // different directions of player spinning
 			{
 				rotate = -ROTATE;
@@ -136,7 +138,6 @@ boxMovementSide CPlayer::checkMovementCollisions(I3DEngine* myEngine, CGameMap* 
 			break;
 		}
 	}
-
 	return collision; // What i think is happening its fine for the first jump but its going through the list passing back some topside the rest noSide so thats why it falls through
 }
 boxJumpingSide CPlayer::checkJumpingCollisions(I3DEngine* myEngine, CGameMap* map)
