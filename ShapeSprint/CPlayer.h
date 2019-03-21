@@ -19,7 +19,7 @@ private:
 	const EKeyCode JUMP = Key_Space; // Make model jump
 
 	// Movement Multipliers and Resets
-	const float JUMP_RESET = 15.0f;	 // Reset the jump speed 
+	const float JUMP_RESET = 12.0f;	 // Reset the jump speed 
 	const float ROTATE = 240.0f;	 // Rotates the cube round when double jumping
 	const float PLAYER_SPEED = 18.0f; // The speed of the player
 

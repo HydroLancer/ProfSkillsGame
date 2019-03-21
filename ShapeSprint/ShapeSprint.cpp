@@ -95,7 +95,7 @@ void main()
 			map->skyBox->RotateY(100.0f * frameTime);
 			map->skyBox->SetY((player->GetY()) * 25.0f);
 
-			//scenery->UpdateScenery(myEngine, frameTime);
+			scenery->UpdateScenery(frameTime);
 
 			//UpdateDebugHUD(myEngine, fps); // GAME BREAKING
 

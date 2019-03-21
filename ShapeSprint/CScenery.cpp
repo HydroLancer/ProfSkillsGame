@@ -61,9 +61,9 @@ void CScenery::LoadScenery()
 	CreateScenery(sceneItemType, x, y);
 }
 
-void CScenery::UpdateScenery(I3DEngine* myEngine, float frameTime)
+void CScenery::UpdateScenery(float frameTime)
 {
-	if (floor->GetZ() < 1.0f) //8.25f
+	if (floor->GetZ() < 8.25f) //8.25f
 	{
 		floor->MoveZ(10.0f * frameTime);
 	}

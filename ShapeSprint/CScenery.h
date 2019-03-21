@@ -22,7 +22,7 @@ public:
 
 	void CreateScenery(int sceneItem, int x, int y);
 	void LoadScenery();
-	void UpdateScenery(I3DEngine* myEngine, float frameTime);
+	void UpdateScenery(float frameTime);
 
 	~CScenery();
 };
