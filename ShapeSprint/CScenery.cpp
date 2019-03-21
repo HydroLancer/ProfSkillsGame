@@ -6,9 +6,12 @@ CScenery::CScenery(I3DEngine* myEngine)
 	x = 0;
 	y = 0;
 	sceneItemType = 0;
+	
 	shipMesh = myEngine->LoadMesh("HoverTank04.x");
 	tankMesh = myEngine->LoadMesh("HoverTank03.x");
-	buildingMesh = myEngine->LoadMesh("");
+	floorMesh = myEngine->LoadMesh("floor.x");
+	//buildingMesh = myEngine->LoadMesh("");
+
 	while (getline(infile, line))//reads in the new line from csv file
 	{
 		x = 0;
@@ -23,10 +26,14 @@ CScenery::CScenery(I3DEngine* myEngine)
 		}
 		y++;
 	}
+
+	
+
 }
 void CScenery::CreateScenery(int sceneItem, int x, int y) 
 {
 	IModel* sceneModel;
+
 	if (sceneItem == 1) 
 	{
 		sceneModel = shipMesh->CreateModel(x* 5.0f, y* 10.0f, 10.0f);
@@ -43,11 +50,29 @@ void CScenery::CreateScenery(int sceneItem, int x, int y)
 	{
 		//empty
 	}
+
+	floor = floorMesh->CreateModel(0.0f, -5.0f, 0.0f);
+	floor->SetSkin("menu_floor.png");
+	floor->Scale(1.0f);
 }
+
 void CScenery::LoadScenery()
 {
 	CreateScenery(sceneItemType, x, y);
 }
+
+void CScenery::UpdateScenery(I3DEngine* myEngine, float frameTime)
+{
+	if (floor->GetZ() < 1.0f) //8.25f
+	{
+		floor->MoveZ(10.0f * frameTime);
+	}
+	else
+	{
+		floor->SetZ(0.0f);
+	}
+}
+
 CScenery::~CScenery()
 {
 }

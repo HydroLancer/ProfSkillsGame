@@ -9,11 +9,16 @@ CMenu::CMenu()
 void CMenu::MenuSetup(I3DEngine* myEngine)
 {
 	screenMesh = myEngine->LoadMesh("quad.x");
-	screen = screenMesh->CreateModel(0, 5, -5);
+
+	screen = screenMesh->CreateModel(0.0f, 5.0f, 10.0f);
 	screen->SetSkin("NewGameScreen.png");
 	screen->Scale(8);
 	screen->ScaleX(1.7);
 	screen->RotateX(90);
+	
+
+	
+	
 	isDead = false;
 }
 
@@ -21,6 +26,7 @@ void CMenu::MenuSetup(I3DEngine* myEngine)
 //Basically it just adjusts the position whenever you press up/W or down/S and navigates through the menu
 //uses Enums passed as reference so main game loop can function properly
 //depending on where you hit enter, it does different stuff. 
+
 void CMenu::MenuUpdate(I3DEngine* myEngine, gameState& state)
 {
 	if (position == 1)
@@ -78,8 +84,8 @@ void CMenu::MenuUpdate(I3DEngine* myEngine, gameState& state)
 //it's only called when the player presses enter when on new game. 
 void CMenu::CloseDown()
 {
-	//screen->SetY(-100.0f);
-	screenMesh->RemoveModel(screen);
+	screen->SetY(-100.0f);
+	//screenMesh->RemoveModel(screen);
 }
 
 CMenu::~CMenu()

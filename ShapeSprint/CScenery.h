@@ -3,16 +3,27 @@
 class CScenery
 {
 private:
+	//// MESHES ////
 	IMesh* shipMesh;
 	IMesh* tankMesh;
 	IMesh* buildingMesh;
+	IMesh* floorMesh;
+
+	//// MODELS ////
+	IModel* floor;
+
 	vector<IModel*>SceneList;
+
 	int sceneItemType;
 	int x, y;
+
 public:
+	CScenery(I3DEngine* myEngine);
+
 	void CreateScenery(int sceneItem, int x, int y);
 	void LoadScenery();
-	CScenery(I3DEngine* myEngine);
+	void UpdateScenery(I3DEngine* myEngine, float frameTime);
+
 	~CScenery();
 };
 
