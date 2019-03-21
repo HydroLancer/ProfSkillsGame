@@ -149,7 +149,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	IMesh* coinMesh = myEngine->LoadMesh("TwoPence.x");
 	IMesh* blockMesh = myEngine->LoadMesh("Cube.x");
 	IMesh* jumpPadMesh = myEngine->LoadMesh("Arrow.x");
-	IMesh* spikeMesh = myEngine->LoadMesh("Cube.x");
+	IMesh* spikeMesh = myEngine->LoadMesh("Teapot.x");
 	IMesh* wheelMesh = myEngine->LoadMesh("Torus.x");
 
 	// Skybox
@@ -212,7 +212,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 			if (level[i][j] == Spike1x1)
 			{
 				IModel* spike = spikeMesh->CreateModel(j, i, 0.0f);
-				spike->Scale(0.1f);
+				spike->Scale(0.5f);
 				spikes.push_back(spike);
 			}
 			if (level[i][j] == Spike1x2)
