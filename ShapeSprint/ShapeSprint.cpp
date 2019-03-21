@@ -64,11 +64,11 @@ void main()
 		myEngine->SetWindowCaption(("Shape Sprint (FPS: " + to_string(fps) + ")"));
 
 		/**** Update your scene each frame here ****/
-		player->update(myEngine, frameTime, map,myCamera);
+		player->Update(myEngine, frameTime, map, myCamera);
 
 		// Move the skybox
 		map->skyBox->RotateY(100.0f * frameTime);
-		map->skyBox->SetY((player->getY()) * 25.0f);
+		map->skyBox->SetY((player->GetY()) * 25.0f);
 
 		//UpdateDebugHUD(myEngine, fps); // GAME BREAKING
 		
