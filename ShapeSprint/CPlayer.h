@@ -42,8 +42,8 @@ public:
 	CPlayer(I3DEngine* myEngine, CGameMap* m); // Class Constructor
 
 	enum EplayerJump { noJump, Jump, DoubleJump, preJump }; // Jump state for the player model
-	void PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collision, boxMovementSide collision2, CGameMap* map); // Controls player movement
-	void PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collision, boxJumpingSide collision2, CGameMap* map); // Controls player jumping mechanic
+	void PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, CGameMap* map); // Controls player movement
+	void PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collisionBlock, boxJumpingSide collisionSpike, CGameMap* map); // Controls player jumping mechanic
 	void Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera); // Updates the scene each frame
 	void SetX(float x) { player->SetX(x); }	// Sets the 'X' value of a given model
 	void setY(float y) { player->SetY(y); } // Sets the 'Y' value of a given model

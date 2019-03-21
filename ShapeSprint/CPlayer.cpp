@@ -80,18 +80,18 @@ void CPlayer::Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamer
 }
 
 
-void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collision, boxJumpingSide collision2, CGameMap* map) // Controls player jumping mechanic
+void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collisionBlock, boxJumpingSide collisionSpike, CGameMap* map) // Controls player jumping mechanic
 {
-	collision = CheckVerticalBlockCol(myEngine, map);
-	collision2 = CheckVerticalSpikeCol(myEngine, map);
+	collisionBlock = CheckVerticalBlockCol(myEngine, map);
+	collisionSpike = CheckVerticalSpikeCol(myEngine, map);
 	// Move model according to jump state
 	/* Collision Resolution */
-	if (collision == bottomSide || collision2 == bottomSide) //bottom of a floor block 
+	if (collisionBlock == bottomSide || collisionSpike == bottomSide) //bottom of a floor block 
 	{
 		jumpSpeed = 0.0f; // stop the jumping upwards if we hit the bottom of a block
 		SetOldY(); // so we dont clip through the map entity like the floor
 	}
-	if (collision == topSide || collision2 == topSide) // top of a floor block or whatever map entity
+	if (collisionBlock == topSide || collisionSpike == topSide) // top of a floor block or whatever map entity
 	{
 		SetOldY(); // land on top stop the player falling through
 		if (jumpState == DoubleJump) 
@@ -115,7 +115,7 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		rotation += rotate * frameTime;
 	}
 
-	if (collision == noJSide || collision2 == noJSide) 
+	if (collisionBlock == noJSide || collisionSpike == noJSide) 
 	{
 		oldY = player->GetY(); // keep getting the player oldY as we move in the air so we can get a realistic landing
 	}
