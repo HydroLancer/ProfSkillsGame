@@ -32,8 +32,8 @@ private:
 	float rotation;	// How much the cube has been rotated by
 
 	// Collision Controls
-	const float HEIGHT = 0.9f; // Height of the model
-	const float WIDTH = 0.9f; // Width of the model
+	const float HEIGHT = 0.99f; // Height of the model
+	const float WIDTH = 0.99f; // Width of the model
 	float rotate;
 	// Gravity Controls
 	const float GRAVITY = 0.025f; // How much gravity affects the model

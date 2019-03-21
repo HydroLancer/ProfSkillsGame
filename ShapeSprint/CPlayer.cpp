@@ -1,5 +1,11 @@
 #include "CPlayer.h"
 
+#ifndef __DEBUG
+	#define __DEBUG
+#endif // !__DEBUG
+
+
+
 CPlayer::CPlayer(I3DEngine* myEngine, CGameMap* m)
 {
 	playerMesh = myEngine->LoadMesh(PLAYER_MODEL);
@@ -54,6 +60,7 @@ void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 	}
 
 	// Movement Mechanic
+#ifdef __DEBUG
 	if (myEngine->KeyHeld(LEFT)) // If the left movement key is pressed
 	{
 		player->MoveX(-playerSpeed * frameTime); // Move the model negative x
@@ -62,6 +69,10 @@ void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 	{
 		player->MoveX(playerSpeed * frameTime); // Move the model positive x
 	}
+#else
+	player->MoveX(-playerSpeed * frameTime); // Move the model negative x
+#endif // DEBUG
+
 }
 
 void CPlayer::update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera) // Updates the scene each frame
@@ -122,39 +133,24 @@ boxMovementSide CPlayer::checkMovementCollisions(I3DEngine* myEngine, CGameMap* 
 {
 	boxMovementSide collision;
 
-	for each(IModel* flooring in map->floor)
-	{
-		collision = movementCollision(getX(), getY(), HEIGHT, WIDTH, flooring->GetX(), flooring->GetY(), 1.0f, 1.0f);
-		if (collision != noMSide) 
-		{
-			break;
-		}
-	}
 	for each(IModel* block in map->blocks)
 	{
-		collision = movementCollision(getX(), getY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
+		collision = HorizontalCollision(getX(), getY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
 		if (collision != noMSide)
 		{
 			break;
 		}
 	}
+
 	return collision; // What i think is happening its fine for the first jump but its going through the list passing back some topside the rest noSide so thats why it falls through
 }
 boxJumpingSide CPlayer::checkJumpingCollisions(I3DEngine* myEngine, CGameMap* map)
 {
 	boxJumpingSide collision;
 
-	for each(IModel* flooring in map->floor)
-	{
-		collision = jumpingCollision(getX(), getY(), HEIGHT, WIDTH, flooring->GetX(), flooring->GetY(), 1.0f, 1.0f);
-		if (collision != noJSide)
-		{
-			break;
-		}
-	}
 	for each(IModel* block in map->blocks)
 	{
-		collision = jumpingCollision(getX(), getY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
+		collision = VerticalCollision(getX(), getY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
 		if (collision != noJSide)
 		{
 			break;
