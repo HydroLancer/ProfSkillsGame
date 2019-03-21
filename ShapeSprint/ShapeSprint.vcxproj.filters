@@ -14,7 +14,9 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="CScenery.cpp" />
+    <ClCompile Include="CScenery.cpp">
+      <Filter>Class Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -46,7 +48,9 @@
     <ClInclude Include="Sound.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="CScenery.h" />
+    <ClInclude Include="CScenery.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ShapeTest.txt" />

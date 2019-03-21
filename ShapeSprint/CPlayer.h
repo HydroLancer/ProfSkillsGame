@@ -22,7 +22,7 @@ private:
 	const EKeyCode RIGHT = Key_D; // Move model right
 	const EKeyCode JUMP = Key_Space; // Make model jump
 
-	const float JUMP_RESET = 20.0f;	// Reset the jump speed 
+	const float JUMP_RESET = 15.0f;	// Reset the jump speed 
 	const float ROTATE = 240.0f; // Rotates the cube round when double jumping
 	const float playerSpeed = 18.0f; // The speed of the player
 	boxMovementSide collisionMovement; // for when the player is moving left and right
