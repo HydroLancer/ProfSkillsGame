@@ -13,6 +13,7 @@
 #include "CScenery.h"
 #include "Collisions.h"
 #include "Sound.h"
+#include "CMenu.h"
 
 //// FUNCTIONS ////
 void UpdateDebugHUD(I3DEngine* myEngine, int fps); // Updates the debug HUD every frame with current statistics
@@ -21,9 +22,12 @@ int GetFPS(float frameTime, int& frameCounter, float& secondCounter, int& fps); 
 
 void main()
 {
+	//// ENUM DECL  ////
+	gameState game = MenuScreen;
+
 	//// TL-ENGINE SETUP ////
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
-	myEngine->StartWindowed();					// Run the engine windowed
+	myEngine->StartWindowed(1920, 1080);					// Run the engine windowed
 	myEngine->AddMediaFolder("media");			// Add default folder for meshes and other media
 	
 	//// CONSTANTS ////
@@ -43,10 +47,8 @@ void main()
 	CGameMap* map = new CGameMap;					// Create a new map loader object
 	CPlayer* player = new CPlayer(myEngine, map);	// Create a new player object
 	CGameMap::FullLevel level;						// 2D Vector containing positions and types for all models in the level
-	
-	map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName); // Load the map file into the map object
-	map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth); // Build the level using the loaded map
-	
+	CMenu* menu = new CMenu;						// Creates menu class, allows player to start a new game or exit the game (Continue isn't implemented yet)
+
 	ICamera* myCamera = myEngine->CreateCamera(kManual, 0, 5.0f, -12.0f); // Create a camera
 	
 	//// MUSIC ////
@@ -64,24 +66,50 @@ void main()
 		myEngine->SetWindowCaption(("Shape Sprint (FPS: " + to_string(fps) + ")"));
 
 		/**** Update your scene each frame here ****/
-		player->Update(myEngine, frameTime, map, myCamera);
-
-		// Move the skybox
-		map->skyBox->RotateY(100.0f * frameTime);
-		map->skyBox->SetY((player->GetY()) * 25.0f);
-
-		//UpdateDebugHUD(myEngine, fps); // GAME BREAKING
 		
-		// Rotate all coins in the level constantly
-		for (auto it = map->coins.begin(); it != map->coins.end(); ++it)
+		//Builds the menu screen with nothing over the top of it.
+		if (game == MenuScreen)
 		{
-			(*it)->RotateY(230.0f * frameTime);
+			menu->MenuSetup(myEngine);
+			game = Idle;
+
+		}
+		//Purely because having it in one function caused errors. Could maybe have this as a mid-game pause too.
+		else if (game == Idle)
+		{
+			menu->MenuUpdate(myEngine, game);
+		}
+		//if player hits New Game, does this. 
+		else if (game == BuildLevel)
+		{
+			menu->CloseDown();
+			map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName); // Load the map file into the map object
+			map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth); // Build the level using the loaded map
+			game = Game;
+		}
+		else // if (game == Game) -> Game is basically on at this point. 
+		{
+			player->Update(myEngine, frameTime, map, myCamera);
+
+			// Move the skybox
+			map->skyBox->RotateY(100.0f * frameTime);
+			map->skyBox->SetY((player->GetY()) * 25.0f);
+
+			//UpdateDebugHUD(myEngine, fps); // GAME BREAKING
+
+			// Rotate all coins in the level constantly
+			for (auto it = map->coins.begin(); it != map->coins.end(); ++it)
+			{
+				(*it)->RotateY(230.0f * frameTime);
+			}
+
+			if (myEngine->KeyHit(EXIT)) // exits the game
+			{
+				myEngine->Stop();
+			}
 		}
 
-		if (myEngine->KeyHit(EXIT)) // exits the game
-		{
-			myEngine->Stop();
-		}
+		
 	}
 
 	// Delete the 3D engine now we are finished with it

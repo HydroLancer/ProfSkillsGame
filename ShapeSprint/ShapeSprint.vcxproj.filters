@@ -17,6 +17,9 @@
     <ClCompile Include="CScenery.cpp">
       <Filter>Class Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CMenu.cpp">
+      <Filter>Class Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -49,6 +52,9 @@
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="CScenery.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

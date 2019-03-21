@@ -9,3 +9,5 @@
 #include <ctype.h>
 #include <time.h>
 using namespace tle;
+
+enum gameState {MenuScreen, Idle, BuildLevel, Game};
