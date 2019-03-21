@@ -40,7 +40,7 @@ void main()
 		// Draw the scene
 		myEngine->DrawScene();
 		/**** Update your scene each frame here ****/
-		player->update(myEngine, frameTime, map,myCamera);
+		player->Update(myEngine, frameTime, map,myCamera);
 		map->skyBox->RotateY(100.0f * frameTime);
 		
 		

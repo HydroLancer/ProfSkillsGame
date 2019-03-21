@@ -41,20 +41,20 @@ public:
 	CPlayer(I3DEngine* myEngine, CGameMap* m); // Class Constructor
 
 	enum EplayerJump { noJump, Jump, DoubleJump, preJump }; // Jump state for the player model
-	void playerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collision, CGameMap* map); // Controls player movement
+	void PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collision, CGameMap* map); // Controls player movement
 
-	void playerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collision, CGameMap* map); // Controls player jumping mechanic
-	void update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera); // Updates the scene each frame
-	void setX(float x) { player->SetX(x); }	// Sets the 'X' value of a given model
+	void PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collision, CGameMap* map); // Controls player jumping mechanic
+	void Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera); // Updates the scene each frame
+	void SetX(float x) { player->SetX(x); }	// Sets the 'X' value of a given model
 	void setY(float y) { player->SetY(y); } // Sets the 'Y' value of a given model
-	void setOldX() { setX(oldX); } // Sets the previous 'X' value of a given model
-	void setOldY() { setY(oldY); }
-	float getX() { return player->GetX(); }	// Returns the 'X' value of a given model
-	float getY() { return player->GetY(); } // Returns the 'Y' value of a given model
-	float getOldX() { return oldX; } // Returns the previous 'X' value of a given model
+	void SetOldX() { SetX(oldX); } // Sets the previous 'X' value of a given model
+	void SetOldY() { setY(oldY); }
+	float GetX() { return player->GetX(); }	// Returns the 'X' value of a given model
+	float GetY() { return player->GetY(); } // Returns the 'Y' value of a given model
+	float GetOldX() { return oldX; } // Returns the previous 'X' value of a given model
 
-	boxMovementSide checkMovementCollisions(I3DEngine* myEngine, CGameMap* map); // Checks for collisions between the player model and other models
-	boxJumpingSide checkJumpingCollisions(I3DEngine* myEngine, CGameMap* map);
+	boxMovementSide CheckHorizontalCollisions(I3DEngine* myEngine, CGameMap* map); // Checks for collisions between the player model and other models
+	boxJumpingSide CheckVerticalCollisions(I3DEngine* myEngine, CGameMap* map);
 	~CPlayer();	// Class destructor
 private:
 	EplayerJump jumpState; // Jump state object
