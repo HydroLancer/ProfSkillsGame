@@ -17,16 +17,23 @@ CPlayer::CPlayer(I3DEngine* myEngine, CGameMap* m)
 	rotation = 0.0f;
 	jumpSpeed = 0.0f;
 	jumpState = noJump;
-	collisionMovement = noMSide;
-	collisionJumping = noJSide;
+	collisionHorizontalBlock = noMSide;
+	collisionVerticalBlock = noJSide;
+	collsionHorizontalSpike = noMSide;
+	collisionVerticalSpike = noJSide;
 }
 
-void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collision, CGameMap* map) // Controls player movement
+void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, CGameMap* map) // Controls player movement
 {
-	collision = checkMovementCollisions(myEngine, map); // Check which side the collision is on
-	if (collision == leftSide || collision == rightSide) // Check to see if there is collision on either side of the model
+	collisionBlock = CheckHorizontalBlockCol(myEngine, map); // Check which side the collision is on
+	collisionSpike = CheckHorizontalSpikeCol(myEngine, map); // Check which side the collision is on
+	if (collisionBlock == leftSide || collisionBlock == rightSide) // Check to see if there is collision on either side of the model
 	{
-		setOldX(); // If so, set the 'X' of the model to the previous 'X' position
+		SetOldX(); // If so, set the 'X' of the model to the previous 'X' position
+	}
+	if (collisionSpike == leftSide || collisionSpike == rightSide) // Check to see if there is collision on either side of the model
+	{
+		SetOldX(); // If so, set the 'X' of the model to the previous 'X' position
 	}
 
 	oldX = player->GetX(); // Reset the 'oldX' to the current 'X' position of the model
@@ -35,7 +42,7 @@ void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 	if (myEngine->KeyHit(JUMP)) // If the jump key is pressed then
 	{
 		cout << "JUMP PRESSED" << endl; // TEST::OUTPUT "JUMP PRESSED" TO CONSOLE
-		setOldY();
+		SetOldY();
 		if (jumpState == noJump) // If the model is not currently jumping
 		{
 			jumpState = Jump; // Set the jump state to 'Jump'
@@ -75,68 +82,87 @@ void CPlayer::playerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 
 }
 
-void CPlayer::update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera) // Updates the scene each frame
+void CPlayer::Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera) // Updates the scene each frame
 {
-	playerMovement(myEngine, frameTime, collisionMovement, map); // Update the player movement
-	playerJump(myEngine, frameTime, collisionJumping, map); // Update the jump state every frame
+	PlayerMovement(myEngine, frameTime, collisionHorizontalBlock, collsionHorizontalSpike, map); // Update the player movement
+	PlayerJump(myEngine, frameTime, collisionVerticalBlock, collisionVerticalSpike, map); // Update the jump state every frame
 	camera->SetX(player->GetX());
 	//camera->SetY(player->GetY());
 }
 
-// NEEDS COMMENTING //
-void CPlayer::playerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collision, CGameMap* map) // Controls player jumping mechanic
+
+void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collisionBlock, boxJumpingSide collisionSpike, CGameMap* map) // Controls player jumping mechanic
 {
-	collision = checkJumpingCollisions(myEngine, map);
+	collisionBlock = CheckVerticalBlockCol(myEngine, map);
+	collisionSpike = CheckVerticalSpikeCol(myEngine, map);
 	// Move model according to jump state
 	/* Collision Resolution */
-	if (collision == bottomSide)
+	if (collisionBlock == bottomSide || collisionSpike == bottomSide) //bottom of a floor block 
 	{
-		jumpSpeed = 0.0f;
-		setOldY();
+		jumpSpeed = 0.0f; // stop the jumping upwards if we hit the bottom of a block
+		SetOldY(); // so we dont clip through the map entity like the floor
 	}
-	if (collision == topSide)
+	if (collisionBlock == topSide || collisionSpike == topSide) // top of a floor block or whatever map entity
 	{
-		setOldY();
-		if (jumpState == DoubleJump)
+		SetOldY(); // land on top stop the player falling through
+		if (jumpState == DoubleJump) 
 		{
-			player->RotateZ(-rotation);
+			player->RotateZ(-rotation); // reset cool spin for the player
 		}
 		if (jumpState != noJump)
 		{
-			jumpState = noJump;
+			jumpState = noJump; //turn off jumping if we are not pressing it anymore
 		}
-		jumpSpeed = 0.0f;
-
-		 // counter the rotation to reset to its original position
+		jumpSpeed = 0.0f; // remove any left over speed in jump
 	}
 	else 
 	{
-		jumpSpeed -= GRAVITY;
+		jumpSpeed -= GRAVITY; // gravity on all the time
 	
 	}
 	if (jumpState == DoubleJump) 
 	{
-		player->RotateZ(rotate * frameTime);
+		player->RotateZ(rotate * frameTime); // do a cool spin for the player
 		rotation += rotate * frameTime;
 	}
 
-	if (collision == noJSide) 
+	if (collisionBlock == noJSide || collisionSpike == noJSide) 
 	{
-		oldY = player->GetY();
+		oldY = player->GetY(); // keep getting the player oldY as we move in the air so we can get a realistic landing
 	}
 
-	player->SetY(player->GetY() + (jumpSpeed * frameTime));
+	player->SetY(player->GetY() + (jumpSpeed * frameTime)); // when we jump how far we can jump
 }
-
-// NEEDS COMMENTING //
-boxMovementSide CPlayer::checkMovementCollisions(I3DEngine* myEngine, CGameMap* map)
+//////BLOCKS////
+boxMovementSide CPlayer::CheckHorizontalBlockCol(I3DEngine* myEngine, CGameMap* map)
 {
+<<<<<<< HEAD
 	boxMovementSide collision;
 
 	for each(IModel* block in map->blocks)
 	{
 		collision = HorizontalCollision(getX(), getY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
 		if (collision != noMSide)
+=======
+	boxMovementSide collision = noMSide;
+	for each(IModel* block in map->blocks) // go through each block in the map
+	{
+		collision = movementCollision(GetX(), GetY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f); // check for collision
+		if (collision != noMSide)
+		{
+			break;
+		}
+	}
+	return collision;
+}
+boxJumpingSide CPlayer::CheckVerticalBlockCol(I3DEngine* myEngine, CGameMap* map)
+{
+	boxJumpingSide collision = noJSide;
+	for each(IModel* block in map->blocks)
+	{
+		collision = jumpingCollision(GetX(), GetY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
+		if (collision != noJSide)
+>>>>>>> CollisionTesting
 		{
 			break;
 		}
@@ -144,13 +170,34 @@ boxMovementSide CPlayer::checkMovementCollisions(I3DEngine* myEngine, CGameMap* 
 
 	return collision; // What i think is happening its fine for the first jump but its going through the list passing back some topside the rest noSide so thats why it falls through
 }
-boxJumpingSide CPlayer::checkJumpingCollisions(I3DEngine* myEngine, CGameMap* map)
+//////SPIKES////
+boxMovementSide CPlayer::CheckHorizontalSpikeCol(I3DEngine* myEngine, CGameMap* map)
 {
+<<<<<<< HEAD
 	boxJumpingSide collision;
 
 	for each(IModel* block in map->blocks)
 	{
 		collision = VerticalCollision(getX(), getY(), HEIGHT, WIDTH, block->GetX(), block->GetY(), 1.0f, 1.0f);
+=======
+	boxMovementSide collision = noMSide;
+	for each(IModel* spike in map->spikes) // go through each block in the map
+	{
+		collision = movementCollision(GetX(), GetY(), HEIGHT, WIDTH, spike->GetX(), spike->GetY(), 1.0f, 1.0f); // check for collision
+		if (collision != noMSide)
+		{
+			break;
+		}
+	}
+	return collision;
+}
+boxJumpingSide CPlayer::CheckVerticalSpikeCol(I3DEngine* myEngine, CGameMap* map)
+{
+	boxJumpingSide collision = noJSide;
+	for each(IModel* spike in map->spikes)
+	{
+		collision = jumpingCollision(GetX(), GetY(), HEIGHT, WIDTH, spike->GetX(), spike->GetY(), 1.0f, 1.0f);
+>>>>>>> CollisionTesting
 		if (collision != noJSide)
 		{
 			break;

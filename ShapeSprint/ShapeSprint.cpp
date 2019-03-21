@@ -64,9 +64,13 @@ void main()
 		myEngine->SetWindowCaption(("Shape Sprint (FPS: " + to_string(fps) + ")"));
 
 		/**** Update your scene each frame here ****/
+<<<<<<< HEAD
 		player->update(myEngine, frameTime, map,myCamera);
 
 		// Move the skybox
+=======
+		player->Update(myEngine, frameTime, map,myCamera);
+>>>>>>> CollisionTesting
 		map->skyBox->RotateY(100.0f * frameTime);
 		map->skyBox->SetY((player->getY()) * 25.0f);
 
