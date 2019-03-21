@@ -10,7 +10,7 @@ void CMenu::MenuSetup(I3DEngine* myEngine)
 {
 	screenMesh = myEngine->LoadMesh("quad.x");
 
-	screen = screenMesh->CreateModel(0.0f, 5.0f, 10.0f);
+	screen = screenMesh->CreateModel(0.0f, 5.0f, -4.5f);
 	screen->SetSkin("NewGameScreen.png");
 	screen->Scale(8);
 	screen->ScaleX(1.7);

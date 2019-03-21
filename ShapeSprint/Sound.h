@@ -2,5 +2,6 @@
 #include "ControlHeader.h"
 #include <SFML/Audio.hpp>
 float Timer();
-void playJumpSound();
-void playMenuSound();
+void PlayJumpSound();
+void PlayMenuMusic();
+void PlayLevel1Music();

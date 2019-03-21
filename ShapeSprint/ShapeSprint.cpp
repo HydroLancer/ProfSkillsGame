@@ -53,7 +53,7 @@ void main()
 	ICamera* myCamera = myEngine->CreateCamera(kManual, 0, 5.0f, -12.0f); // Create a camera
 	
 	//// MUSIC ////
-	playMenuSound(); // Play the menu music - to be moved when the menu is implemented
+	PlayMenuMusic(); // Play the menu music - to be moved when the menu is implemented
 
 	//// GAME LOOP ////
 	while (myEngine->IsRunning()) // The main game loop, repeat until engine is stopped
@@ -87,9 +87,12 @@ void main()
 			map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName); // Load the map file into the map object
 			map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth); // Build the level using the loaded map
 			game = Game;
+			PlayLevel1Music();
 		}
 		else // if (game == Game) -> Game is basically on at this point. 
 		{
+
+
 			player->Update(myEngine, frameTime, map, myCamera);
 
 			// Move the skybox
@@ -105,11 +108,11 @@ void main()
 			{
 				(*it)->RotateY(230.0f * frameTime);
 			}
+		}
 
-			if (myEngine->KeyHit(EXIT)) // exits the game
-			{
-				myEngine->Stop();
-			}
+		if (myEngine->KeyHit(EXIT)) // exits the game
+		{
+			myEngine->Stop();
 		}
 	}
 
