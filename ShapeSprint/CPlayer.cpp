@@ -17,15 +17,15 @@ CPlayer::CPlayer(I3DEngine* myEngine, CGameMap* m)
 	collisionVerticalSpike = noJSide;
 }
 
-void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collision, boxMovementSide collision2, CGameMap* map) // Controls player movement
+void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, CGameMap* map) // Controls player movement
 {
-	collision = CheckHorizontalBlockCol(myEngine, map); // Check which side the collision is on
-	collision2 = CheckHorizontalSpikeCol(myEngine, map); // Check which side the collision is on
-	if (collision == leftSide || collision == rightSide) // Check to see if there is collision on either side of the model
+	collisionBlock = CheckHorizontalBlockCol(myEngine, map); // Check which side the collision is on
+	collisionSpike = CheckHorizontalSpikeCol(myEngine, map); // Check which side the collision is on
+	if (collisionBlock == leftSide || collisionBlock == rightSide) // Check to see if there is collision on either side of the model
 	{
 		SetOldX(); // If so, set the 'X' of the model to the previous 'X' position
 	}
-	if (collision2 == leftSide || collision2 == rightSide) // Check to see if there is collision on either side of the model
+	if (collisionSpike == leftSide || collisionSpike == rightSide) // Check to see if there is collision on either side of the model
 	{
 		SetOldX(); // If so, set the 'X' of the model to the previous 'X' position
 	}
