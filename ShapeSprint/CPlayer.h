@@ -25,9 +25,10 @@ private:
 	const float JUMP_RESET = 20.0f;	// Reset the jump speed 
 	const float ROTATE = 240.0f; // Rotates the cube round when double jumping
 	const float playerSpeed = 18.0f; // The speed of the player
-	boxMovementSide collisionMovement; // for when the player is moving left and right
-	boxJumpingSide  collisionJumping; // for when the player is jumping
-
+	boxMovementSide collisionHorizontalBlock; // for when the player is moving left and right
+	boxJumpingSide  collisionVerticalBlock; // for when the player is jumping
+	boxMovementSide collsionHorizontalSpike;
+	boxJumpingSide collisionVerticalSpike;
 	float jumpSpeed; // The speed at which the player model jumps
 	float rotation;	// How much the cube has been rotated by
 
@@ -41,9 +42,8 @@ public:
 	CPlayer(I3DEngine* myEngine, CGameMap* m); // Class Constructor
 
 	enum EplayerJump { noJump, Jump, DoubleJump, preJump }; // Jump state for the player model
-	void PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collision, CGameMap* map); // Controls player movement
-
-	void PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collision, CGameMap* map); // Controls player jumping mechanic
+	void PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collision, boxMovementSide collision2, CGameMap* map); // Controls player movement
+	void PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collision, boxJumpingSide collision2, CGameMap* map); // Controls player jumping mechanic
 	void Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera); // Updates the scene each frame
 	void SetX(float x) { player->SetX(x); }	// Sets the 'X' value of a given model
 	void setY(float y) { player->SetY(y); } // Sets the 'Y' value of a given model
@@ -53,8 +53,11 @@ public:
 	float GetY() { return player->GetY(); } // Returns the 'Y' value of a given model
 	float GetOldX() { return oldX; } // Returns the previous 'X' value of a given model
 
-	boxMovementSide CheckHorizontalCollisions(I3DEngine* myEngine, CGameMap* map); // Checks for collisions between the player model and other models
-	boxJumpingSide CheckVerticalCollisions(I3DEngine* myEngine, CGameMap* map);
+	/////COLLISION CHECKING FUNCTIONS//////
+	boxMovementSide CheckHorizontalBlockCol(I3DEngine* myEngine, CGameMap* map); // blocks
+	boxJumpingSide CheckVerticalBlockCol(I3DEngine* myEngine, CGameMap* map);
+	boxMovementSide CheckHorizontalSpikeCol(I3DEngine* myEngine, CGameMap* map); // spikes 
+	boxJumpingSide CheckVerticalSpikeCol(I3DEngine* myEngine, CGameMap* map);
 	~CPlayer();	// Class destructor
 private:
 	EplayerJump jumpState; // Jump state object
