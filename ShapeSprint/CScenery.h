@@ -21,7 +21,6 @@ public:
 	CScenery(I3DEngine* myEngine);
 
 	void CreateScenery(int sceneItem, int x, int y);
-	void LoadScenery();
 	void UpdateScenery(float frameTime);
 
 	~CScenery();

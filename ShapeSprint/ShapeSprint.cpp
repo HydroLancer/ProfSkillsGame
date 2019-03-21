@@ -27,7 +27,8 @@ void main()
 
 	//// TL-ENGINE SETUP ////
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
-	myEngine->StartWindowed(1920, 1080);					// Run the engine windowed
+	//myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
+	myEngine->StartFullscreen(1920, 1080);
 	myEngine->AddMediaFolder("media");			// Add default folder for meshes and other media
 	
 	//// CONSTANTS ////
@@ -36,11 +37,11 @@ void main()
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer
-	int frameCounter = 0;
 	float secondCounter = 0.0f;
 
 	//// INTEGERS ////
-	int fps = 0;
+	int frameCounter = 0;	// Counts how many frames there are every second
+	int fps = 0;			// Allows the number of frames per second to be returned
 												
 	//// SCENE SETUP ////	
 	CScenery* scenery = new CScenery(myEngine);		// Create a new scenery object
@@ -110,8 +111,6 @@ void main()
 				myEngine->Stop();
 			}
 		}
-
-		
 	}
 
 	// Delete the 3D engine now we are finished with it
@@ -128,6 +127,7 @@ void UpdateDebugHUD(I3DEngine* myEngine, int fps)
 
 	const string DEBUG_INFO[NUM_LINES] = { "FPS", "Player X", "Player Y", "Level Name", "Level Length" };
 
+	//// FONTS ////
 	IFont* arial = myEngine->LoadFont("Arial", FONT_SIZE); // The font to be used on the heads-up-display for debug stats
 	
 	arial->Draw((DEBUG_INFO[0] + ": " + to_string(fps)), 0, 0);
@@ -136,14 +136,14 @@ void UpdateDebugHUD(I3DEngine* myEngine, int fps)
 int GetFPS(float frameTime, int& frameCounter, float& secondCounter, int& fps)
 {
 	secondCounter += frameTime; // Add frame time to second counter
-	frameCounter++; // Increment the frame counter
+	frameCounter++; // Increment the frame counter every frame
 
-	if (secondCounter > 1.0f)
+	if (secondCounter > 1.0f) // If one second has passed
 	{
-		fps = frameCounter;
+		fps = frameCounter; // Set the fps to how many frames have occured
 
-		secondCounter = 0.0f;
-		frameCounter = 0;
+		secondCounter = 0.0f;	// Reset the one second timer
+		frameCounter = 0;		// Reset the frame counter
 	}
-	return fps;
+	return fps; // Return the number of frames per second
 }

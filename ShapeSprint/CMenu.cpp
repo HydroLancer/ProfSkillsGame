@@ -16,9 +16,6 @@ void CMenu::MenuSetup(I3DEngine* myEngine)
 	screen->ScaleX(1.7);
 	screen->RotateX(90);
 	
-
-	
-	
 	isDead = false;
 }
 

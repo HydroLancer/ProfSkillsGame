@@ -7,7 +7,6 @@ private:
 	IMesh* screenMesh;
 	IModel* screen;
 
-	
 	int position;
 	bool isDead;
 
