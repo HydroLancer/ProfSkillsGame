@@ -206,7 +206,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 				//kind of the same with spikes, except they all go in the same vector, but resized beforehand. 
 				else if (level[i][j] == Spike1x1)
 				{
-					IModel* spike = spikeMesh->CreateModel(j, i, 0.0f);
+					IModel* spike = spikeMesh->CreateModel(j, i - 0.01f, 0.0f);
 					
 					spike->Scale(0.5f);
 					spike->RotateY(90.0f);
@@ -215,7 +215,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 				}
 				else if (level[i][j] == Spike1x2)
 				{
-					IModel* spike = spikeMesh->CreateModel(j, i, 0.0f);
+					IModel* spike = spikeMesh->CreateModel(j, i - 0.01f, 0.0f);
 					
 					spike->Scale(0.5f);
 					spike->ScaleZ(2.0f);
@@ -226,7 +226,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 				}
 				else if (level[i][j] == Spike2x3)
 				{
-					IModel* spike = spikeMesh->CreateModel(j, i, 0.0f);
+					IModel* spike = spikeMesh->CreateModel(j, i - 0.01f, 0.0f);
 					
 					spike->Scale(0.5f);
 					spike->RotateY(90.0f);

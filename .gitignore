@@ -4,3 +4,7 @@
 *.idb
 *.tlog
 *.log
+*.log
+*.idb
+*.pdb
+*.tlog

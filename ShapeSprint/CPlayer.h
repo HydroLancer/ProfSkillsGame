@@ -17,16 +17,16 @@ private:
 	const EKeyCode JUMP = Key_Space; // Make model jump
 
 	// Movement Multipliers and Resets
-	const float JUMP_RESET = 15.0f;	  // Reset the jump speed 
+	const float JUMP_RESET = 10.0f;	  // Reset the jump speed 
 	const float ROTATE = 240.0f;	  // Rotates the cube round when double jumping
-	const float PLAYER_SPEED = 18.0f; // The speed of the player
+	const float PLAYER_SPEED = 9.0f; // The speed of the player
 
 	// Collision Controls
 	const float HEIGHT = 0.99f; // Height of the model
 	const float WIDTH = 0.99f; // Width of the model
 	
 	// Gravity Controls
-	const float GRAVITY = 0.05f; // How much gravity affects the model 0.025f
+	const float GRAVITY = 0.12f; // How much gravity affects the model 0.025f
 
 	//// INTEGER VARIABLES ////
 	int numCoins;
