@@ -27,13 +27,13 @@ void main()
 
 	//// TL-ENGINE SETUP ////
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
-	//myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
-	myEngine->StartFullscreen(1920, 1080);
+	myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
+	//myEngine->StartFullscreen(1920, 1080);
 	myEngine->AddMediaFolder("media");			// Add default folder for meshes and other media
 	
 	//// CONSTANTS ////
 	const EKeyCode EXIT = Key_Escape;			// Exits the game when hit
-	const string levelName = "ShapeTest.txt";	// File name for the map
+	const string levelName = "Test.txt";	// File name for the map
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer

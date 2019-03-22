@@ -149,113 +149,115 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	IMesh* coinMesh = myEngine->LoadMesh("TwoPence.x");
 	IMesh* blockMesh = myEngine->LoadMesh("Cube.x");
 	IMesh* jumpPadMesh = myEngine->LoadMesh("Arrow.x");
-	IMesh* spikeMesh = myEngine->LoadMesh("Cube.x");
-	IMesh* wheelMesh = myEngine->LoadMesh("Torus.x");
+	IMesh* spikeMesh = myEngine->LoadMesh("spike.x");
+	IMesh* wheelMesh = myEngine->LoadMesh("Cube.x");
 
 	// Skybox
 	IMesh* skyboxMesh = myEngine->LoadMesh("stars.x");
 	skyBox = skyboxMesh->CreateModel(0, 300.0f, 0);
 	skyBox->SetSkin("Background new.png");
 
-	/* Level Flooring (aesthetic only)
-	IMesh* quadMesh = myEngine->LoadMesh("quad.x");
-	IModel* quadFloor = quadMesh->CreateModel(0.0f, 0.0f, 0.0f);
-
-	quadFloor->SetSkin("menu_floor.png");
-	quadFloor->ScaleX(100.0f);*/ // [JE] - Doesn't seem to load the quad mesh
-
 	/*This essentially goes through the 2d vector formed by loading the text file, and makes the level appear on screen by loading
 	all the models needed for the level's layout into vectors of their types*/
-	for (int i = 0; i < level.size(); i++)
+	for (int i = 0; i < level.size(); ++i)
 	{
-		for (int j = 0; j < mapWidth; j++)
+		for (int j = 0; j < mapWidth; ++j)
 		{
-			if (level[i][j] == Floor)
+			if (level[i][j] != Air)
 			{
-				floor.push_back(floorMesh->CreateModel(j, i, 0.0f));
-			}
-			if (level[i][j] == Coin)
-			{
-				coins.push_back(coinMesh->CreateModel(j, i, 0.0f));
-			}
+				if (level[i][j] == Floor)
+				{
+					floor.push_back(floorMesh->CreateModel(j, i, 0.0f));
+				}
+				else if (level[i][j] == Coin)
+				{
+					coins.push_back(coinMesh->CreateModel(j, i, 0.0f));
+				}
 
-			/*These are all the jumpPad vectors. So many.  All do the same thing, so condensed them down to be less overwhelming.
-			Splitting them up purely because each pad gives you different height jumps. Stuff like spikes and wheels all do the same thing when you hit them (as far as I'm aware)
-			so fine detail isn't too urgent with them*/
-			if (level[i][j] == JumpPad3)
-			{
-				jumpPads3.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
-				//Set Skin?
-			}
-			if (level[i][j] == JumpPad4)
-			{
-				jumpPads4.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
-				//Set Skin?
-			}
-			if (level[i][j] == JumpPad5)
-			{
-				jumpPads5.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
-				//Set Skin?
-			}
-			if (level[i][j] == JumpPad6)
-			{
-				jumpPads6.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
-				//Set Skin?
-			}
-			
-			if (level[i][j] == Block)
-			{
-				blocks.push_back(blockMesh->CreateModel(j, i, 0.0f));
-			}
+				/*These are all the jumpPad vectors. So many.  All do the same thing, so condensed them down to be less overwhelming.
+				Splitting them up purely because each pad gives you different height jumps. Stuff like spikes and wheels all do the same thing when you hit them (as far as I'm aware)
+				so fine detail isn't too urgent with them*/
+				else if (level[i][j] == JumpPad3)
+				{
+					jumpPads3.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
+					//Set Skin?
+				}
+				else if (level[i][j] == JumpPad4)
+				{
+					jumpPads4.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
+					//Set Skin?
+				}
+				else if (level[i][j] == JumpPad5)
+				{
+					jumpPads5.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
+					//Set Skin?
+				}
+				else if (level[i][j] == JumpPad6)
+				{
+					jumpPads6.push_back(jumpPadMesh->CreateModel(j, i, 0.0f));
+					//Set Skin?
+				}
 
-			//kind of the same with spikes, except they all go in the same vector, but resized beforehand. 
-			if (level[i][j] == Spike1x1)
-			{
-				IModel* spike = spikeMesh->CreateModel(j, i, 0.0f);
-				spike->Scale(0.1f);
-				spikes.push_back(spike);
-			}
-			if (level[i][j] == Spike1x2)
-			{
-				IModel* spikyBoye = spikeMesh->CreateModel(j, i, 0.0f);
-				spikyBoye->Scale(0.7f);
-				spikes.push_back(spikyBoye);
-			}
-			if (level[i][j] == Spike2x3)
-			{
-				IModel* spikyBoye = spikeMesh->CreateModel(j, i, 0.0f);
-				spikyBoye->Scale(1.3f);
-				spikes.push_back(spikyBoye);
-			}
+				else if (level[i][j] == Block)
+				{
+					blocks.push_back(blockMesh->CreateModel(j, i, 0.0f));
+				}
 
-			//...and wheels. 
-			if (level[i][j] == Wheel1x2)
-			{
-				IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
-				wheel->RotateLocalX(90.0f);
-				wheel->Scale(0.05f);
-				wheels.push_back(wheel);
-			}
-			if (level[i][j] == Wheel2x2)
-			{
-				IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
-				wheel->Scale(0.1f);
-				wheel->RotateLocalX(90.0f);
-				wheels.push_back(wheel);
-			}
-			if (level[i][j] == Wheel3x3)
-			{
-				IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
-				wheel->Scale(0.2f);
-				wheel->RotateLocalX(90.0f);
-				wheels.push_back(wheel);
-			}
-			if (level[i][j] == Wheel5x3)
-			{
-				IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
-				wheel->Scale(0.35f);
-				wheel->RotateLocalX(90.0f);
-				wheels.push_back(wheel);
+				//kind of the same with spikes, except they all go in the same vector, but resized beforehand. 
+				else if (level[i][j] == Spike1x1)
+				{
+					IModel* spike = spikeMesh->CreateModel(j, i, 0.0f);
+					spike->Scale(0.5f);
+					spike->RotateY(90.0f);
+					//spike->SetSkin("spike_uv.bmp");
+					spikes.push_back(spike);
+				}
+				else if (level[i][j] == Spike1x2)
+				{
+					IModel* spikyBoye = spikeMesh->CreateModel(j, i, 0.0f);
+					spikyBoye->Scale(0.7f);
+					spikes.push_back(spikyBoye);
+				}
+				else if (level[i][j] == Spike2x3)
+				{
+					IModel* spikyBoye = spikeMesh->CreateModel(j, i, 0.0f);
+					spikyBoye->Scale(1.3f);
+					spikes.push_back(spikyBoye);
+				}
+
+				//...and wheels. 
+				else if (level[i][j] == Wheel1x2)
+				{
+					IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
+					wheel->RotateLocalX(90.0f);
+					wheel->Scale(0.05f);
+					wheels.push_back(wheel);
+				}
+				else if (level[i][j] == Wheel2x2)
+				{
+					IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
+					wheel->Scale(0.1f);
+					wheel->RotateLocalX(90.0f);
+					wheels.push_back(wheel);
+				}
+				else if (level[i][j] == Wheel3x3)
+				{
+					IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
+					wheel->Scale(0.2f);
+					wheel->RotateLocalX(90.0f);
+					wheels.push_back(wheel);
+				}
+				else if (level[i][j] == Wheel5x3)
+				{
+					IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
+					wheel->Scale(0.35f);
+					wheel->RotateLocalX(90.0f);
+					wheels.push_back(wheel);
+				}
+				else
+				{
+					cout << "Failed to load block - Unknown block type: " << level[i][j] << endl;
+				}
 			}
 		}
 	}
