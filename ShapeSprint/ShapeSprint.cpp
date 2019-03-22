@@ -91,8 +91,6 @@ void main()
 		}
 		else // if (game == Game) -> Game is basically on at this point. 
 		{
-
-
 			player->Update(myEngine, frameTime, map, myCamera);
 
 			// Move the skybox

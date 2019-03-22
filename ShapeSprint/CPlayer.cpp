@@ -119,6 +119,10 @@ void CPlayer::Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamer
 	PlayerMovement(myEngine, frameTime, collisionHorizontalBlock, collsionHorizontalSpike, collsionHorizontalCoin, collsionHorizontalWheel, map); // Update the player movement
 	PlayerJump(myEngine, frameTime, collisionVerticalBlock, collisionVerticalSpike, collisionVerticalWheel, map); // Update the jump state every frame
 	camera->SetX(player->GetX());
+	if (lifeState == Dead)
+	{
+		PlayerDeath(frameTime);
+	}
 }
 
 void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collisionBlock, boxJumpingSide collisionSpike, 
@@ -294,6 +298,14 @@ boxJumpingSide CPlayer::CheckVerticalWheelCol(I3DEngine* myEngine, CGameMap* map
 	}
 
 	return collision;
+}
+
+
+//PLAYER DEATH ANIMATION
+void CPlayer::PlayerDeath(float frameTime)
+{
+	player->RotateX(2.0f *frameTime);
+	player->Scale(0.01f *frameTime);
 }
 CPlayer::~CPlayer()
 {

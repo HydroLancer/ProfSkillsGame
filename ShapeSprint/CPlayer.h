@@ -1,6 +1,4 @@
 #pragma once
-
-
 // Project Includes
 #include "ControlHeader.h"
 #include "Collisions.h"
@@ -27,7 +25,6 @@ private:
 	const float HEIGHT = 0.99f; // Height of the model
 	const float WIDTH = 0.99f; // Width of the model
 	
-
 	// Gravity Controls
 	const float GRAVITY = 0.025f; // How much gravity affects the model
 
@@ -46,7 +43,6 @@ private:
 	IMesh* playerMesh;
 	IModel* player;
 
-	
 	boxMovementSide collisionHorizontalBlock;	// For when the player is moving left and right
 	boxJumpingSide  collisionVerticalBlock;		// For when the player is jumping
 	boxMovementSide collsionHorizontalSpike;
@@ -69,11 +65,14 @@ public:
 	void SetX(float x) { player->SetX(x); }	// Sets the 'X' value of a given model
 	void setY(float y) { player->SetY(y); } // Sets the 'Y' value of a given model
 	void SetOldX() { SetX(oldX); } // Sets the previous 'X' value of a given model
-	void SetOldY() { setY(oldY); }
+	void SetOldY() { setY(oldY); }//Sets the previous 'Y' value of a given model
 	
 	float GetX() { return player->GetX(); }	// Returns the 'X' value of a given model
 	float GetY() { return player->GetY(); } // Returns the 'Y' value of a given model
 	float GetOldX() { return oldX; } // Returns the previous 'X' value of a given model
+
+	//PLAYER DEATH
+	void PlayerDeath(float frameTime);
 
 	//// COLLISION CHECKING FUNCTIONS////
 	boxMovementSide CheckHorizontalBlockCol(I3DEngine* myEngine, CGameMap* map); // Blocks
