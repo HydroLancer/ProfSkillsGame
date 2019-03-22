@@ -57,8 +57,8 @@ private:
 public:
 	CPlayer(I3DEngine* myEngine, CGameMap* m); // Class Constructor
 
-	enum EplayerJump { noJump, Jump, DoubleJump, preJump }; // Jump state for the player model
-	
+	enum EplayerJump { noJump, Jump, DoubleJump}; // Jump state for the player model
+	enum EplayerLife {Alive, Dead};
 	//// FUNCTIONS ////
 	void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, boxMovementSide collisionCoin, CGameMap* map); // Controls player movement
 	void PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collisionBlock, boxJumpingSide collisionSpike, CGameMap* map); // Controls player jumping mechanic
@@ -85,5 +85,6 @@ public:
 	~CPlayer();	// Class destructor
 private:
 	EplayerJump jumpState; // Jump state object
+	EplayerLife lifeState; // life of the player
 };
 
