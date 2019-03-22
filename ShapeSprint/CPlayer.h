@@ -29,7 +29,7 @@ private:
 	
 
 	// Gravity Controls
-	const float GRAVITY = 0.025f; // How much gravity affects the model
+	const float GRAVITY = 0.05f; // How much gravity affects the model 0.025f
 
 	//// INTEGER VARIABLES ////
 	int numCoins;
