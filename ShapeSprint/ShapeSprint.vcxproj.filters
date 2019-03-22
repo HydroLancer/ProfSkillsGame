@@ -20,6 +20,9 @@
     <ClCompile Include="CMenu.cpp">
       <Filter>Class Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CHeadsUpDisplay.cpp">
+      <Filter>Class Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -55,6 +58,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CHeadsUpDisplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

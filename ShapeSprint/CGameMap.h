@@ -71,6 +71,7 @@ public:
 	//GETTERS FOR ENTITY SIZES
 	float GetItemWidth() { return GENERIC_WIDTH; }
 	float GetItemHeight() { return GENERIC_HEIGHT; }
+
 	~CGameMap();
 };
 

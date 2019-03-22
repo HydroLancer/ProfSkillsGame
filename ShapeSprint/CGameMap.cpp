@@ -297,6 +297,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	}
 	return true;
 }
+
 CGameMap::~CGameMap()
 {
 }

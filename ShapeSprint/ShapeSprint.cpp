@@ -14,9 +14,7 @@
 #include "Collisions.h"
 #include "Sound.h"
 #include "CMenu.h"
-
-//// FUNCTIONS ////
-void UpdateDebugHUD(I3DEngine* myEngine, int fps); // Updates the debug HUD every frame with current statistics
+#include "CHeadsUpDisplay.h"
 
 int GetFPS(float frameTime, int& frameCounter, float& secondCounter, int& fps); // Updates the FPS to be displayed
 
@@ -32,8 +30,13 @@ void main()
 	myEngine->AddMediaFolder("media");			// Add default folder for meshes and other media
 	
 	//// CONSTANTS ////
+	// Keys
 	const EKeyCode EXIT = Key_Escape;			// Exits the game when hit
-	const string levelName = "level1.txt";	// File name for the map
+	const EKeyCode TOGGLE_HUD = Key_F1;
+	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
+
+	// Strings
+	const string LEVEL_NAME = "level1.txt";	// File name for the map
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer
@@ -42,8 +45,14 @@ void main()
 	//// INTEGERS ////
 	int frameCounter = 0;	// Counts how many frames there are every second
 	int fps = 0;			// Allows the number of frames per second to be returned
+
+	//// BOOLEANS ////
+	bool showHUD = true;
+	bool showDebugHUD = false;
+	
 												
 	//// SCENE SETUP ////	
+	CHeadsUpDisplay* HUD = new CHeadsUpDisplay(myEngine);
 	CScenery* scenery = new CScenery(myEngine);		// Create a new scenery object
 	CGameMap* map = new CGameMap;					// Create a new map loader object
 	CPlayer* player = new CPlayer(myEngine, map);	// Create a new player object
@@ -66,6 +75,22 @@ void main()
 
 		myEngine->SetWindowCaption(("Shape Sprint (FPS: " + to_string(fps) + ")"));
 
+		if (showDebugHUD)
+		{
+			HUD->DisplayDebugHUD(fps, frameTime, player->GetX(), player->GetY(), LEVEL_NAME);
+		}
+
+		if (myEngine->KeyHit(TOGGLE_DEBUG_HUD))
+		{
+			if (showDebugHUD)
+			{
+				showDebugHUD = false;
+			}
+			else
+			{
+				showDebugHUD = true;
+			}
+		}
 		/**** Update your scene each frame here ****/
 		
 		//Builds the menu screen with nothing over the top of it.
@@ -84,7 +109,7 @@ void main()
 		else if (game == BuildLevel)
 		{
 			menu->CloseDown();
-			map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName); // Load the map file into the map object
+			map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME); // Load the map file into the map object
 			map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth); // Build the level using the loaded map
 			game = Game;
 			PlayLevel1Music();
@@ -96,10 +121,9 @@ void main()
 			// Move the skybox
 			map->skyBox->RotateY(100.0f * frameTime);
 			map->skyBox->SetY((player->GetY()) * 25.0f);
+			map->skyBox->SetX(player->GetX());
 
 			scenery->UpdateScenery(frameTime);
-
-			//UpdateDebugHUD(myEngine, fps); // GAME BREAKING
 
 			// Rotate all coins in the level constantly
 			for (auto it = map->coins.begin(); it != map->coins.end(); ++it)
@@ -116,22 +140,6 @@ void main()
 
 	// Delete the 3D engine now we are finished with it
 	myEngine->Delete();
-}
-
-void UpdateDebugHUD(I3DEngine* myEngine, int fps)
-{
-	//// CONSTANTS ////
-	const int VERTICAL_SPACING = 10;
-	const int FONT_SIZE = 24;
-	
-	const int NUM_LINES = 5;
-
-	const string DEBUG_INFO[NUM_LINES] = { "FPS", "Player X", "Player Y", "Level Name", "Level Length" };
-
-	//// FONTS ////
-	IFont* arial = myEngine->LoadFont("Arial", FONT_SIZE); // The font to be used on the heads-up-display for debug stats
-	
-	arial->Draw((DEBUG_INFO[0] + ": " + to_string(fps)), 0, 0);
 }
 
 int GetFPS(float frameTime, int& frameCounter, float& secondCounter, int& fps)
