@@ -207,28 +207,35 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 				else if (level[i][j] == Spike1x1)
 				{
 					IModel* spike = spikeMesh->CreateModel(j, i, 0.0f);
+					
 					spike->Scale(0.5f);
 					spike->RotateY(90.0f);
-					//spike->SetSkin("spike_uv.bmp");
+
 					spikes.push_back(spike);
 				}
 				else if (level[i][j] == Spike1x2)
 				{
 					IModel* spike = spikeMesh->CreateModel(j, i, 0.0f);
-					spike->Scale(0.7f);
+					
+					spike->Scale(0.5f);
+					spike->ScaleZ(2.0f);
 					spike->RotateY(90.0f);
-					spike->MoveY(0.16f);
-					spike->MoveX(0.16f);
+					spike->MoveX(0.5f);
+					
 					spikes.push_back(spike);
 				}
 				else if (level[i][j] == Spike2x3)
 				{
 					IModel* spike = spikeMesh->CreateModel(j, i, 0.0f);
-					spike->Scale(1.3f);
+					
+					spike->Scale(0.5f);
 					spike->RotateY(90.0f);
-					spike->MoveY(0.8f);
-					spike->MoveX(-0.5f);
-					spike->MoveZ(0.5f);
+
+					spike->ScaleY(2.0f);
+					spike->ScaleZ(3.0f);
+
+					spike->MoveY(0.5f);
+
 					spikes.push_back(spike);
 				}
 
@@ -236,6 +243,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 				else if (level[i][j] == Wheel1x2)
 				{
 					IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
+					
 					wheel->RotateLocalX(90.0f);
 					wheel->Scale(0.05f);
 
