@@ -35,7 +35,11 @@ private:
 		//Air
 		Air = 0
 	}; 
-
+	//SIZES OF MAP ITEMS
+//size of most the items are 1x1 
+	const float GENERIC_WIDTH = 1.0f;
+	//size of most the items are 1x1 
+	const float GENERIC_HEIGHT = 1.0f;
 public:
 	CGameMap();
 
@@ -64,10 +68,9 @@ public:
 
 	bool LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[], float& timeLimit, float& mapWidth, float mapHeight, string levelName);
 	bool LevelBuild(I3DEngine * myEngine, float startCoods[], FullLevel& level, float mapWidth);
-
-	float GetX(IModel* model);
-	float GetY(IModel* model);
-	float GetZ(IModel* model); 
+	//GETTERS FOR ENTITY SIZES
+	float GetItemWidth() { return GENERIC_WIDTH; }
+	float GetItemHeight() { return GENERIC_HEIGHT; }
 	~CGameMap();
 };
 

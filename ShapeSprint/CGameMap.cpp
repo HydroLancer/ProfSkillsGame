@@ -297,22 +297,6 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	}
 	return true;
 }
-
-float CGameMap::GetX(IModel* model)
-{
-	return model->GetX();
-}
-
-float CGameMap::GetY(IModel* model)
-{
-	return model->GetY();
-}
-
-float CGameMap::GetZ(IModel* model)
-{
-	return model->GetZ();
-}
-
 CGameMap::~CGameMap()
 {
 }
