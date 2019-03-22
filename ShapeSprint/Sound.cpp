@@ -6,13 +6,17 @@
 // Globals
 // A "buffer" holds sound data, but the creation of a buffer on its own doesn't play a sound. It is the
 // equivalent of a mesh in the TL-Engine
-sf::SoundBuffer jumpBuffer;
 sf::SoundBuffer musicBuffer;
+
+sf::SoundBuffer jumpBuffer;
+sf::SoundBuffer coinPickupBuffer;
 //A "sound" is an actual sound in the world. A sound must be associated with a buffer to indicate
 //which sound data to play. Sources are equivalent to models in the TL-Engine
-sf::Sound jumpSound;
 sf::Sound menuSound;
 sf::Sound level1Music;
+
+sf::Sound jumpSound;
+sf::Sound coinPickupSound;
 //Each sound source has several properties, see the code for examples. Here we store position and 
 //velocity of the sound source above, using a SFML class Vector3f to hold the xyz values
 //The velocity is to move the sound around and also for the Doppler effect. In fact SFML does not
@@ -35,28 +39,7 @@ sf::Vector3f listenerUp(0.0, 1.0, -1.0);
 
 float updateTime = Timer();
 
-void PlayJumpSound()
-{
-	if (!jumpBuffer.loadFromFile("1.wav")) //tada
-	{
-		cout << "Error loading sound file" << endl;
-		while (!_kbhit());
-		return;
-	}
-	// Indicate that our sound source will use the buffer we just loaded
-	jumpSound.setBuffer(jumpBuffer);
-	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
-	jumpSound.setVolume(500.0f); // 0 to 100
-	jumpSound.setPitch(0.5f);
-	jumpSound.setLoop(false);
-	jumpSound.setPosition(soundPos);
-	sf::Listener::setGlobalVolume(100.0f); // 0 to 100
-	sf::Listener::setPosition(listenerPos);
-	sf::Listener::setDirection(listenerForward);
-	sf::Listener::setUpVector(listenerUp);
-	jumpSound.play();
-}
-
+//// MUSIC ////
 void PlayMenuMusic()
 {
 	if (!musicBuffer.loadFromFile("Menu.wav")) //tada
@@ -99,6 +82,51 @@ void PlayLevel1Music()
 	sf::Listener::setDirection(listenerForward);
 	sf::Listener::setUpVector(listenerUp);
 	level1Music.play();
+}
+
+//// SFX ////
+void PlayJumpSound()
+{
+	if (!jumpBuffer.loadFromFile("1.wav")) //tada
+	{
+		cout << "Error loading sound file" << endl;
+		while (!_kbhit());
+		return;
+	}
+	// Indicate that our sound source will use the buffer we just loaded
+	jumpSound.setBuffer(jumpBuffer);
+	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
+	jumpSound.setVolume(500.0f); // 0 to 100
+	jumpSound.setPitch(0.5f);
+	jumpSound.setLoop(false);
+	jumpSound.setPosition(soundPos);
+	sf::Listener::setGlobalVolume(100.0f); // 0 to 100
+	sf::Listener::setPosition(listenerPos);
+	sf::Listener::setDirection(listenerForward);
+	sf::Listener::setUpVector(listenerUp);
+	jumpSound.play();
+}
+
+void PlayCoinPickupSound()
+{
+	if (!coinPickupBuffer.loadFromFile("coin_pickup.wav")) //tada
+	{
+		cout << "Error loading sound file" << endl;
+		while (!_kbhit());
+		return;
+	}
+	// Indicate that our sound source will use the buffer we just loaded
+	coinPickupSound.setBuffer(coinPickupBuffer);
+	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
+	coinPickupSound.setVolume(20.0f); // 0 to 100
+	coinPickupSound.setPitch(1.0f);
+	coinPickupSound.setLoop(false);
+	coinPickupSound.setPosition(soundPos);
+	sf::Listener::setGlobalVolume(100.0f); // 0 to 100
+	sf::Listener::setPosition(listenerPos);
+	sf::Listener::setDirection(listenerForward);
+	sf::Listener::setUpVector(listenerUp);
+	coinPickupSound.play();
 }
 
 // Simple timer function, similar to that in TL-Engine. Used for later exercises
