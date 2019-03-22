@@ -148,7 +148,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	IMesh* floorMesh = myEngine->LoadMesh("Cube.x");
 	IMesh* coinMesh = myEngine->LoadMesh("TwoPence.x");
 	IMesh* blockMesh = myEngine->LoadMesh("Cube.x");
-	IMesh* jumpPadMesh = myEngine->LoadMesh("Arrow.x");
+	IMesh* jumpPadMesh = myEngine->LoadMesh("spike.x");
 	IMesh* spikeMesh = myEngine->LoadMesh("spike.x");
 	IMesh* wheelMesh = myEngine->LoadMesh("Cube.x");
 

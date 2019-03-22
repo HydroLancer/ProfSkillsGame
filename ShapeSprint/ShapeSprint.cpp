@@ -33,7 +33,7 @@ void main()
 	
 	//// CONSTANTS ////
 	const EKeyCode EXIT = Key_Escape;			// Exits the game when hit
-	const string levelName = "wheeltest.txt";	// File name for the map
+	const string levelName = "test2.txt";	// File name for the map
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer
