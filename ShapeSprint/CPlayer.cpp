@@ -33,13 +33,16 @@ CPlayer::CPlayer(I3DEngine* myEngine, CGameMap* m)
 	collsionHorizontalWheel = noMSide; // Wheels
 	collisionVerticalWheel = noJSide;
 
+	collisionHorizontalFloor = noMSide; //Floor Block
+	collisionVerticalFloor = noJSide;
+
 	numCoins = 0; // Initialise the number of coins a player has to 0
 
 	lifeState = Alive;
 }
 
 void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, boxMovementSide collisionCoin, 
-	boxMovementSide collisionWheel,  CGameMap* map) // Controls player movement
+	boxMovementSide collisionWheel, boxMovementSide collisionFloor,  CGameMap* map) // Controls player movement
 {
 	if (lifeState != Dead)
 	{
@@ -47,12 +50,16 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		collisionSpike = CheckHorizontalSpikeCol(myEngine, map); // Check which side the collision is on
 		collisionCoin = CheckHorizontalCoinCol(myEngine, map); // Check which side the collision is on
 		collisionWheel = CheckHorizontalWheelCol(myEngine, map);
+		collisionFloor = CheckHorizontalFloorCol(myEngine, map);
 
 		if (collisionBlock == leftSide || collisionBlock == rightSide) // Check to see if there is collision on either side of the model
 		{
 			SetOldX(); // If so, set the 'X' of the model to the previous 'X' position
 		}
-
+		if (collisionFloor == leftSide || collisionFloor == rightSide) // Check to see if there is collision on either side of the model
+		{
+			SetOldX(); // If so, set the 'X' of the model to the previous 'X' position
+		}
 		if (collisionSpike == leftSide || collisionSpike == rightSide) // Check to see if there is collision on either side of the model
 		{
 			lifeState = Dead;
@@ -61,6 +68,7 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		{
 			lifeState = Dead;
 		}
+
 
 		if (collisionCoin != noMSide)
 		{
@@ -116,8 +124,8 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 
 void CPlayer::Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera) // Updates the scene each frame
 {
-	PlayerMovement(myEngine, frameTime, collisionHorizontalBlock, collsionHorizontalSpike, collsionHorizontalCoin, collsionHorizontalWheel, map); // Update the player movement
-	PlayerJump(myEngine, frameTime, collisionVerticalBlock, collisionVerticalSpike, collisionVerticalWheel, map); // Update the jump state every frame
+	PlayerMovement(myEngine, frameTime, collisionHorizontalBlock, collsionHorizontalSpike, collsionHorizontalCoin, collsionHorizontalWheel, collisionHorizontalFloor, map); // Update the player movement
+	PlayerJump(myEngine, frameTime, collisionVerticalBlock, collisionVerticalSpike, collisionVerticalWheel, collisionVerticalFloor, map); // Update the jump state every frame
 	camera->SetX(player->GetX());
 	if (lifeState == Dead)
 	{
@@ -126,13 +134,14 @@ void CPlayer::Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamer
 }
 
 void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collisionBlock, boxJumpingSide collisionSpike, 
-	boxJumpingSide collisionWheel, CGameMap* map) // Controls player jumping mechanic
+	boxJumpingSide collisionWheel, boxJumpingSide collisionFloor, CGameMap* map) // Controls player jumping mechanic
 {
 	if (lifeState != Dead)
 	{
 		collisionBlock = CheckVerticalBlockCol(myEngine, map);
 		collisionSpike = CheckVerticalSpikeCol(myEngine, map);
 		collisionWheel = CheckVerticalWheelCol(myEngine, map);
+		collisionFloor = CheckVerticalFloorCol(myEngine, map);
 		// Move model according to jump state
 		/* Collision Resolution */
 		if (collisionBlock == bottomSide) //bottom of a floor block 
@@ -164,7 +173,7 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 			rotation += rotate * frameTime;
 		}
 
-		if (collisionBlock == noJSide || collisionSpike == noJSide || collisionWheel == noJSide)
+		if (collisionBlock == noJSide || collisionSpike == noJSide || collisionWheel == noJSide || collisionFloor == noJSide)
 		{
 			oldY = player->GetY(); // keep getting the player oldY as we move in the air so we can get a realistic landing
 		}
@@ -300,6 +309,33 @@ boxJumpingSide CPlayer::CheckVerticalWheelCol(I3DEngine* myEngine, CGameMap* map
 	return collision;
 }
 
+//// FLOOR ////
+boxMovementSide CPlayer::CheckHorizontalFloorCol(I3DEngine* myEngine, CGameMap* map)
+{
+	boxMovementSide collision = noMSide;
+	for each(IModel* fl in map->floor) // go through each block in the map
+	{
+		collision = HorizontalCollision(GetX(), GetY(), HEIGHT, WIDTH, fl->GetX(), fl->GetY(), map->GetItemHeight(), map->GetItemWidth()); // check for collision
+		if (collision != noMSide)
+		{
+			break;
+		}
+	}
+	return collision;
+}
+boxJumpingSide CPlayer::CheckVerticalFloorCol(I3DEngine* myEngine, CGameMap* map)
+{
+	boxJumpingSide collision = noJSide;
+	for each(IModel* fl in map->floor)
+	{
+		collision = VerticalCollision(GetX(), GetY(), HEIGHT, WIDTH, fl->GetX(), fl->GetY(), map->GetItemHeight(), map->GetItemWidth());
+		if (collision != noJSide)
+		{
+			break;
+		}
+	}
+	return collision;
+}
 
 //PLAYER DEATH ANIMATION
 void CPlayer::PlayerDeath(float frameTime)

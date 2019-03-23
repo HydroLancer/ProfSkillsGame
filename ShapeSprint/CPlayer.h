@@ -51,6 +51,9 @@ private:
 	boxJumpingSide collisionVerticalCoin;
 	boxMovementSide collsionHorizontalWheel;
 	boxJumpingSide collisionVerticalWheel;
+	boxMovementSide collisionHorizontalFloor;	// For when the player is moving left and right
+	boxJumpingSide  collisionVerticalFloor;
+
 public:
 	CPlayer(I3DEngine* myEngine, CGameMap* m); // Class Constructor
 
@@ -58,9 +61,9 @@ public:
 	enum EplayerLife {Alive, Dead};
 	//// FUNCTIONS ////
 	void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, boxMovementSide collisionCoin, 
-		boxMovementSide collisionWheel, CGameMap* map); // Controls player movement
+	boxMovementSide collisionWheel, boxMovementSide collisionFloor, CGameMap* map); // Controls player movement
 	void PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collisionBlock, boxJumpingSide collisionSpike, 
-		boxJumpingSide collisionWheel, CGameMap* map); // Controls player jumping mechanic
+	boxJumpingSide collisionWheel, boxJumpingSide collisionFloor, CGameMap* map); // Controls player jumping mechanic
 	void Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera); // Updates the scene each frame
 	void SetX(float x) { player->SetX(x); }	// Sets the 'X' value of a given model
 	void setY(float y) { player->SetY(y); } // Sets the 'Y' value of a given model
@@ -88,6 +91,9 @@ public:
 	
 	boxMovementSide CheckHorizontalWheelCol(I3DEngine* myEngine, CGameMap* map); // Wheel
 	boxJumpingSide CheckVerticalWheelCol(I3DEngine* myEngine, CGameMap* map);
+
+	boxMovementSide CheckHorizontalFloorCol(I3DEngine* myEngine, CGameMap* map); // Floor Blocks
+	boxJumpingSide CheckVerticalFloorCol(I3DEngine* myEngine, CGameMap* map);
 	~CPlayer();	// Class destructor
 private:
 	EplayerJump jumpState; // Jump state object
