@@ -26,7 +26,7 @@ private:
 	const float WIDTH = 0.99f; // Width of the model
 	
 	// Gravity Controls
-	const float GRAVITY = 0.06f; // How much gravity affects the model 0.025f
+	const float GRAVITY = 45.0f; // How much gravity affects the model 0.025f  0.06f
 
 	//// INTEGER VARIABLES ////
 	int numCoins;
