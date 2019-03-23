@@ -5,7 +5,7 @@ CGameMap::CGameMap()
 }
 
 // NEEDS COMMENTING //
-bool CGameMap::LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[], float& timeLimit, float& mapWidth, float mapHeight, string levelName)
+bool CGameMap::LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[], int& timeLimit, int& mapWidth, float mapHeight, string levelName)
 {
 	ifstream levelFile; //input file - Should be variations of level[x].txt
 

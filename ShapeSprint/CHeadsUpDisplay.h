@@ -7,25 +7,40 @@ public:
 	CHeadsUpDisplay(I3DEngine* thomasTheTLEngine); // Class Contructor
 
 	//// FUNCTIONS ////
-	void DisplayHUD(int numCoins);
-	void DisplayDebugHUD(int fps, int frameTime, float x, float y, string levelName);
+	void DisplayHUD(I3DEngine* thomasTheTLEngine, int numCoins, float frameTime, ICamera* myCamera);
+	void HideHUD(I3DEngine* thomasTheTLEngine);
+	void DisplayDebugHUD(int fps, float frameTime, float x, float y, string levelName, int levelLength);
 
 	~CHeadsUpDisplay(); // Class Destructor
 
 	private:
-	//// ENGINES ////
-	
-	
 	//// CONSTANTS ////
-		// Integers
-	const int FONT_SIZE = 24;
+	// Integers
+	const int DEBUG_FONT_SIZE = 24;
+	const int COIN_FONT_SIZE = 80;
 	const int NUM_FIELDS = 5;
 
+	// Strings
+	const string HUD_FRAME_FILE = "frame.png";
+
 	//// FONTS ////
-	IFont* novaBlack;
+	IFont* debugFont;
+	IFont* coinFont;
+
+	//// SPRITES ////
+	ISprite* frame;
+
+	//// MESHES & MODELS ////
+	IMesh* coinMesh;
+	IModel* coinModel;
 
 	//// BOOLEAN VARIABLES ////
+	// HUD
 	bool showHUD;
+	bool frameShown;
+	bool coinLoaded;
+
+	// Debug HUD
 	bool showDebugHUD;
 };
 
