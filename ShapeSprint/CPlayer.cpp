@@ -54,11 +54,11 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 
 		if (collisionBlock == leftSide || collisionBlock == rightSide) // Check to see if there is collision on either side of the model
 		{
-			SetOldX(); // If so, set the 'X' of the model to the previous 'X' position
+			SetToOldX(); // If so, set the 'X' of the model to the previous 'X' position
 		}
 		if (collisionFloor == leftSide || collisionFloor == rightSide) // Check to see if there is collision on either side of the model
 		{
-			SetOldX(); // If so, set the 'X' of the model to the previous 'X' position
+			SetToOldX(); // If so, set the 'X' of the model to the previous 'X' position
 		}
 		if (collisionSpike == leftSide || collisionSpike == rightSide) // Check to see if there is collision on either side of the model
 		{
@@ -78,33 +78,6 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 
 		oldX = player->GetX(); // Reset the 'oldX' to the current 'X' position of the model
 
-		// Jumping Mechanic
-		if (myEngine->KeyHit(JUMP)) // If the jump key is pressed then
-		{
-			cout << "JUMP PRESSED" << endl; // TEST::OUTPUT "JUMP PRESSED" TO CONSOLE
-			SetOldY();
-			if (jumpState == noJump) // If the model is not currently jumping
-			{
-				jumpState = Jump; // Set the jump state to 'Jump'
-				jumpSpeed = JUMP_RESET; // Reset the jump after gravity has dimmished it
-				PlayJumpSound();
-			}
-			else if (jumpState == Jump) // If the model is currently jumping
-			{
-				jumpState = DoubleJump; // Set the jump state to 'DoubleJump'
-				jumpSpeed = JUMP_RESET; // Reset the jump after gravity has diminished it
-				PlayJumpSound();
-				if (PLAYER_SPEED < 0) // different directions of player spinning
-				{
-					rotate = -ROTATE;
-				}
-				else
-				{
-					rotate = ROTATE;
-				}
-				rotation = 0.0f; // Reset the jump amount to 0
-			}
-		}
 
 		// Movement Mechanic
 #ifdef __DEBUG
@@ -142,16 +115,43 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		collisionSpike = CheckVerticalSpikeCol(myEngine, map);
 		collisionWheel = CheckVerticalWheelCol(myEngine, map);
 		collisionFloor = CheckVerticalFloorCol(myEngine, map);
+		// Jumping Mechanic
+		if (myEngine->KeyHit(JUMP)) // If the jump key is pressed then
+		{
+			cout << "JUMP PRESSED" << endl; // TEST::OUTPUT "JUMP PRESSED" TO CONSOLE
+			SetToOldY();
+			if (jumpState == noJump) // If the model is not currently jumping
+			{
+				jumpState = Jump; // Set the jump state to 'Jump'
+				jumpSpeed = JUMP_RESET; // Reset the jump after gravity has dimmished it
+				PlayJumpSound();
+			}
+			else if (jumpState == Jump) // If the model is currently jumping
+			{
+				jumpState = DoubleJump; // Set the jump state to 'DoubleJump'
+				jumpSpeed = JUMP_RESET; // Reset the jump after gravity has diminished it
+				PlayJumpSound();
+				if (PLAYER_SPEED < 0) // different directions of player spinning
+				{
+					rotate = -ROTATE;
+				}
+				else
+				{
+					rotate = ROTATE;
+				}
+				rotation = 0.0f; // Reset the jump amount to 0
+			}
+		}
 		// Move model according to jump state
 		/* Collision Resolution */
 		if (collisionBlock == bottomSide) //bottom of a floor block 
 		{
 			jumpSpeed = 0.0f; // stop the jumping upwards if we hit the bottom of a block
-			SetOldY(); // so we dont clip through the map entity like the floor
+			SetToOldY(-0.002); // so we dont clip through the map entity like the floor
 		}
 		if (collisionBlock == topSide) // top of a floor block or whatever map entity
 		{
-			SetOldY(); // land on top stop the player falling through
+			SetToOldY(0.002); // land on top stop the player falling through
 			if (jumpState == DoubleJump)
 			{
 				player->RotateZ(-rotation); // reset cool spin for the player
@@ -165,7 +165,6 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		else
 		{
 			jumpSpeed -= GRAVITY; // gravity on all the time
-
 		}
 		if (jumpState == DoubleJump)
 		{
@@ -177,7 +176,6 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		{
 			oldY = player->GetY(); // keep getting the player oldY as we move in the air so we can get a realistic landing
 		}
-
 		player->SetY(player->GetY() + (jumpSpeed * frameTime)); // when we jump how far we can jump
 	}
 }

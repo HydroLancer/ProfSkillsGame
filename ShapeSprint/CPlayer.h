@@ -67,9 +67,10 @@ public:
 	void Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera); // Updates the scene each frame
 	void SetX(float x) { player->SetX(x); }	// Sets the 'X' value of a given model
 	void setY(float y) { player->SetY(y); } // Sets the 'Y' value of a given model
-	void SetOldX() { SetX(oldX); } // Sets the previous 'X' value of a given model
-	void SetOldY() { setY(oldY + 0.002f); }//Sets the previous 'Y' value of a given model
-	
+	void SetToOldX() { SetX(oldX); } // Sets the previous 'X' value of a given model
+	void SetToOldY() { setY(oldY); }//Sets the previous 'Y' value of a given model  /* + 0.002f*/
+	void SetToOldX(float adjustment) { SetX(oldX + adjustment); } // Sets the previous 'X' value of a given model
+	void SetToOldY(float adjustment) { setY(oldY + adjustment); }//Sets the previous 'Y' value of a given model  
 	float GetX() { return player->GetX(); }	// Returns the 'X' value of a given model
 	float GetY() { return player->GetY(); } // Returns the 'Y' value of a given model
 	float GetOldX() { return oldX; } // Returns the previous 'X' value of a given model
