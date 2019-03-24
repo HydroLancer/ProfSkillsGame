@@ -1,5 +1,7 @@
 ﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
   ShapeSprint.cpp
-c:\users\warren\documents\github\profskillsgame\shapesprint\shapesprint.cpp(117): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  ShapeSprint.vcxproj -> C:\Users\Warren\Documents\GitHub\ProfSkillsGame\ShapeSprint\\ShapeSprintDebug.exe
+  CMenu.cpp
+d:\uni stuff!\2nd year\professional skills\profskillsgame\shapesprint\cmenu.cpp(119): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  ShapeSprint.vcxproj -> D:\Uni Stuff!\2nd Year\Professional Skills\ProfSkillsGame\ShapeSprint\\ShapeSprintDebug.exe
   Copying DLLs & shaders...
