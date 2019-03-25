@@ -78,6 +78,33 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 
 		oldX = player->GetX(); // Reset the 'oldX' to the current 'X' position of the model
 
+		// Jumping Mechanic
+		if (myEngine->KeyHit(JUMP)) // If the jump key is pressed then
+		{
+			cout << "JUMP PRESSED" << endl; // TEST::OUTPUT "JUMP PRESSED" TO CONSOLE
+			SetToOldY(0.002f);
+			if (jumpState == noJump) // If the model is not currently jumping
+			{
+				jumpState = Jump; // Set the jump state to 'Jump'
+				jumpSpeed = JUMP_RESET; // Reset the jump after gravity has dimmished it
+				PlayJumpSound();
+			}
+			else if (jumpState == Jump) // If the model is currently jumping
+			{
+				jumpState = DoubleJump; // Set the jump state to 'DoubleJump'
+				jumpSpeed = JUMP_RESET; // Reset the jump after gravity has diminished it
+				PlayJumpSound();
+				if (PLAYER_SPEED < 0) // different directions of player spinning
+				{
+					rotate = -ROTATE;
+				}
+				else
+				{
+					rotate = ROTATE;
+				}
+				rotation = 0.0f; // Reset the jump amount to 0
+			}
+		}
 
 		// Movement Mechanic
 #ifdef __DEBUG
@@ -116,33 +143,7 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		collisionWheel = CheckVerticalWheelCol(myEngine, map);
 		collisionFloor = CheckVerticalFloorCol(myEngine, map);
 
-		// Jumping Mechanic
-		if (myEngine->KeyHit(JUMP)) // If the jump key is pressed then
-		{
-			cout << "JUMP PRESSED" << endl; // TEST::OUTPUT "JUMP PRESSED" TO CONSOLE
-			SetToOldY(0.002f);
-			if (jumpState == noJump) // If the model is not currently jumping
-			{
-				jumpState = Jump; // Set the jump state to 'Jump'
-				jumpSpeed = JUMP_RESET; // Reset the jump after gravity has dimmished it
-				PlayJumpSound();
-			}
-			else if (jumpState == Jump) // If the model is currently jumping
-			{
-				jumpState = DoubleJump; // Set the jump state to 'DoubleJump'
-				jumpSpeed = JUMP_RESET; // Reset the jump after gravity has diminished it
-				PlayJumpSound();
-				if (PLAYER_SPEED < 0) // different directions of player spinning
-				{
-					rotate = -ROTATE;
-				}
-				else
-				{
-					rotate = ROTATE;
-				}
-				rotation = 0.0f; // Reset the jump amount to 0
-			}
-		}
+		
 		// Move model according to jump state
 		////////////////////////////////
 		////						////

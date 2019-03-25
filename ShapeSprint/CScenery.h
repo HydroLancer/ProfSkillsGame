@@ -4,7 +4,7 @@ class CScenery
 {
 private:
 	//// MESHES ////
-	IMesh* shipMesh;
+	IMesh* skyscraper02Mesh;
 	IMesh* tankMesh;
 	IMesh* buildingMesh;
 	IMesh* floorMesh;

@@ -7,7 +7,7 @@ CScenery::CScenery(I3DEngine* myEngine)
 	y = 0;
 	sceneItemType = 0;
 	
-	shipMesh = myEngine->LoadMesh("HoverTank04.x");
+	skyscraper02Mesh = myEngine->LoadMesh("skyscraper02.x");
 	tankMesh = myEngine->LoadMesh("HoverTank03.x");
 	floorMesh = myEngine->LoadMesh("floor.x");
 	//buildingMesh = myEngine->LoadMesh("");
@@ -34,7 +34,8 @@ void CScenery::CreateScenery(int sceneItem, int x, int y)
 
 	if (sceneItem == 1) 
 	{
-		sceneModel = shipMesh->CreateModel(x* 5.0f, y* 10.0f, 10.0f);
+		sceneModel = skyscraper02Mesh->CreateModel(x* 5.0f, y* 10.0f, 10.0f);
+		sceneModel->Scale(0.15);
 		sceneModel->RotateY(90.0f);
 		SceneList.push_back(sceneModel);
 	}
