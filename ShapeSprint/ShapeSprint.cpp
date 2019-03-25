@@ -36,7 +36,7 @@ void main()
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
 	// Strings
-	const string LEVEL_NAME = "Test.txt";	// File name for the map //warren.txt Test.txt level1.txt
+	const string LEVEL_NAME = "warren.txt";	// File name for the map //warren.txt Test.txt level1.txt
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer
@@ -55,7 +55,7 @@ void main()
 	CScenery* scenery = new CScenery(myEngine);		// Create a new scenery object
 	CGameMap* map = new CGameMap;					// Create a new map loader object
 	CPlayer* player = new CPlayer(myEngine, map);	// Create a new player object
-	CGameMap::FullLevel level;						// 2D Vector containing positions and types for all models in the level
+	FullLevel level;						// 2D Vector containing positions and types for all models in the level
 	CMenu* menu = new CMenu;						// Creates menu class, allows player to start a new game or exit the game (Continue isn't implemented yet)
 
 	ICamera* myCamera = myEngine->CreateCamera(kManual, 0.0f, 5.0f, -12.0f); // Create a camera
@@ -100,23 +100,7 @@ void main()
 		//Builds the menu screen with nothing over the top of it.
 		if (game == MenuScreen)
 		{
-			menu->MenuSetup(myEngine);
-			game = Idle;
-
-		}
-		//Purely because having it in one function caused errors. Could maybe have this as a mid-game pause too.
-		else if (game == Idle)
-		{
-			menu->MenuUpdate(myEngine, game);
-		}
-		//if player hits New Game, does this. 
-		else if (game == BuildLevel)
-		{
-			menu->CloseDown();
-			map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME); // Load the map file into the map object
-			map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth); // Build the level using the loaded map
-			game = Game;
-			PlayLevel1Music();
+			menu->MenuSystem(map, level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->timeLimit, map->mapHeight, LEVEL_NAME, myEngine, game);
 		}
 		else // if (game == Game) -> Game is basically on at this point. 
 		{

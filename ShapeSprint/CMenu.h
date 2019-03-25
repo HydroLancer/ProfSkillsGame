@@ -1,5 +1,8 @@
 #pragma once
 #include "ControlHeader.h"
+#include "CGameMap.h"
+
+enum menuThing { Start, InUse, Loading, CloseMenu };
 
 class CMenu
 {
@@ -9,6 +12,7 @@ private:
 
 	int position;
 	bool isDead;
+	menuThing menuState;
 
 public:
 	CMenu();
@@ -17,5 +21,10 @@ public:
 
 	void CloseDown();
 
+	void GameSetup(CGameMap* function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
+						int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine);
+
 	~CMenu();
+	void MenuSystem(CGameMap * function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
+					int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine * myEngine, gameState& state);
 };
