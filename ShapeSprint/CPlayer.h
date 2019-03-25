@@ -31,6 +31,9 @@ private:
 	//// INTEGER VARIABLES ////
 	int numCoins;
 
+	//// BOOLEANS ////
+	bool initCollide; // Used to determine if the player has collided with the ground. When true, allow the player to move
+
 	//// FLOATING POINT VARIABLES ////
 	float oldX;	// Models previous 'X' position
 	float oldY;	// Models previous 'X' position

@@ -47,7 +47,7 @@ void CMenu::MenuSetup(I3DEngine* myEngine)
 	//screen->RotateX(90);
 
 	// NEW
-	logo = myEngine->CreateSprite("logo_small.png", ((myEngine->GetWidth() / 2) - 500.0f), 20.0f, 0.0f);
+	logo = myEngine->CreateSprite("logo_small.png", ((myEngine->GetWidth() / 2) - 500.0f), 160.0f, 0.0f);
 
 	isDead = false;
 	PlayMenuMusic();

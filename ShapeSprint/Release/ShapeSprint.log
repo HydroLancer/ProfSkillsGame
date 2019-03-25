@@ -1,6 +1,30 @@
-﻿  CPlayer.cpp
-d:\jjeaston\documents\university\year 2\co2409\week 17\profskillsgame\shapesprint\Sound.h(3): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory
+﻿  CGameMap.cpp
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(159): warning C4018: '<': signed/unsigned mismatch
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(167): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(171): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(179): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(184): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(189): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(194): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(200): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(206): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(215): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(226): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(242): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(251): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(258): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cgamemap.cpp(265): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  CHeadsUpDisplay.cpp
+  CMenu.cpp
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cmenu.cpp(61): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cmenu.cpp(76): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cmenu.cpp(104): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cmenu.cpp(132): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  Collisions.cpp
+  CPlayer.cpp
+  CScenery.cpp
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cscenery.cpp(19): warning C4018: '<': signed/unsigned mismatch
   ShapeSprint.cpp
-d:\jjeaston\documents\university\year 2\co2409\week 17\profskillsgame\shapesprint\Sound.h(3): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory
   Sound.cpp
-d:\jjeaston\documents\university\year 2\co2409\week 17\profskillsgame\shapesprint\Sound.h(3): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory
+LINK : fatal error C1047: The object or library file 'C:\ProgramData\TL-Engine\lib\TL-Engine2017.lib' was created with an older compiler than other objects; rebuild old objects and libraries
+LINK : fatal error LNK1257: code generation failed

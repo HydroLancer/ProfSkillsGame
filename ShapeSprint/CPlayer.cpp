@@ -7,6 +7,8 @@
 
 CPlayer::CPlayer(I3DEngine* myEngine, CGameMap* m)
 {
+	initCollide = false;
+	
 	playerMesh = myEngine->LoadMesh(PLAYER_MODEL);
 	player = playerMesh->CreateModel(3.0f, 3.0f, 0.0f); //3.0f
 	player->SetSkin(PLAYER_SKIN);
@@ -107,7 +109,7 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		}
 
 		// Movement Mechanic
-#ifdef __DEBUG
+/*#ifdef __DEBUG
 		if (myEngine->KeyHeld(LEFT)) // If the left movement key is pressed
 		{
 			player->MoveX(-PLAYER_SPEED * frameTime); // Move the model negative x
@@ -116,16 +118,21 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		{
 			player->MoveX(PLAYER_SPEED * frameTime); // Move the model positive x
 		}
-#else
-		player->MoveX(-PLAYER_SPEED * frameTime); // Move the model negative x
-#endif // DEBUG
+#else*/
+		player->MoveX(PLAYER_SPEED * frameTime); // Move the model negative x
+//#endif // DEBUG
 	}
 }
 
 void CPlayer::Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera) // Updates the scene each frame
 {
-	PlayerMovement(myEngine, frameTime, collisionHorizontalBlock, collsionHorizontalSpike, collsionHorizontalCoin, collsionHorizontalWheel, collisionHorizontalFloor, map); // Update the player movement
+	if (initCollide)
+	{
+		PlayerMovement(myEngine, frameTime, collisionHorizontalBlock, collsionHorizontalSpike, collsionHorizontalCoin, collsionHorizontalWheel, collisionHorizontalFloor, map); // Update the player movement
+	}
+	
 	PlayerJump(myEngine, frameTime, collisionVerticalBlock, collisionVerticalSpike, collisionVerticalWheel, collisionVerticalFloor, map); // Update the jump state every frame
+
 	camera->SetX(player->GetX());
 	if (lifeState == Dead)
 	{
@@ -158,6 +165,11 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		}
 		if (collisionBlock == topSide || collisionFloor == topSide) // top of a floor block or whatever map entity
 		{
+			if (!initCollide)
+			{
+				initCollide = true;
+			}
+
 			SetToOldY(0.002f); // land on top stop the player falling through
 			if (jumpState == DoubleJump)
 			{

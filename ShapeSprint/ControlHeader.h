@@ -8,6 +8,8 @@
 #include <conio.h>
 #include <ctype.h>
 #include <time.h>
+#include <SFML/Audio.hpp>
+
 using namespace tle;
 
 enum gameState {MenuScreen, Idle, BuildLevel, LoadingGame, Game};
