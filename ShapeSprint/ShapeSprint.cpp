@@ -56,7 +56,7 @@ void main()
 	CScenery* scenery = new CScenery(myEngine);		// Create a new scenery object
 	CGameMap* map = new CGameMap;					// Create a new map loader object
 	CPlayer* player = new CPlayer(myEngine, map);	// Create a new player object
-	CGameMap::FullLevel level;						// 2D Vector containing positions and types for all models in the level
+	FullLevel level;						// 2D Vector containing positions and types for all models in the level
 	CMenu* menu = new CMenu;						// Creates menu class, allows player to start a new game or exit the game (Continue isn't implemented yet)
 
 	ICamera* myCamera = myEngine->CreateCamera(kManual, 0.0f, 5.22f, -12.0f); // Create a camera
@@ -65,7 +65,7 @@ void main()
 	LoadAllSounds();
 
 	//// MUSIC ////
-	PlayMenuMusic(); // Play the menu music - to be moved when the menu is implemented
+	//PlayMenuMusic(); // Play the menu music - to be moved when the menu is implemented (Is now in CMenu::MenuSetup [NH])
 
 	//// GAME LOOP ////
 	while (myEngine->IsRunning()) // The main game loop, repeat until engine is stopped
@@ -101,23 +101,11 @@ void main()
 		//Builds the menu screen with nothing over the top of it.
 		if (game == MenuScreen)
 		{
-			menu->MenuSetup(myEngine);
-			game = Idle;
+			menu->MenuSystem(map, level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME, myEngine, game);
 
-		}
-		//Purely because having it in one function caused errors. Could maybe have this as a mid-game pause too.
-		else if (game == Idle)
-		{
-			menu->MenuUpdate(myEngine, game);
-		}
-		//if player hits New Game, does this. 
-		else if (game == BuildLevel)
-		{
-			menu->CloseDown();
-			map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME); // Load the map file into the map object
-			map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth); // Build the level using the loaded map
-			game = Game;
-			PlayLevel1Music();
+			//theoretically just only kick in after the menu is done
+			//PlayLevel1Music(); (Also now in CMenu::MenuSystem [NH])
+			
 		}
 		else // if (game == Game) -> Game is basically on at this point. 
 		{
@@ -143,7 +131,7 @@ void main()
 				}
 			}
 
-			if (myEngine->KeyHit(Key_P))
+			/*if (myEngine->KeyHit(Key_P))
 			{
 				if (!start)
 				{
@@ -153,12 +141,12 @@ void main()
 				{
 					start = false;
 				}
-			}
+			}*/
 
-			if (start)
-			{
-				player->Update(myEngine, frameTime, map, myCamera);
-			}
+			/*if (start)
+			{*/
+			player->Update(myEngine, frameTime, map, myCamera);
+			//}
 
 			// Move the skybox
 			map->skyBox->RotateY(100.0f * frameTime);
