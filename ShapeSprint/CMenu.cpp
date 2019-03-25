@@ -27,7 +27,7 @@ void CMenu::MenuSystem(CGameMap* function, FullLevel& map, float startCoods[], f
 	}
 	else
 	{
-		CloseDown();
+		CloseDown(myEngine);
 		state = Game;
 	}
 }
@@ -51,6 +51,13 @@ void CMenu::MenuSetup(I3DEngine* myEngine)
 
 	isDead = false;
 	PlayMenuMusic();
+}
+
+void CMenu::GameSetup(CGameMap* function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
+	int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine)
+{
+	function->LoadTheMap(map, startCoods, checkpointCoords, endCoords, timeLimit, mapWidth, mapHeight, levelName);
+	function->LevelBuild(myEngine, startCoods, map, mapWidth);
 }
 
 //Due to access issues, Update is essentially a game loop in itself

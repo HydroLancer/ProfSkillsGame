@@ -1,4 +1,7 @@
-﻿TL-Engine2017Debug.lib(TL-Engine.obj) : warning LNK4099: PDB 'TL-Engine.pdb' was not found with 'TL-Engine2017Debug.lib(TL-Engine.obj)' or at 'D:\Uni Stuff!\2nd Year\Professional Skills\ProfSkillsGame\ShapeSprint\TL-Engine.pdb'; linking object as if no debug info
+﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  CMenu.cpp
+d:\uni stuff!\2nd year\professional skills\profskillsgame\shapesprint\cmenu.cpp(60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+TL-Engine2017Debug.lib(TL-Engine.obj) : warning LNK4099: PDB 'TL-Engine.pdb' was not found with 'TL-Engine2017Debug.lib(TL-Engine.obj)' or at 'D:\Uni Stuff!\2nd Year\Professional Skills\ProfSkillsGame\ShapeSprint\TL-Engine.pdb'; linking object as if no debug info
 TL-Engine2017Debug.lib(Errors.obj) : warning LNK4099: PDB 'Common.pdb' was not found with 'TL-Engine2017Debug.lib(Errors.obj)' or at 'D:\Uni Stuff!\2nd Year\Professional Skills\ProfSkillsGame\ShapeSprint\Common.pdb'; linking object as if no debug info
 TL-Engine2017Debug.lib(TLXSprite.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXSprite.obj)' or at 'D:\Uni Stuff!\2nd Year\Professional Skills\ProfSkillsGame\ShapeSprint\3DEngine.pdb'; linking object as if no debug info
 TL-Engine2017Debug.lib(TLXSceneNode.obj) : warning LNK4099: PDB '3DEngine.pdb' was not found with 'TL-Engine2017Debug.lib(TLXSceneNode.obj)' or at 'D:\Uni Stuff!\2nd Year\Professional Skills\ProfSkillsGame\ShapeSprint\3DEngine.pdb'; linking object as if no debug info

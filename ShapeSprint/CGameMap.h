@@ -34,8 +34,6 @@ public:
 
 	IModel* skyBox;
 
-	using FullLevel = vector<vector<BlockType>>;
-
 	bool LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[], int& timeLimit, int& mapWidth, float mapHeight, string levelName);
 	bool LevelBuild(I3DEngine * myEngine, float startCoods[], FullLevel& level, float mapWidth);
 	
