@@ -5,6 +5,7 @@ CMenu::CMenu()
 {
 	position = 1;
 	menuState = Start;
+	spritesDrawn = false;
 }
 
 void CMenu::MenuSystem(CGameMap* function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
@@ -52,11 +53,11 @@ void CMenu::MenuSetup(I3DEngine* myEngine)
 	PlayMenuMusic();
 }
 
+//These two literally just read the text file, then once that's done, reads the 2D vector constructed by the text file to load the appropriate models. 
 void CMenu::GameSetup(CGameMap* level, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
 	int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine, gameState& state)
 {
 	level->LoadTheMap(map, startCoods, checkpointCoords, endCoords, timeLimit, mapWidth, mapHeight, levelName);
-	state = BuildLevel;
 	level->LevelBuild(myEngine, startCoods, map, mapWidth);
 }
 
@@ -67,9 +68,12 @@ void CMenu::GameSetup(CGameMap* level, FullLevel& map, float startCoods[], float
 
 void CMenu::MenuUpdate(I3DEngine* myEngine, gameState& state)
 {
-
-	DrawAllSprites(myEngine);
-
+	if (!spritesDrawn)
+	{
+		DrawAllSprites(myEngine);
+		spritesDrawn = true;
+	}
+	
 	if (position == 1)
 	{
 		myEngine->RemoveSprite(play.flat);

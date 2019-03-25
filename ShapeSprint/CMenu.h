@@ -44,6 +44,7 @@ private:
 
 	int position;
 	bool isDead;
+	bool spritesDrawn;
 	menuThing menuState;
 
 public:
