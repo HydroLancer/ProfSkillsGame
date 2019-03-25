@@ -70,7 +70,10 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		{
 			lifeState = Dead;
 		}
-
+		if (player->GetY() < 0.0f)
+		{
+			lifeState = Dead;
+		}
 
 		if (collisionCoin != noMSide)
 		{

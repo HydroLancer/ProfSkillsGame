@@ -34,8 +34,8 @@ void CScenery::CreateScenery(int sceneItem, int x, int y)
 
 	if (sceneItem == 1) 
 	{
-		sceneModel = skyscraper02Mesh->CreateModel(x* 5.0f, y* 10.0f, 10.0f);
-		sceneModel->Scale(0.15);
+		sceneModel = skyscraper02Mesh->CreateModel(x* 5.0f, -5.0f, 10.0f);
+		sceneModel->Scale(0.15f);
 		sceneModel->RotateY(90.0f);
 		SceneList.push_back(sceneModel);
 	}
@@ -47,7 +47,7 @@ void CScenery::CreateScenery(int sceneItem, int x, int y)
 	}
 	else if (sceneItem == 3)
 	{
-		floor = floorMesh->CreateModel(0.0f, -5.0f, 0.0f);
+		floor = floorMesh->CreateModel(-1.5f, -5.0f, 0.0f);
 		floor->SetSkin("menu_floor.png");
 		floor->Scale(1.0f);
 	}

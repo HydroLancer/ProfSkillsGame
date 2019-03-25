@@ -25,8 +25,8 @@ void main()
 
 	//// TL-ENGINE SETUP ////
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
-	myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
-	//myEngine->StartFullscreen(1920, 1080);
+	//myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
+	myEngine->StartFullscreen(1920, 1080);
 	myEngine->AddMediaFolder("media");			// Add default folder for meshes and other media
 
 	//// CONSTANTS ////
@@ -36,7 +36,7 @@ void main()
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
 	// Strings
-	const string LEVEL_NAME = "new_test.txt";	// File name for the map //warren.txt Test.txt level1.txt
+	const string LEVEL_NAME = "level1.txt";	// File name for the map Test.txt level1.txt
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer
@@ -57,7 +57,7 @@ void main()
 	CScenery* scenery = new CScenery(myEngine);		// Create a new scenery object
 	CGameMap* map = new CGameMap;					// Create a new map loader object
 	CPlayer* player = new CPlayer(myEngine, map);	// Create a new player object
-	FullLevel level;						// 2D Vector containing positions and types for all models in the level
+	FullLevel level;								// 2D Vector containing positions and types for all models in the level
 	CMenu* menu = new CMenu();						// Creates menu class, allows player to start a new game or exit the game (Continue isn't implemented yet)
 
 	ICamera* myCamera = myEngine->CreateCamera(kManual, 0.0f, 5.23f, -12.0f); // Create a camera
