@@ -1,35 +1,8 @@
 #include "CMenu.h"
 
-
 CMenu::CMenu()
 {
 	position = 1;
-	menuState = Start;
-}
-
-void CMenu::MenuSystem(CGameMap* function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
-	int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine, gameState& state)
-{
-	if (menuState == Start)
-	{
-		MenuSetup(myEngine);
-		menuState = InUse;
-	}
-	else if (menuState == InUse)
-	{
-		MenuUpdate(myEngine, state);
-	}
-	else if (menuState == Loading)
-	{
-		GameSetup(function, map, startCoods, checkpointCoords, endCoords,
-					timeLimit, mapWidth, mapHeight, levelName, myEngine);
-		menuState = CloseMenu;
-	}
-	else 
-	{
-		CloseDown();
-		state = Game;
-	}
 }
 
 //Run both before the engine actually runs, and then whenever the gamemode enum is set to Menu
@@ -66,7 +39,7 @@ void CMenu::MenuUpdate(I3DEngine* myEngine, gameState& state)
 		}
 		if (myEngine->KeyHit(Key_Return))
 		{
-			menuState = Loading;
+			state = BuildLevel; //Starts a new game
 		}
 	}
 	else if (position == 2)
@@ -110,13 +83,6 @@ void CMenu::CloseDown()
 {
 	screen->SetY(-100.0f);
 	//screenMesh->RemoveModel(screen);
-}
-
-void CMenu::GameSetup(CGameMap* function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
-	int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine)
-{
-	function->LoadTheMap(map, startCoods, checkpointCoords, endCoords, timeLimit, mapWidth, mapHeight, levelName);
-	function->LevelBuild(myEngine, checkpointCoords, map, mapWidth);
 }
 
 CMenu::~CMenu()

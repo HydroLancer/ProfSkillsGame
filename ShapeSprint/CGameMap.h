@@ -4,7 +4,37 @@
 class CGameMap
 {
 private:
-	
+	enum BlockType
+	{
+		//coin
+		Coin = 600,
+
+		//Wheels
+		Wheel1x2 = 500, //1x2
+		Wheel2x2 = 501, //2x2
+		Wheel3x3 = 502, //3x3
+		Wheel5x3 = 503, //5x3
+
+		//floor
+		Floor = 400,
+
+		//Jump Pad (Number proceeding it is the height it gives)
+		JumpPad3 = 303,
+		JumpPad4 = 304,
+		JumpPad5 = 305,
+		JumpPad6 = 306,
+
+		//Spikes
+		Spike1x1 = 200,
+		Spike1x2 = 210,
+		Spike2x3 = 220,
+
+		//Block
+		Block = 100,
+
+		//Air
+		Air = 0
+	}; 
 	//SIZES OF MAP ITEMS
 //size of most the items are 1x1 
 	const float GENERIC_WIDTH = 1.0f;
@@ -33,6 +63,8 @@ public:
 	vector<IModel*> jumpPads6;
 
 	IModel* skyBox;
+
+	using FullLevel = vector<vector<BlockType>>;
 
 	bool LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[], int& timeLimit, int& mapWidth, float mapHeight, string levelName);
 	bool LevelBuild(I3DEngine * myEngine, float startCoods[], FullLevel& level, float mapWidth);
