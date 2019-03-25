@@ -152,10 +152,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	IMesh* spikeMesh = myEngine->LoadMesh("spike.x");
 	IMesh* wheelMesh = myEngine->LoadMesh("Cube.x");
 
-	// Skybox
-	IMesh* skyboxMesh = myEngine->LoadMesh("stars.x");
-	skyBox = skyboxMesh->CreateModel(0, 300.0f, 0);
-	skyBox->SetSkin("Background new.png");
+	// SKYBOX CODE MOVED INTO SHAPESPRINT.CPP
 
 	/*This essentially goes through the 2d vector formed by loading the text file, and makes the level appear on screen by loading
 	all the models needed for the level's layout into vectors of their types*/

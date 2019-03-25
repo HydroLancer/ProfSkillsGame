@@ -25,10 +25,10 @@ void main()
 
 	//// TL-ENGINE SETUP ////
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
-	myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
-	//myEngine->StartFullscreen(1920, 1080);
+	//myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
+	myEngine->StartFullscreen(1920, 1080);
 	myEngine->AddMediaFolder("media");			// Add default folder for meshes and other media
-	
+
 	//// CONSTANTS ////
 	// Keys
 	const EKeyCode EXIT = Key_Escape;			// Exits the game when hit
@@ -36,11 +36,12 @@ void main()
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
 	// Strings
-	const string LEVEL_NAME = "new_test.txt";	// File name for the map //warren.txt Test.txt level1.txt
+	const string LEVEL_NAME = "level1.txt";	// File name for the map //warren.txt Test.txt level1.txt
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer
 	float secondCounter = 0.0f;
+	float secondCounter2 = 0.0f;
 
 	//// INTEGERS ////
 	int frameCounter = 0;	// Counts how many frames there are every second
@@ -50,8 +51,8 @@ void main()
 	bool showHUD = true;
 	bool showDebugHUD = false;
 	bool start = false;
-									
-	//// SCENE SETUP ////	
+
+	//// SCENE SETUP ////
 	CHeadsUpDisplay* HUD = new CHeadsUpDisplay(myEngine);
 	CScenery* scenery = new CScenery(myEngine);		// Create a new scenery object
 	CGameMap* map = new CGameMap;					// Create a new map loader object
@@ -59,10 +60,16 @@ void main()
 	FullLevel level;						// 2D Vector containing positions and types for all models in the level
 	CMenu* menu = new CMenu;						// Creates menu class, allows player to start a new game or exit the game (Continue isn't implemented yet)
 
-	ICamera* myCamera = myEngine->CreateCamera(kManual, 0.0f, 5.22f, -12.0f); // Create a camera
-	
+	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0.0f, 5.23f, -12.0f); // Create a camera
+
+	myCamera->RotateY(180.0f);
+	// Skybox
+	IMesh* skyboxMesh = myEngine->LoadMesh("stars.x");
+	IModel* skyBox = skyboxMesh->CreateModel(0, 300.0f, 0);
+	skyBox->SetSkin("Background new.png");
+
 	//// SOUNDS ////
-	LoadAllSounds();
+	LoadAllSounds(); // Loads all sounds into RAM
 
 	//// MUSIC ////
 	//PlayMenuMusic(); // Play the menu music - to be moved when the menu is implemented (Is now in CMenu::MenuSetup [NH])
@@ -71,7 +78,7 @@ void main()
 	while (myEngine->IsRunning()) // The main game loop, repeat until engine is stopped
 	{
 		frameTime = myEngine->Timer(); // Update the frame time using the engine's timer
-		
+
 		myEngine->DrawScene(); // Draw the scene
 
 		GetFPS(frameTime, frameCounter, secondCounter, fps); // Get the current FPS
@@ -79,7 +86,7 @@ void main()
 		myEngine->SetWindowCaption(("Shape Sprint (FPS: " + to_string(fps) + ")"));
 
 		/**** Update your scene each frame here ****/
-		
+
 		//// DEBUG HUD ////
 		if (showDebugHUD) // Display debug HUD if true
 		{
@@ -105,9 +112,9 @@ void main()
 
 			//theoretically just only kick in after the menu is done
 			//PlayLevel1Music(); (Also now in CMenu::MenuSystem [NH])
-			
+
 		}
-		else // if (game == Game) -> Game is basically on at this point. 
+		else // if (game == Game) -> Game is basically on at this point.
 		{
 			//// GAME HUD ////
 			if (showHUD) // Display HUD if true
@@ -136,10 +143,11 @@ void main()
 				if (!start)
 				{
 					start = true;
+					secondCounter2 = 0.0f;
 				}
 				else
 				{
-					start = false;
+					//start = false;
 				}
 			}*/
 
@@ -149,9 +157,9 @@ void main()
 			//}
 
 			// Move the skybox
-			map->skyBox->RotateY(100.0f * frameTime);
-			map->skyBox->SetY((player->GetY()) * 25.0f);
-			map->skyBox->SetX(player->GetX());
+			skyBox->RotateY(100.0f * frameTime);
+			skyBox->SetY((player->GetY()) * 25.0f);
+			skyBox->SetX(player->GetX());
 
 			scenery->UpdateScenery(frameTime);
 
