@@ -7,9 +7,9 @@ public:
 	CHeadsUpDisplay(I3DEngine* thomasTheTLEngine); // Class Contructor
 
 	//// FUNCTIONS ////
-	void DisplayHUD(I3DEngine* thomasTheTLEngine, int numCoins, float frameTime, ICamera* myCamera);
-	void HideHUD(I3DEngine* thomasTheTLEngine);
-	void DisplayDebugHUD(int fps, float frameTime, float x, float y, string levelName, int levelLength);
+	void Display(I3DEngine* thomasTheTLEngine, int numCoins, float frameTime, ICamera* myCamera);
+	void Hide(I3DEngine* thomasTheTLEngine);
+	void DisplayDebug(int fps, float frameTime, float x, float y, string levelName, int levelLength);
 
 	~CHeadsUpDisplay(); // Class Destructor
 
@@ -35,12 +35,6 @@ public:
 	IModel* coinModel;
 
 	//// BOOLEAN VARIABLES ////
-	// HUD
 	bool showHUD;
-	bool frameShown;
-	bool coinLoaded;
-
-	// Debug HUD
-	bool showDebugHUD;
 };
 

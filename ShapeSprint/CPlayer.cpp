@@ -115,6 +115,7 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		collisionSpike = CheckVerticalSpikeCol(myEngine, map);
 		collisionWheel = CheckVerticalWheelCol(myEngine, map);
 		collisionFloor = CheckVerticalFloorCol(myEngine, map);
+
 		// Jumping Mechanic
 		if (myEngine->KeyHit(JUMP)) // If the jump key is pressed then
 		{
@@ -143,13 +144,18 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 			}
 		}
 		// Move model according to jump state
-		/* Collision Resolution */
-		if (collisionBlock == bottomSide) //bottom of a floor block 
+		////////////////////////////////
+		////						////
+		////  COLLISION RESOLUTION  ////
+		////						////
+		////////////////////////////////
+		// Blocks and floor
+		if (collisionBlock == bottomSide || collisionFloor == bottomSide) //bottom of a floor block 
 		{
 			jumpSpeed = 0.0f; // stop the jumping upwards if we hit the bottom of a block
 			SetToOldY(-0.002); // so we dont clip through the map entity like the floor
 		}
-		if (collisionBlock == topSide) // top of a floor block or whatever map entity
+		if (collisionBlock == topSide || collisionFloor == topSide) // top of a floor block or whatever map entity
 		{
 			SetToOldY(0.002); // land on top stop the player falling through
 			if (jumpState == DoubleJump)
@@ -171,6 +177,7 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 			player->RotateZ(rotate * frameTime); // do a cool spin for the player
 			rotation += rotate * frameTime;
 		}
+
 
 		if (collisionBlock == noJSide || collisionSpike == noJSide || collisionWheel == noJSide || collisionFloor == noJSide)
 		{

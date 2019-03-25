@@ -295,6 +295,9 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 		(*it)->Scale(0.038f);
 		(*it)->RotateY(90.0f);
 	}
+
+	cout << "Level successfully built!" << endl;
+
 	return true;
 }
 

@@ -10,4 +10,4 @@
 #include <time.h>
 using namespace tle;
 
-enum gameState {MenuScreen, Idle, BuildLevel, LoadingGame,Game};
+enum gameState {MenuScreen, Idle, BuildLevel, LoadingGame, Game};

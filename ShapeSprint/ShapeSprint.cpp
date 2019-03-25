@@ -36,7 +36,7 @@ void main()
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
 	// Strings
-	const string LEVEL_NAME = "Test.txt";	// File name for the map //warren.txt Test.txt level1.txt
+	const string LEVEL_NAME = "new_test.txt";	// File name for the map //warren.txt Test.txt level1.txt
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer
@@ -49,6 +49,7 @@ void main()
 	//// BOOLEANS ////
 	bool showHUD = true;
 	bool showDebugHUD = false;
+	bool start = false;
 									
 	//// SCENE SETUP ////	
 	CHeadsUpDisplay* HUD = new CHeadsUpDisplay(myEngine);
@@ -58,7 +59,7 @@ void main()
 	CGameMap::FullLevel level;						// 2D Vector containing positions and types for all models in the level
 	CMenu* menu = new CMenu;						// Creates menu class, allows player to start a new game or exit the game (Continue isn't implemented yet)
 
-	ICamera* myCamera = myEngine->CreateCamera(kManual, 0.0f, 5.0f, -12.0f); // Create a camera
+	ICamera* myCamera = myEngine->CreateCamera(kManual, 0.0f, 5.22f, -12.0f); // Create a camera
 	
 	//// SOUNDS ////
 	LoadAllSounds();
@@ -77,10 +78,12 @@ void main()
 
 		myEngine->SetWindowCaption(("Shape Sprint (FPS: " + to_string(fps) + ")"));
 
+		/**** Update your scene each frame here ****/
+		
 		//// DEBUG HUD ////
 		if (showDebugHUD) // Display debug HUD if true
 		{
-			HUD->DisplayDebugHUD(fps, frameTime, player->GetX(), player->GetY(), LEVEL_NAME, map->GetMapWidth());
+			HUD->DisplayDebug(fps, frameTime, player->GetX(), player->GetY(), LEVEL_NAME, map->GetMapWidth());
 		}
 
 		if (myEngine->KeyHit(TOGGLE_DEBUG_HUD)) // Toggle debug HUD
@@ -95,8 +98,6 @@ void main()
 			}
 		}
 
-				/**** Update your scene each frame here ****/
-		
 		//Builds the menu screen with nothing over the top of it.
 		if (game == MenuScreen)
 		{
@@ -123,11 +124,11 @@ void main()
 			//// GAME HUD ////
 			if (showHUD) // Display HUD if true
 			{
-				HUD->DisplayHUD(myEngine, player->GetNumCoins(), frameTime, myCamera);
+				HUD->Display(myEngine, player->GetNumCoins(), frameTime, myCamera);
 			}
 			else
 			{
-
+				HUD->Hide(myEngine);
 			}
 
 			if (myEngine->KeyHit(TOGGLE_HUD)) // Toggle HUD
@@ -142,7 +143,22 @@ void main()
 				}
 			}
 
-			player->Update(myEngine, frameTime, map, myCamera);
+			if (myEngine->KeyHit(Key_P))
+			{
+				if (!start)
+				{
+					start = true;
+				}
+				else
+				{
+					start = false;
+				}
+			}
+
+			if (start)
+			{
+				player->Update(myEngine, frameTime, map, myCamera);
+			}
 
 			// Move the skybox
 			map->skyBox->RotateY(100.0f * frameTime);
