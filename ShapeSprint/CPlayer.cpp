@@ -120,7 +120,7 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		if (myEngine->KeyHit(JUMP)) // If the jump key is pressed then
 		{
 			cout << "JUMP PRESSED" << endl; // TEST::OUTPUT "JUMP PRESSED" TO CONSOLE
-			SetToOldY();
+			SetToOldY(0.002f);
 			if (jumpState == noJump) // If the model is not currently jumping
 			{
 				jumpState = Jump; // Set the jump state to 'Jump'
@@ -153,11 +153,11 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		if (collisionBlock == bottomSide || collisionFloor == bottomSide) //bottom of a floor block 
 		{
 			jumpSpeed = 0.0f; // stop the jumping upwards if we hit the bottom of a block
-			SetToOldY(-0.002); // so we dont clip through the map entity like the floor
+			SetToOldY(-0.002f); // so we dont clip through the map entity like the floor
 		}
 		if (collisionBlock == topSide || collisionFloor == topSide) // top of a floor block or whatever map entity
 		{
-			SetToOldY(0.002); // land on top stop the player falling through
+			SetToOldY(0.002f); // land on top stop the player falling through
 			if (jumpState == DoubleJump)
 			{
 				player->RotateZ(-rotation); // reset cool spin for the player

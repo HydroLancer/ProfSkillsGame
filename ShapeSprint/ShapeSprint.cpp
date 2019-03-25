@@ -25,8 +25,8 @@ void main()
 
 	//// TL-ENGINE SETUP ////
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
-	myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
-	//myEngine->StartFullscreen(1920, 1080);
+	//myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
+	myEngine->StartFullscreen(1920, 1080);
 	myEngine->AddMediaFolder("media");			// Add default folder for meshes and other media
 	
 	//// CONSTANTS ////
@@ -36,11 +36,12 @@ void main()
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
 	// Strings
-	const string LEVEL_NAME = "new_test.txt";	// File name for the map //warren.txt Test.txt level1.txt
+	const string LEVEL_NAME = "level1.txt";	// File name for the map //warren.txt Test.txt level1.txt
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer
 	float secondCounter = 0.0f;
+	float secondCounter2 = 0.0f;
 
 	//// INTEGERS ////
 	int frameCounter = 0;	// Counts how many frames there are every second
@@ -59,10 +60,16 @@ void main()
 	CGameMap::FullLevel level;						// 2D Vector containing positions and types for all models in the level
 	CMenu* menu = new CMenu;						// Creates menu class, allows player to start a new game or exit the game (Continue isn't implemented yet)
 
-	ICamera* myCamera = myEngine->CreateCamera(kManual, 0.0f, 5.22f, -12.0f); // Create a camera
+	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0.0f, 5.23f, -12.0f); // Create a camera
+
+	myCamera->RotateY(180.0f);
+	// Skybox
+	IMesh* skyboxMesh = myEngine->LoadMesh("stars.x");
+	IModel* skyBox = skyboxMesh->CreateModel(0, 300.0f, 0);
+	skyBox->SetSkin("Background new.png");
 	
 	//// SOUNDS ////
-	LoadAllSounds();
+	LoadAllSounds(); // Loads all sounds into RAM
 
 	//// MUSIC ////
 	PlayMenuMusic(); // Play the menu music - to be moved when the menu is implemented
@@ -109,15 +116,18 @@ void main()
 		else if (game == Idle)
 		{
 			menu->MenuUpdate(myEngine, game);
+			scenery->UpdateScenery(frameTime);
+			skyBox->RotateY(100.0f * frameTime);
 		}
 		//if player hits New Game, does this. 
 		else if (game == BuildLevel)
 		{
-			menu->CloseDown();
+			menu->CloseDown(myEngine);
 			map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME); // Load the map file into the map object
 			map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth); // Build the level using the loaded map
 			game = Game;
 			PlayLevel1Music();
+			myCamera->RotateY(180.0f);
 		}
 		else // if (game == Game) -> Game is basically on at this point. 
 		{
@@ -143,16 +153,22 @@ void main()
 				}
 			}
 
-			if (myEngine->KeyHit(Key_P))
+			//if (myEngine->KeyHit(Key_P))
+			if (secondCounter2 > 0.2f)
 			{
 				if (!start)
 				{
 					start = true;
+					secondCounter2 = 0.0f;
 				}
 				else
 				{
-					start = false;
+					//start = false;
 				}
+			}
+			else
+			{
+				secondCounter2 += frameTime;
 			}
 
 			if (start)
@@ -161,9 +177,9 @@ void main()
 			}
 
 			// Move the skybox
-			map->skyBox->RotateY(100.0f * frameTime);
-			map->skyBox->SetY((player->GetY()) * 25.0f);
-			map->skyBox->SetX(player->GetX());
+			skyBox->RotateY(100.0f * frameTime);
+			skyBox->SetY((player->GetY()) * 25.0f);
+			skyBox->SetX(player->GetX());
 
 			scenery->UpdateScenery(frameTime);
 
