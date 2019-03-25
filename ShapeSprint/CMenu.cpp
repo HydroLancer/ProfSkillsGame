@@ -8,7 +8,7 @@ CMenu::CMenu()
 }
 
 void CMenu::MenuSystem(CGameMap* function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
-	int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine, gameState& state)
+	int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine, gameState& state, ICamera* myCamera)
 {
 	if (menuState == Start)
 	{
@@ -22,13 +22,14 @@ void CMenu::MenuSystem(CGameMap* function, FullLevel& map, float startCoods[], f
 	else if (menuState == Loading)
 	{
 		GameSetup(function, map, startCoods, checkpointCoords, endCoords,
-			timeLimit, mapWidth, mapHeight, levelName, myEngine);
+			timeLimit, mapWidth, mapHeight, levelName, myEngine, state);
 		menuState = CloseMenu;
 	}
 	else
 	{
 		CloseDown(myEngine);
 		state = Game;
+		myCamera->RotateY(180.0f);
 	}
 }
 
@@ -47,17 +48,16 @@ void CMenu::MenuSetup(I3DEngine* myEngine)
 	// NEW
 	logo = myEngine->CreateSprite("logo_small.png", ((myEngine->GetWidth() / 2) - 500.0f), 20.0f, 0.0f);
 
-
-
 	isDead = false;
 	PlayMenuMusic();
 }
 
-void CMenu::GameSetup(CGameMap* function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
-	int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine)
+void CMenu::GameSetup(CGameMap* level, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
+	int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine, gameState& state)
 {
-	function->LoadTheMap(map, startCoods, checkpointCoords, endCoords, timeLimit, mapWidth, mapHeight, levelName);
-	function->LevelBuild(myEngine, startCoods, map, mapWidth);
+	level->LoadTheMap(map, startCoods, checkpointCoords, endCoords, timeLimit, mapWidth, mapHeight, levelName);
+	state = BuildLevel;
+	level->LevelBuild(myEngine, startCoods, map, mapWidth);
 }
 
 //Due to access issues, Update is essentially a game loop in itself
@@ -96,7 +96,7 @@ void CMenu::MenuUpdate(I3DEngine* myEngine, gameState& state)
 			myEngine->RemoveSprite(play.hover);
 			myEngine->RemoveSprite(levels.flat);
 			myEngine->RemoveSprite(exit.flat);
-			state = BuildLevel; //Starts a new game
+			menuState = Loading;
 		}
 	}
 	else if (position == 2)

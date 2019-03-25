@@ -25,8 +25,8 @@ void main()
 
 	//// TL-ENGINE SETUP ////
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
-	//myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
-	myEngine->StartFullscreen(1920, 1080);
+	myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
+	//myEngine->StartFullscreen(1920, 1080);
 	myEngine->AddMediaFolder("media");			// Add default folder for meshes and other media
 
 	//// CONSTANTS ////
@@ -58,11 +58,12 @@ void main()
 	CGameMap* map = new CGameMap;					// Create a new map loader object
 	CPlayer* player = new CPlayer(myEngine, map);	// Create a new player object
 	FullLevel level;						// 2D Vector containing positions and types for all models in the level
-	CMenu* menu = new CMenu;						// Creates menu class, allows player to start a new game or exit the game (Continue isn't implemented yet)
+	CMenu* menu = new CMenu();						// Creates menu class, allows player to start a new game or exit the game (Continue isn't implemented yet)
 
 	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0.0f, 5.23f, -12.0f); // Create a camera
 
 	myCamera->RotateY(180.0f);
+
 	// Skybox
 	IMesh* skyboxMesh = myEngine->LoadMesh("stars.x");
 	IModel* skyBox = skyboxMesh->CreateModel(0, 300.0f, 0);
@@ -108,13 +109,10 @@ void main()
 		//Builds the menu screen with nothing over the top of it.
 		if (game == MenuScreen)
 		{
-			menu->MenuSystem(map, level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME, myEngine, game);
-
-			//theoretically just only kick in after the menu is done
-			//PlayLevel1Music(); (Also now in CMenu::MenuSystem [NH])
-
+			menu->MenuSystem(map, level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME, myEngine, game, myCamera);
+			skyBox->RotateY(100.0f * frameTime);
 		}
-		else // if (game == Game) -> Game is basically on at this point.
+		else // Game is on at this point.
 		{
 			//// GAME HUD ////
 			if (showHUD) // Display HUD if true
@@ -138,23 +136,7 @@ void main()
 				}
 			}
 
-			/*if (myEngine->KeyHit(Key_P))
-			{
-				if (!start)
-				{
-					start = true;
-					secondCounter2 = 0.0f;
-				}
-				else
-				{
-					//start = false;
-				}
-			}*/
-
-			/*if (start)
-			{*/
 			player->Update(myEngine, frameTime, map, myCamera);
-			//}
 
 			// Move the skybox
 			skyBox->RotateY(100.0f * frameTime);

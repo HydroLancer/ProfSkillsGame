@@ -56,9 +56,9 @@ public:
 	void DrawAllSprites(I3DEngine* myEngine);
 
 	void GameSetup(CGameMap* function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
-		int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine);
+		int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine, gameState& state);
 
 	~CMenu();
 	void MenuSystem(CGameMap * function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
-		int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine * myEngine, gameState& state);
+		int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine * myEngine, gameState& state, ICamera* myCamera);
 };
