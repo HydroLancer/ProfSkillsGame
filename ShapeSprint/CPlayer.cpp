@@ -8,7 +8,7 @@
 CPlayer::CPlayer(I3DEngine* myEngine, CGameMap* m)
 {
 	playerMesh = myEngine->LoadMesh(PLAYER_MODEL);
-	player = playerMesh->CreateModel(3.0f, 3.0f, 0.0f); //3.0f
+	player = playerMesh->CreateModel(3.0f, 3.0f, 0.0f);
 	player->SetSkin(PLAYER_SKIN);
 	player->Scale(0.1f);
 
@@ -164,7 +164,7 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		}
 		else
 		{
-			jumpSpeed -= GRAVITY * frameTime; // gravity on all the time
+			jumpSpeed -= GRAVITY; // gravity on all the time
 		}
 		if (jumpState == DoubleJump)
 		{
