@@ -12,39 +12,13 @@ private:
 	IModel* screen;
 
 	ISprite* logo;
+	ISprite* menuSprite;
 	
-	struct SPlayButton
-	{
-		ISprite* flat;
-		ISprite* hover;
-	};
-	
-	struct SLevelsButton
-	{
-		ISprite* flat;
-		ISprite* hover;
-	};
-
-	struct SOptionsButton
-	{
-		ISprite* flat;
-		ISprite* hover;
-	};
-
-	struct SExitButton
-	{
-		ISprite* flat;
-		ISprite* hover;
-	};
-
-	SPlayButton play;
-	SLevelsButton levels;
-	SOptionsButton options;
-	SExitButton exit;
-
 	int position;
+	
 	bool isDead;
-	bool spritesDrawn;
+	bool spriteDrawn;
+
 	menuThing menuState;
 
 public:
@@ -54,7 +28,6 @@ public:
 
 	void CloseDown(I3DEngine* myEngine);
 
-	void DrawAllSprites(I3DEngine* myEngine);
 
 	void GameSetup(CGameMap* function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
 		int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine, gameState& state);

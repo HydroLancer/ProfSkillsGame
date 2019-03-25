@@ -5,7 +5,7 @@ CMenu::CMenu()
 {
 	position = 1;
 	menuState = Start;
-	spritesDrawn = false;
+	spriteDrawn = false;
 }
 
 void CMenu::MenuSystem(CGameMap* function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
@@ -59,6 +59,7 @@ void CMenu::GameSetup(CGameMap* level, FullLevel& map, float startCoods[], float
 {
 	level->LoadTheMap(map, startCoods, checkpointCoords, endCoords, timeLimit, mapWidth, mapHeight, levelName);
 	level->LevelBuild(myEngine, startCoods, map, mapWidth);
+	PlayLevel1Music();
 }
 
 //Due to access issues, Update is essentially a game loop in itself
@@ -68,100 +69,90 @@ void CMenu::GameSetup(CGameMap* level, FullLevel& map, float startCoods[], float
 
 void CMenu::MenuUpdate(I3DEngine* myEngine, gameState& state)
 {
-	if (!spritesDrawn)
-	{
-		DrawAllSprites(myEngine);
-		spritesDrawn = true;
-	}
-	
 	if (position == 1)
 	{
-		myEngine->RemoveSprite(play.flat);
-		myEngine->RemoveSprite(levels.hover);
-		myEngine->RemoveSprite(exit.hover);
-
+		if (!spriteDrawn)
+		{
+			menuSprite = myEngine->CreateSprite("menu1.png", (myEngine->GetWidth() / 2) - 108, (myEngine->GetHeight() / 2) - 110);
+			spriteDrawn = true;
+		}
 		//screen->SetSkin("NewGameScreen.png");
 		if (myEngine->KeyHit(Key_S) || myEngine->KeyHit(Key_Down))
 		{
-			myEngine->RemoveSprite(play.hover);
-			myEngine->RemoveSprite(levels.flat);
-			myEngine->RemoveSprite(exit.flat);
+			myEngine->RemoveSprite(menuSprite);
+			spriteDrawn = false;
 			position = 2;
 		}
 		if (myEngine->KeyHit(Key_W) || myEngine->KeyHit(Key_Up))
 		{
-			myEngine->RemoveSprite(play.hover);
-			myEngine->RemoveSprite(levels.flat);
-			myEngine->RemoveSprite(exit.flat);
+			myEngine->RemoveSprite(menuSprite);
+			spriteDrawn = false;
 			position = 3;
 		}
 		if (myEngine->KeyHit(Key_Return))
 		{
-			myEngine->RemoveSprite(play.hover);
-			myEngine->RemoveSprite(levels.flat);
-			myEngine->RemoveSprite(exit.flat);
+			myEngine->RemoveSprite(menuSprite);
+			spriteDrawn = false;
 			menuState = Loading;
 		}
 	}
 	else if (position == 2)
 	{
-		myEngine->RemoveSprite(play.hover);
-		myEngine->RemoveSprite(levels.flat);
-		myEngine->RemoveSprite(exit.hover);
-
+		
+		if (!spriteDrawn)
+		{
+			menuSprite = myEngine->CreateSprite("menu2.png", (myEngine->GetWidth() / 2) - 108, (myEngine->GetHeight() / 2) - 110);
+			spriteDrawn = true;
+		}
 		//screen->SetSkin("ContinueScreen.png");
 		if (myEngine->KeyHit(Key_S) || myEngine->KeyHit(Key_Down))
 		{
-			myEngine->RemoveSprite(play.flat);
-			myEngine->RemoveSprite(levels.hover);
-			myEngine->RemoveSprite(exit.flat);
+			myEngine->RemoveSprite(menuSprite);
+			spriteDrawn = false;
 			position = 3;
 		}
 		if (myEngine->KeyHit(Key_W) || myEngine->KeyHit(Key_Up))
 		{
-			myEngine->RemoveSprite(play.flat);
-			myEngine->RemoveSprite(levels.hover);
-			myEngine->RemoveSprite(exit.flat);
+			myEngine->RemoveSprite(menuSprite);
+			spriteDrawn = false;
 			position = 1;
 		}
 		if (myEngine->KeyHit(Key_Return))
 		{
-			myEngine->RemoveSprite(play.flat);
-			myEngine->RemoveSprite(levels.hover);
-			myEngine->RemoveSprite(exit.flat);
+			myEngine->RemoveSprite(menuSprite);
+			spriteDrawn = false;
 			position = 1;	//currently just puts the menu back to new game
 			//Maybe set a level in here if we can expand in time
 		}
 	}
 	else if (position == 3)
 	{
-		myEngine->RemoveSprite(play.hover);
-		myEngine->RemoveSprite(levels.hover);
-		myEngine->RemoveSprite(exit.flat);
-
+		if (!spriteDrawn)
+		{
+			menuSprite = myEngine->CreateSprite("menu3.png", (myEngine->GetWidth() / 2) - 108, (myEngine->GetHeight() / 2) - 110);
+			spriteDrawn = true;
+		}
 		//screen->SetSkin("ExitGameScreen.png");
 		if (myEngine->KeyHit(Key_S) || myEngine->KeyHit(Key_Down))
 		{
-			myEngine->RemoveSprite(play.flat);
-			myEngine->RemoveSprite(levels.flat);
-			myEngine->RemoveSprite(exit.hover);
+			myEngine->RemoveSprite(menuSprite);
+			spriteDrawn = false;
 			position = 1;
 		}
 		if (myEngine->KeyHit(Key_W) || myEngine->KeyHit(Key_Up))
 		{
-			myEngine->RemoveSprite(play.flat);
-			myEngine->RemoveSprite(levels.flat);
-			myEngine->RemoveSprite(exit.hover);
+			myEngine->RemoveSprite(menuSprite);
+			spriteDrawn = false;
 			position = 2;
 		}
 		if (myEngine->KeyHit(Key_Return))
 		{
-			myEngine->RemoveSprite(play.flat);
-			myEngine->RemoveSprite(levels.flat);
-			myEngine->RemoveSprite(exit.hover);
+			myEngine->RemoveSprite(menuSprite);
+			spriteDrawn = false;
 			myEngine->Stop();
 		}
 	}
+	
 }
 
 //Gets rid of the menu model from the screen before starting the game up -> Not called within the main game loop
@@ -172,18 +163,6 @@ void CMenu::CloseDown(I3DEngine* myEngine)
 	//screen->SetY(-100.0f);
 
 	//screenMesh->RemoveModel(screen);
-}
-
-void CMenu::DrawAllSprites(I3DEngine* myEngine)
-{
-	play.hover = myEngine->CreateSprite("new_game_hover.png", 380.0f, 500.0f, 0.0f);
-	play.flat = myEngine->CreateSprite("new_game_flat.png", 380.0f, 500.0f, 0.0f);
-
-	levels.hover = myEngine->CreateSprite("continue_game_hover.png", 500.0f, 500.0f, 0.0f);
-	levels.flat = myEngine->CreateSprite("continue_game_flat.png", 500.0f, 500.0f, 0.0f);
-
-	exit.flat = myEngine->CreateSprite("exit_flat.png", 500.0f, 680.0f, 0.0f);
-	exit.hover = myEngine->CreateSprite("exit_hover.png", 500.0f, 680.0f, 0.0f);
 }
 
 CMenu::~CMenu()

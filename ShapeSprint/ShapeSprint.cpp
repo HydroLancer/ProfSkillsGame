@@ -60,7 +60,7 @@ void main()
 	FullLevel level;						// 2D Vector containing positions and types for all models in the level
 	CMenu* menu = new CMenu();						// Creates menu class, allows player to start a new game or exit the game (Continue isn't implemented yet)
 
-	ICamera* myCamera = myEngine->CreateCamera(kFPS, 0.0f, 5.23f, -12.0f); // Create a camera
+	ICamera* myCamera = myEngine->CreateCamera(kManual, 0.0f, 5.23f, -12.0f); // Create a camera
 
 	myCamera->RotateY(180.0f);
 
