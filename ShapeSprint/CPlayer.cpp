@@ -132,6 +132,7 @@ void CPlayer::Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamer
 	if (lifeState == Dead)
 	{
 		PlayerDeath(frameTime);
+		map->ResetLevel(myEngine,this);
 	}
 }
 
@@ -353,8 +354,8 @@ boxJumpingSide CPlayer::CheckVerticalFloorCol(I3DEngine* myEngine, CGameMap* map
 //PLAYER DEATH ANIMATION
 void CPlayer::PlayerDeath(float frameTime)
 {
-	player->RotateX(2.0f *frameTime);
-	player->Scale(0.01f *frameTime);
+	//player->RotateX(2.0f *frameTime);
+	//player->Scale(0.01f *frameTime);
 }
 CPlayer::~CPlayer()
 {

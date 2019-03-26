@@ -1,6 +1,8 @@
 #pragma once
 #include "ControlHeader.h"
+#include "CPlayer.h"
 
+class CPlayer;
 class CGameMap
 {
 private:
@@ -35,6 +37,7 @@ public:
 	vector<IModel*> floor;
 	vector<IModel*> blocks;
 	vector<IModel*> coins;
+	vector<IModel*> coinReset;
 	vector<IModel*> wheels;		//After messing with all this, I realised I can probably just make a single 2D vector with every single model in it.
 	vector<IModel*> spikes;	    //--Nathan
 	vector<IModel*> jumpPads3;
@@ -46,7 +49,7 @@ public:
 
 	bool LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[], int& timeLimit, int& mapWidth, float mapHeight, string levelName);
 	bool LevelBuild(I3DEngine * myEngine, float startCoods[], FullLevel& level, float mapWidth);
-	bool DestroyBuild(I3DEngine* myEngine, FullLevel& level, float mapWidth);
+	bool ResetLevel(I3DEngine* myEngine,CPlayer* p);
 	//// GETTERS ////
 	float GetItemWidth() { return GENERIC_WIDTH; } // Returns entity width
 	float GetItemHeight() { return GENERIC_HEIGHT; } // Returns entity height

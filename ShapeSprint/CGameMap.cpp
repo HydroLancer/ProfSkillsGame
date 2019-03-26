@@ -1,5 +1,5 @@
 #include "CGameMap.h"
-
+#include "CPlayer.h"
 CGameMap::CGameMap()
 {
 }
@@ -168,6 +168,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 				else if (level[i][j] == Coin)
 				{
 					coins.push_back(coinMesh->CreateModel(j, i, 0.0f));
+					
 				}
 
 				/*These are all the jumpPad vectors. So many.  All do the same thing, so condensed them down to be less overwhelming.
@@ -270,6 +271,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 				{
 					cout << "Failed to load block - Unknown block type: " << level[i][j] << endl;
 				}
+				coinReset = coins;
 			}
 		}
 	}
@@ -295,6 +297,19 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 
 	cout << "Level successfully built!" << endl;
 
+	return true;
+}
+
+bool CGameMap::ResetLevel(I3DEngine* myEngine, CPlayer* p)
+{
+	//call when the player dies
+	coins = coinReset; // reset the coin positions vector
+    //reset score 
+	p->ResetCoins();
+	//reset player position
+	p->ResetPlayerPosition();
+	//reset player death state 
+	p->ResetDeathState();
 	return true;
 }
 

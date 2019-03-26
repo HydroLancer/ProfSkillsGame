@@ -1,4 +1,3 @@
-﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  ShapeSprint.cpp
-  ShapeSprint.vcxproj -> S:\James\MEGA\Documents\Univerity\Year 2\Git\ProfSkillsGame\ShapeSprint\\ShapeSprintDebug.exe
+﻿  CPlayer.cpp
+  ShapeSprint.vcxproj -> D:\wmtbarnes\Documents\GitHub\ProfSkillsGame\ShapeSprint\\ShapeSprintDebug.exe
   Copying DLLs & shaders...

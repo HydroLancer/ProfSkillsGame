@@ -4,6 +4,7 @@
 #include "Collisions.h"
 #include "CGameMap.h"
 #include "Sound.h"
+class CGameMap;
 class CPlayer // Class for the playable character in the game
 {
 private:
@@ -79,7 +80,9 @@ public:
 	float GetOldX() { return oldX; } // Returns the previous 'X' value of a given model
 
 	int GetNumCoins() { return numCoins; } // Returns the number of coins the player currently has
-
+	void ResetCoins() { numCoins = 0; }
+	void ResetPlayerPosition() { player->SetPosition(3.0f, 3.0f, 0.0f); }
+	void ResetDeathState() { lifeState = Alive; }
 	//PLAYER DEATH
 	void PlayerDeath(float frameTime);
 
