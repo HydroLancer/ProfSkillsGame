@@ -21,6 +21,7 @@ private:
 	const float JUMP_RESET = 15.0f;	  // Reset the jump speed 
 	const float ROTATE = 240.0f;	  // Rotates the cube round when double jumping
 	const float PLAYER_SPEED = 9.0f; // The speed of the player
+	const float ADJUSTMENT_AMOUNT = 0.8f;
 
 	// Collision Controls
 	const float HEIGHT = 0.99f; // Height of the model
