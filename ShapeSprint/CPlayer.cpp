@@ -1,10 +1,5 @@
 #include "CPlayer.h"
 
-// Allow debug-only code
-#ifndef __DEBUG
-	#define __DEBUG
-#endif // !__DEBUG
-
 CPlayer::CPlayer(I3DEngine* myEngine, CGameMap* m)
 {
 	initCollide = false;
@@ -70,7 +65,7 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		{
 			lifeState = Dead;
 		}
-		if (player->GetY() < 0.0f)
+		if (player->GetY() < -4.0f)
 		{
 			lifeState = Dead;
 		}
@@ -78,7 +73,6 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		if (collisionCoin != noMSide)
 		{
 			numCoins++;
-			cout << "COINS: " << numCoins << endl;
 		}
 
 		oldX = player->GetX(); // Reset the 'oldX' to the current 'X' position of the model
@@ -86,8 +80,8 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		// Jumping Mechanic
 		if (myEngine->KeyHit(JUMP)) // If the jump key is pressed then
 		{
-			cout << "JUMP PRESSED" << endl; // TEST::OUTPUT "JUMP PRESSED" TO CONSOLE
 			SetToOldY(0.002f);
+
 			if (jumpState == noJump) // If the model is not currently jumping
 			{
 				jumpState = Jump; // Set the jump state to 'Jump'
@@ -112,18 +106,16 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		}
 
 		// Movement Mechanic
-/*#ifdef __DEBUG
-		if (myEngine->KeyHeld(LEFT)) // If the left movement key is pressed
-		{
-			player->MoveX(-PLAYER_SPEED * frameTime); // Move the model negative x
-		}
-		else if (myEngine->KeyHeld(RIGHT))
-		{
-			player->MoveX(PLAYER_SPEED * frameTime); // Move the model positive x
-		}
-#else*/
+		//if (myEngine->KeyHeld(LEFT)) // If the left movement key is pressed
+		//{
+		//	player->MoveX(-PLAYER_SPEED * frameTime); // Move the model negative x
+		//}
+		//else if (myEngine->KeyHeld(RIGHT))
+		//{
+		//	player->MoveX(PLAYER_SPEED * frameTime); // Move the model positive x
+		//}
+
 		player->MoveX(PLAYER_SPEED * frameTime); // Move the model negative x
-//#endif // DEBUG
 	}
 }
 

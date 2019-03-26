@@ -28,8 +28,8 @@ sf::Sound jumpSound;
 sf::Sound coinPickupSound;
 
 // Position and velocity of sounds
-sf::Vector3f soundPos(20.0, 0.0, -1.0);
-sf::Vector3f soundVelocity(-5.0, 0.0, 0.0);
+sf::Vector3f soundPos(0.0f, 0.0f, 0.0f);
+sf::Vector3f soundVelocity(0.0, 0.0, 0.0);
 
 // 'Listeners' position
 sf::Vector3f listenerPos(0.0, 0.0, -1.0);
@@ -114,7 +114,7 @@ void PlayJumpSound()
 	// Indicate that our sound source will use the buffer we just loaded
 	jumpSound.setBuffer(jumpBuffer);
 	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
-	jumpSound.setVolume(500.0f); // 0 to 100
+	jumpSound.setVolume(800.0f); // 0 to 100
 	jumpSound.setPitch(0.5f);
 	jumpSound.setLoop(false);
 	jumpSound.setPosition(soundPos);
@@ -126,7 +126,7 @@ void PlayCoinPickupSound()
 	// Indicate that our sound source will use the buffer we just loaded
 	coinPickupSound.setBuffer(coinPickupBuffer);
 	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
-	coinPickupSound.setVolume(10.0f); // 0 to 100
+	coinPickupSound.setVolume(8.0f); // 0 to 100
 	coinPickupSound.setPitch(1.0f);
 	coinPickupSound.setLoop(false);
 	coinPickupSound.setPosition(soundPos);

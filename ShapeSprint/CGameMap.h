@@ -21,6 +21,16 @@ public:
 	int timeLimit;
 	int mapWidth;
 
+	IMesh* playerMesh;
+	IMesh* floorMesh;
+	IMesh* coinMesh;
+	IMesh* blockMesh;
+	IMesh* jumpPadMesh;
+	IMesh* spikeMesh;
+	IMesh* wheelMesh;
+
+	vector<IModel*>::iterator it;
+
 	//pile o' vectors
 	vector<IModel*> floor;
 	vector<IModel*> blocks;
@@ -36,7 +46,7 @@ public:
 
 	bool LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[], int& timeLimit, int& mapWidth, float mapHeight, string levelName);
 	bool LevelBuild(I3DEngine * myEngine, float startCoods[], FullLevel& level, float mapWidth);
-	
+	bool DestroyBuild(I3DEngine* myEngine, FullLevel& level, float mapWidth);
 	//// GETTERS ////
 	float GetItemWidth() { return GENERIC_WIDTH; } // Returns entity width
 	float GetItemHeight() { return GENERIC_HEIGHT; } // Returns entity height

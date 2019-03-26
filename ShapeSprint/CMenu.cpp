@@ -26,7 +26,7 @@ void CMenu::MenuSystem(CGameMap* function, FullLevel& map, float startCoods[], f
 			timeLimit, mapWidth, mapHeight, levelName, myEngine, state);
 		menuState = CloseMenu;
 	}
-	else
+	else if (menuState == CloseMenu)
 	{
 		CloseDown(myEngine);
 		state = Game;

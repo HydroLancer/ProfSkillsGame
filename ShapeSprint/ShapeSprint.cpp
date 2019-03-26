@@ -25,8 +25,8 @@ void main()
 
 	//// TL-ENGINE SETUP ////
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
-	//myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
-	myEngine->StartFullscreen(1920, 1080);
+	myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
+	//myEngine->StartFullscreen(1920, 1080);
 	myEngine->AddMediaFolder("media");			// Add default folder for meshes and other media
 
 	//// CONSTANTS ////
@@ -114,6 +114,7 @@ void main()
 		}
 		else // Game is on at this point.
 		{
+
 			//// GAME HUD ////
 			if (showHUD) // Display HUD if true
 			{
@@ -136,8 +137,6 @@ void main()
 				}
 			}
 
-			player->Update(myEngine, frameTime, map, myCamera);
-
 			// Move the skybox
 			skyBox->RotateY(100.0f * frameTime);
 			skyBox->SetY((player->GetY()) * 25.0f);
@@ -150,6 +149,8 @@ void main()
 			{
 				(*it)->RotateY(230.0f * frameTime);
 			}
+
+			player->Update(myEngine, frameTime, map, myCamera);
 		}
 
 		if (myEngine->KeyHit(EXIT)) // exits the game

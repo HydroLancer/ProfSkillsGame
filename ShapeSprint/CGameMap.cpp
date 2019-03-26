@@ -143,14 +143,13 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	/*Passes the engine into this function so that the class can load the meshes and push the models into the vectors that have been
 	defined in main.*/
 
-	vector<IModel*>::iterator it;
-	IMesh* playerMesh = myEngine->LoadMesh("Planet.x");
-	IMesh* floorMesh = myEngine->LoadMesh("Cube.x");
-	IMesh* coinMesh = myEngine->LoadMesh("TwoPence.x");
-	IMesh* blockMesh = myEngine->LoadMesh("Cube.x");
-	IMesh* jumpPadMesh = myEngine->LoadMesh("spike.x");
-	IMesh* spikeMesh = myEngine->LoadMesh("spike.x");
-	IMesh* wheelMesh = myEngine->LoadMesh("Cube.x");
+	playerMesh = myEngine->LoadMesh("Planet.x");
+	floorMesh = myEngine->LoadMesh("Cube.x");
+	coinMesh = myEngine->LoadMesh("TwoPence.x");
+	blockMesh = myEngine->LoadMesh("Cube.x");
+	jumpPadMesh = myEngine->LoadMesh("spike.x");
+	spikeMesh = myEngine->LoadMesh("spike.x");
+	wheelMesh = myEngine->LoadMesh("Cube.x");
 
 	// SKYBOX CODE MOVED INTO SHAPESPRINT.CPP
 
@@ -274,6 +273,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 			}
 		}
 	}
+
 
 	//Once the models are loaded into their corresponding vectors, adjusts the scaling on them to make the level look sane.
 	
