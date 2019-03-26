@@ -271,7 +271,7 @@ boxMovementSide CPlayer::CheckHorizontalCoinCol(I3DEngine* myEngine, CGameMap* m
 		if (collision != noMSide)
 		{
 			PlayCoinPickupSound();
-			coin->Move(-100.0f, 0.0f, 0.0f);
+			coin->Move(0.0f, -100.0f, 0.0f);
 			break;
 		}
 	}
@@ -286,7 +286,7 @@ boxJumpingSide CPlayer::CheckVerticalCoinCol(I3DEngine* myEngine, CGameMap* map)
 		if (collision != noJSide)
 		{
 			PlayCoinPickupSound();
-			coin->Move(-100.0f, 0.0f, 0.0f);
+			coin->Move(0.0f, -100.0f, 0.0f);
 			break;
 		}
 	}

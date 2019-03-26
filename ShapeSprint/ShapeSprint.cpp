@@ -25,8 +25,8 @@ void main()
 
 	//// TL-ENGINE SETUP ////
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
-	//myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
-	myEngine->StartFullscreen(1920, 1080);
+	myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
+	//myEngine->StartFullscreen(1920, 1080);
 	myEngine->AddMediaFolder("media");			// Add default folder for meshes and other media
 
 	//// CONSTANTS ////
@@ -36,7 +36,7 @@ void main()
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
 	// Strings
-	const string LEVEL_NAME = "level1.txt";	// File name for the map Test.txt level1.txt
+	const string LEVEL_NAME = "coinLagTest.txt";	// File name for the map Test.txt level1.txt
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer

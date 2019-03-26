@@ -271,11 +271,12 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 				{
 					cout << "Failed to load block - Unknown block type: " << level[i][j] << endl;
 				}
-				coinReset = coins;
+				//std::reverse(coinReset.begin(), coinReset.end()); // reset the coin positions vector
 			}
 		}
+		
 	}
-
+	coinReset = coins;
 
 	//Once the models are loaded into their corresponding vectors, adjusts the scaling on them to make the level look sane.
 	
@@ -303,8 +304,15 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 bool CGameMap::ResetLevel(I3DEngine* myEngine, CPlayer* p)
 {
 	//call when the player dies
-	coins = coinReset; // reset the coin positions vector
-    //reset score 
+	for each(IModel* coin in coins) // go through each block in the map
+	{
+		if (coin->GetY() < 0.0f)
+		{
+			coin->Move(0.0f, 100.0f, 0.0f);
+		}
+	}
+
+	//reset score 
 	p->ResetCoins();
 	//reset player position
 	p->ResetPlayerPosition();
