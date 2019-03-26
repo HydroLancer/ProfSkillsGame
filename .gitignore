@@ -9,3 +9,8 @@
 *.pdb
 *.tlog
 *.exe
+*.idb
+*.idb
+*.pdb
+*.tlog
+*.exe

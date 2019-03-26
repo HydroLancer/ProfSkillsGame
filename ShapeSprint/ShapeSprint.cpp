@@ -25,8 +25,8 @@ void main()
 
 	//// TL-ENGINE SETUP ////
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
-	myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
-	//myEngine->StartFullscreen(1920, 1080);
+	//myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
+	myEngine->StartFullscreen(1920, 1080);
 	myEngine->AddMediaFolder("media");			// Add default folder for meshes and other media
 
 	//// CONSTANTS ////
