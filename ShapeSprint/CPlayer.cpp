@@ -354,6 +354,8 @@ boxJumpingSide CPlayer::CheckVerticalFloorCol(I3DEngine* myEngine, CGameMap* map
 //PLAYER DEATH ANIMATION
 void CPlayer::PlayerDeath(float frameTime)
 {
+	PlayDeathSound();
+	RestartMusic();
 	//player->RotateX(2.0f *frameTime);
 	//player->Scale(0.01f *frameTime);
 }

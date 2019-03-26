@@ -8,6 +8,7 @@
 // Supported file formats: .WAV, .OGG
 sf::SoundBuffer jumpBuffer;
 sf::SoundBuffer coinPickupBuffer;
+sf::SoundBuffer deathBuffer;
 
 ////////////////////////////////////////
 ////								////
@@ -26,6 +27,7 @@ sf::Music level1Music;
 ////////////////////////////////////////
 sf::Sound jumpSound;
 sf::Sound coinPickupSound;
+sf::Sound deathSound;
 
 // Position and velocity of sounds
 sf::Vector3f soundPos(0.0f, 0.0f, 0.0f);
@@ -61,6 +63,12 @@ void PlayMenuMusic()
 	menuMusic.setPosition(soundPos);
 
 	menuMusic.play();
+}
+
+void RestartMusic()
+{
+	level1Music.stop();
+	PlayLevel1Music();
 }
 
 void PlayLevel1Music()
@@ -107,6 +115,13 @@ void LoadAllSounds()
 		while (!_kbhit());
 		return;
 	}
+
+	if (!deathBuffer.loadFromFile("death.wav")) //tada
+	{
+		cout << "Error loading sound file \"death.wav\"" << endl;
+		while (!_kbhit());
+		return;
+	}
 }
 
 void PlayJumpSound()
@@ -132,6 +147,19 @@ void PlayCoinPickupSound()
 	coinPickupSound.setPosition(soundPos);
 
 	coinPickupSound.play();
+}
+
+void PlayDeathSound()
+{
+	// Indicate that our sound source will use the buffer we just loaded
+	deathSound.setBuffer(deathBuffer);
+	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
+	deathSound.setVolume(8.0f); // 0 to 100
+	deathSound.setPitch(1.0f);
+	deathSound.setLoop(false);
+	deathSound.setPosition(soundPos);
+
+	deathSound.play();
 }
 
 // Simple timer function, similar to that in TL-Engine. Used for later exercises
