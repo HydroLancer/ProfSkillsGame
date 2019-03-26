@@ -36,7 +36,7 @@ void main()
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
 	// Strings
-	const string LEVEL_NAME = "coinLagTest.txt";	// File name for the map Test.txt level1.txt
+	const string LEVEL_NAME = "level2.txt";	// File name for the map Test.txt level1.txt
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer

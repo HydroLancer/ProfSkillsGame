@@ -49,9 +49,9 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		collisionWheel = CheckHorizontalWheelCol(myEngine, map);
 		collisionFloor = CheckHorizontalFloorCol(myEngine, map);
 
-		if (collisionBlock == leftSide || collisionBlock == rightSide) // Check to see if there is collision on either side of the model
+		if (collisionBlock == leftSide /*|| collisionBlock == rightSide*/) // Check to see if there is collision on either side of the model
 		{
-			SetToOldX(); // If so, set the 'X' of the model to the previous 'X' position
+			lifeState = Dead;
 		}
 		if (collisionFloor == leftSide || collisionFloor == rightSide) // Check to see if there is collision on either side of the model
 		{
@@ -121,12 +121,12 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 
 void CPlayer::Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera) // Updates the scene each frame
 {
+	PlayerJump(myEngine, frameTime, collisionVerticalBlock, collisionVerticalSpike, collisionVerticalWheel, collisionVerticalFloor, map); // Update the jump state every frame
+
 	if (initCollide)
 	{
 		PlayerMovement(myEngine, frameTime, collisionHorizontalBlock, collsionHorizontalSpike, collsionHorizontalCoin, collsionHorizontalWheel, collisionHorizontalFloor, map); // Update the player movement
 	}
-	
-	PlayerJump(myEngine, frameTime, collisionVerticalBlock, collisionVerticalSpike, collisionVerticalWheel, collisionVerticalFloor, map); // Update the jump state every frame
 
 	camera->SetX(player->GetX());
 	if (lifeState == Dead)
