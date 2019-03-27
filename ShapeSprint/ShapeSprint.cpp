@@ -36,7 +36,7 @@ void main()
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
 	// Strings
-	const string LEVEL_NAME = "level2.txt";	// File name for the map Test.txt level1.txt
+	string LEVEL_NAME = "level1.txt";	// File name for the map Test.txt level1.txt
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer
@@ -51,6 +51,9 @@ void main()
 	bool showHUD = true;
 	bool showDebugHUD = false;
 	bool start = false;
+
+	//// CHARS ////
+	char currentLevel = '1';
 
 	//// SCENE SETUP ////
 	CHeadsUpDisplay* HUD = new CHeadsUpDisplay(myEngine);
@@ -112,6 +115,13 @@ void main()
 			menu->MenuSystem(map, level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME, myEngine, game, myCamera);
 			skyBox->RotateY(100.0f * frameTime);
 		}
+		else if (game == NextLevel)
+		{
+			//So the game doesn't go into evil loops.
+			map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME);
+			map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
+			game = Game;
+		}
 		else // Game is on at this point.
 		{
 
@@ -151,6 +161,18 @@ void main()
 			}
 
 			player->Update(myEngine, frameTime, map, myCamera);
+			//END OF LEVEL//
+			if (player->GetX() >= map->endCoords[0])
+			{
+				currentLevel++;
+				player->ResetPlayerPosition();
+				LEVEL_NAME = "level";
+				LEVEL_NAME = LEVEL_NAME + currentLevel;
+				LEVEL_NAME = LEVEL_NAME + ".txt";
+				map->DestroyLevel(myEngine);
+				game = NextLevel;
+
+			}
 		}
 
 		if (myEngine->KeyHit(EXIT)) // exits the game

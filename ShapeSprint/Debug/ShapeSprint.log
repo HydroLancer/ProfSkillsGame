@@ -1,2 +1,5 @@
-﻿  ShapeSprint.vcxproj -> D:\wmtbarnes\Documents\GitHub\ProfSkillsGame\ShapeSprint\\ShapeSprintDebug.exe
-  ShapeSprint.vcxproj -> D:\wmtbarnes\Documents\GitHub\ProfSkillsGame\ShapeSprint\\ShapeSprint.pdb (Full PDB)
+﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  ShapeSprint.cpp
+d:\uni stuff!\2nd year\professional skills\profskillsgame\shapesprint\shapesprint.cpp(122): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  ShapeSprint.vcxproj -> D:\Uni Stuff!\2nd Year\Professional Skills\ProfSkillsGame\ShapeSprint\\ShapeSprintDebug.exe
+  Copying DLLs & shaders...
