@@ -326,6 +326,7 @@ bool CGameMap::ResetLevel(I3DEngine* myEngine, CPlayer* p)
 
 void CGameMap::DestroyLevel(I3DEngine* myEngine)
 {
+	
 	for (vector<IModel*>::iterator it = blocks.begin(); it != blocks.end(); ++it)
 	{
 		blockMesh->RemoveModel((*it));
@@ -339,7 +340,6 @@ void CGameMap::DestroyLevel(I3DEngine* myEngine)
 	for (vector<IModel*>::iterator it = spikes.begin(); it != spikes.end(); ++it)
 	{
 		spikeMesh->RemoveModel((*it));
-		
 	}
 	spikes.clear();
 }
