@@ -65,7 +65,12 @@ public:
 	enum EplayerJump { noJump, Jump, DoubleJump}; // Jump state for the player model
 	enum EplayerLife {Alive, Dead};
 	//// FUNCTIONS ////
-	void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, boxMovementSide collisionCoin, 
+	void ResolveCollision(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, boxMovementSide collisionCoin,
+		boxMovementSide collisionWheel, boxMovementSide collisionFloor, CGameMap* map);
+	void CheckCollision(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, boxMovementSide collisionCoin,
+		boxMovementSide collisionWheel, boxMovementSide collisionFloor, CGameMap* map);
+
+	void PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, boxMovementSide collisionCoin, 
 	boxMovementSide collisionWheel, boxMovementSide collisionFloor, CGameMap* map); // Controls player movement
 	void PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collisionBlock, boxJumpingSide collisionSpike, 
 	boxJumpingSide collisionWheel, boxJumpingSide collisionFloor, CGameMap* map); // Controls player jumping mechanic

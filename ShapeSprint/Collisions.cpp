@@ -19,7 +19,11 @@ boxMovementSide HorizontalCollision(float x1, float y1, float height1, float wid
 	{
 		if (maxX1 > minX2 && minX1 < maxX2)
 		{
-			if (minX1 < minX2) // leftside
+			if (maxY1 > maxY2) // topside
+			{
+				side = topMSide;
+			}
+			else if (minX1 < minX2) // leftside
 			{
 				side = leftSide;
 			}
