@@ -50,6 +50,7 @@ public:
 	bool LoadTheMap(FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[], int& timeLimit, int& mapWidth, float mapHeight, string levelName);
 	bool LevelBuild(I3DEngine * myEngine, float startCoods[], FullLevel& level, float mapWidth);
 	bool ResetLevel(I3DEngine* myEngine,CPlayer* p);
+	void DestroyLevel(I3DEngine * myEngine);
 	//// GETTERS ////
 	float GetItemWidth() { return GENERIC_WIDTH; } // Returns entity width
 	float GetItemHeight() { return GENERIC_HEIGHT; } // Returns entity height

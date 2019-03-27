@@ -12,6 +12,9 @@ bool CGameMap::LoadTheMap(FullLevel& map, float startCoods[], float checkpointCo
 	vector<BlockType> row;
 	vector<BlockType>::iterator it;
 	vector<vector<BlockType>>::iterator mapit;
+	
+	//for sanity purposes//
+	map.clear();
 
 	int counter = 0;
 	int count = 0;
@@ -319,6 +322,26 @@ bool CGameMap::ResetLevel(I3DEngine* myEngine, CPlayer* p)
 	//reset player death state 
 	p->ResetDeathState();
 	return true;
+}
+
+void CGameMap::DestroyLevel(I3DEngine* myEngine)
+{
+	
+	for (vector<IModel*>::iterator it = blocks.begin(); it != blocks.end(); ++it)
+	{
+		blockMesh->RemoveModel((*it));
+	}
+	blocks.clear();
+	for (vector<IModel*>::iterator it = coins.begin(); it != coins.end(); ++it)
+	{
+		coinMesh->RemoveModel((*it));
+	}
+	coins.clear();
+	for (vector<IModel*>::iterator it = spikes.begin(); it != spikes.end(); ++it)
+	{
+		spikeMesh->RemoveModel((*it));
+	}
+	spikes.clear();
 }
 
 CGameMap::~CGameMap()
