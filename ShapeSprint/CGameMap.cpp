@@ -342,6 +342,11 @@ void CGameMap::DestroyLevel(I3DEngine* myEngine)
 		spikeMesh->RemoveModel((*it));
 	}
 	spikes.clear();
+	for (vector<IModel*>::iterator it = floor.begin(); it != floor.end(); ++it)
+	{
+		floorMesh->RemoveModel((*it));
+	}
+	floor.clear();
 }
 
 CGameMap::~CGameMap()
