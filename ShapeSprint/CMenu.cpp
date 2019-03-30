@@ -1,6 +1,5 @@
 #include "CMenu.h"
 
-
 CMenu::CMenu()
 {
 	position = 1;
@@ -34,19 +33,14 @@ void CMenu::MenuSystem(CGameMap* function, FullLevel& map, float startCoods[], f
 	}
 }
 
+void CMenu::SetMenuState(int choice)
+{
+	menuState = static_cast<menuThing>(choice);
+}
+
 //Run both before the engine actually runs, and then whenever the gamemode enum is set to Menu
 void CMenu::MenuSetup(I3DEngine* myEngine)
 {
-	// OLD
-	//screenMesh = myEngine->LoadMesh("quad.x");
-
-	//screen = screenMesh->CreateModel(0.0f, 5.0f, -4.5f);
-	//screen->SetSkin("NewGameScreen.png");
-	//screen->Scale(8);
-	//screen->ScaleX(1.7);
-	//screen->RotateX(90);
-
-	// NEW
 	logo = myEngine->CreateSprite("logo_small.png", ((myEngine->GetWidth() / 2) - 500.0f), 160.0f, 0.0f);
 
 	isDead = false;
@@ -76,7 +70,7 @@ void CMenu::MenuUpdate(I3DEngine* myEngine, gameState& state)
 			menuSprite = myEngine->CreateSprite("menu1.png", (myEngine->GetWidth() / 2) - 108, (myEngine->GetHeight() / 2) - 110);
 			spriteDrawn = true;
 		}
-		//screen->SetSkin("NewGameScreen.png");
+
 		if (myEngine->KeyHit(Key_S) || myEngine->KeyHit(Key_Down))
 		{
 			myEngine->RemoveSprite(menuSprite);
@@ -104,7 +98,7 @@ void CMenu::MenuUpdate(I3DEngine* myEngine, gameState& state)
 			menuSprite = myEngine->CreateSprite("menu2.png", (myEngine->GetWidth() / 2) - 108, (myEngine->GetHeight() / 2) - 110);
 			spriteDrawn = true;
 		}
-		//screen->SetSkin("ContinueScreen.png");
+
 		if (myEngine->KeyHit(Key_S) || myEngine->KeyHit(Key_Down))
 		{
 			myEngine->RemoveSprite(menuSprite);
@@ -132,7 +126,7 @@ void CMenu::MenuUpdate(I3DEngine* myEngine, gameState& state)
 			menuSprite = myEngine->CreateSprite("menu3.png", (myEngine->GetWidth() / 2) - 108, (myEngine->GetHeight() / 2) - 110);
 			spriteDrawn = true;
 		}
-		//screen->SetSkin("ExitGameScreen.png");
+
 		if (myEngine->KeyHit(Key_S) || myEngine->KeyHit(Key_Down))
 		{
 			myEngine->RemoveSprite(menuSprite);
@@ -152,7 +146,6 @@ void CMenu::MenuUpdate(I3DEngine* myEngine, gameState& state)
 			myEngine->Stop();
 		}
 	}
-	
 }
 
 //Gets rid of the menu model from the screen before starting the game up -> Not called within the main game loop
@@ -160,9 +153,6 @@ void CMenu::MenuUpdate(I3DEngine* myEngine, gameState& state)
 void CMenu::CloseDown(I3DEngine* myEngine)
 {
 	myEngine->RemoveSprite(logo);
-	//screen->SetY(-100.0f);
-
-	//screenMesh->RemoveModel(screen);
 }
 
 CMenu::~CMenu()

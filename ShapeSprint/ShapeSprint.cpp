@@ -118,9 +118,16 @@ void main()
 		else if (game == NextLevel)
 		{
 			//So the game doesn't go into evil loops.
-			map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME);
-			map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
-			game = Game;
+			if (map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME))
+			{
+				map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
+				game = Game;
+			}
+			else
+			{
+				menu->SetMenuState(0);
+				game = MenuScreen;
+			}
 		}
 		else // Game is on at this point.
 		{

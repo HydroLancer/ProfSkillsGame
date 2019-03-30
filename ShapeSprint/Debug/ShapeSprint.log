@@ -1,4 +1,11 @@
 ﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  CHeadsUpDisplay.cpp
+  ShapeSprint.cpp
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\shapesprint.cpp(123): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  CMenu.cpp
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cmenu.cpp(55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cmenu.cpp(70): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cmenu.cpp(98): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\cmenu.cpp(126): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  Generating Code...
   ShapeSprint.vcxproj -> S:\James\MEGA\Documents\Univerity\Year 2\Git\ProfSkillsGame\ShapeSprint\\ShapeSprintDebug.exe
   Copying DLLs & shaders...

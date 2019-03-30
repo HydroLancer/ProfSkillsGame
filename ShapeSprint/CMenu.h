@@ -3,7 +3,7 @@
 #include "Sound.h"
 #include "CGameMap.h"
 
-enum menuThing { Start, InUse, Loading, CloseMenu };
+enum menuThing { Start = 0, InUse = 1, Loading = 2, CloseMenu = 3};
 
 class CMenu
 {
@@ -28,6 +28,7 @@ public:
 
 	void CloseDown(I3DEngine* myEngine);
 
+	void SetMenuState(int choice);
 
 	void GameSetup(CGameMap* function, FullLevel& map, float startCoods[], float checkpointCoords[], float endCoords[],
 		int timeLimit, int mapWidth, float mapHeight, string levelName, I3DEngine* myEngine, gameState& state);
