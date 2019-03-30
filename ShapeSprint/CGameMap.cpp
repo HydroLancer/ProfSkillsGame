@@ -19,9 +19,10 @@ bool CGameMap::LoadTheMap(FullLevel& map, float startCoods[], float checkpointCo
 	int counter = 0;
 	int count = 0;
 
-	levelFile.open(levelName); //change this for a parameter passed from main, usually set at the end of a level
+	levelFile.open(MAP_DIRECTORY + levelName); //change this for a parameter passed from main, usually set at the end of a level
 	if (!levelFile)
 	{
+		cout << "Level file " << levelName << "could not be opened." << endl;
 		return false;
 	}
 	while (!levelFile.eof())

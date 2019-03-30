@@ -7,6 +7,8 @@ CScenery::CScenery(I3DEngine* myEngine)
 	y = 0;
 	sceneItemType = 0;
 	
+	myEngine->AddMediaFolder(MODEL_DIR);	// Add default folder for meshes and other media
+
 	skyscraper02Mesh = myEngine->LoadMesh("skyscraper02.x");
 	tankMesh = myEngine->LoadMesh("HoverTank03.x");
 	floorMesh = myEngine->LoadMesh("floor.x");
@@ -22,9 +24,9 @@ CScenery::CScenery(I3DEngine* myEngine)
 
 			//create cube type from above character read
 			CreateScenery(sceneItemType, x, y);
-			x++;
+			++x;
 		}
-		y++;
+		++y;
 	}
 }
 
@@ -48,7 +50,7 @@ void CScenery::CreateScenery(int sceneItem, int x, int y)
 	else if (sceneItem == 3)
 	{
 		floor = floorMesh->CreateModel(-1.5f, -5.0f, 0.0f);
-		floor->SetSkin("menu_floor.png");
+		floor->SetSkin(MODEL_DIR + "menu_floor.png");
 		floor->Scale(1.0f);
 	}
 	else

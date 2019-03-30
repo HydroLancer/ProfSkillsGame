@@ -4,12 +4,16 @@
 
 CHeadsUpDisplay::CHeadsUpDisplay(I3DEngine* thomasTheTLEngine)
 {
-	debugFont = thomasTheTLEngine->LoadFont("Nova Square", DEBUG_FONT_SIZE); //Nova Square
-	coinFont = thomasTheTLEngine->LoadFont("Nova Square", COIN_FONT_SIZE); //Nova Square
-
 	showHUD = false;
 
+	thomasTheTLEngine->AddMediaFolder(MODEL_DIR);	// Default folder for meshes and textures
+
 	coinMesh = thomasTheTLEngine->LoadMesh("TwoPence.x");
+	
+	thomasTheTLEngine->AddMediaFolder(SPRITE_DIR);	// Default folder for sprites
+	
+	debugFont = thomasTheTLEngine->LoadFont("Nova Square", DEBUG_FONT_SIZE); //Nova Square
+	coinFont = thomasTheTLEngine->LoadFont("Nova Square", COIN_FONT_SIZE); //Nova Square
 }
 
 void CHeadsUpDisplay::Display(I3DEngine* thomasTheTLEngine, int numCoins, float frameTime, ICamera* myCamera)
@@ -17,7 +21,7 @@ void CHeadsUpDisplay::Display(I3DEngine* thomasTheTLEngine, int numCoins, float 
 	if (!showHUD)
 	{
 		frame = thomasTheTLEngine->CreateSprite(HUD_FRAME_FILE, 0.0f, 0.0f, 0.0f);
-	
+
 		coinModel = coinMesh->CreateModel(0.168f, 0.1f, 0.25f);
 		coinModel->Scale(0.00065f);
 

@@ -8,13 +8,14 @@ class CGameMap
 private:
 	
 	//SIZES OF MAP ITEMS
-//size of most the items are 1x1 
+	//size of most the items are 1x1 
 	const float GENERIC_WIDTH = 1.0f;
 	//size of most the items are 1x1 
 	const float GENERIC_HEIGHT = 1.0f;
 public:
 	CGameMap();
 
+	const string MAP_DIRECTORY = "maps\\";
 	const float mapHeight = 13;
 
 	float startCoods[2];
@@ -51,6 +52,7 @@ public:
 	bool LevelBuild(I3DEngine * myEngine, float startCoods[], FullLevel& level, float mapWidth);
 	bool ResetLevel(I3DEngine* myEngine,CPlayer* p);
 	void DestroyLevel(I3DEngine * myEngine);
+	
 	//// GETTERS ////
 	float GetItemWidth() { return GENERIC_WIDTH; } // Returns entity width
 	float GetItemHeight() { return GENERIC_HEIGHT; } // Returns entity height

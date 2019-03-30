@@ -2,6 +2,9 @@
 #include "ControlHeader.h"
 float Timer();
 
+//// CONSTANTS ////
+const string SOUND_DIR = ".\\media\\sounds\\";
+
 //// OPTIMISATIONS ////
 void LoadAllSounds();
 

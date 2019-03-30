@@ -12,6 +12,10 @@
 
 using namespace tle;
 
+//// CONSTANTS ////
+const string MODEL_DIR = "media\\models\\";
+const string SPRITE_DIR = "media\\sprites\\";
+
 enum gameState {MenuScreen, Idle, BuildLevel, LoadingGame, Game, NextLevel};
 
 enum BlockType

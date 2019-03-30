@@ -50,7 +50,7 @@ float updateTime = Timer();
 //// MUSIC STREAMS ////
 void PlayMenuMusic()
 {
-	if (!menuMusic.openFromFile("Menu.wav")) //tada
+	if (!menuMusic.openFromFile(SOUND_DIR + "Menu.wav")) //tada
 	{
 		cout << "Error loading sound file" << endl;
 		while (!_kbhit());
@@ -75,7 +75,7 @@ void PlayLevel1Music()
 {
 	menuMusic.stop();
 
-	if (!level1Music.openFromFile("Level 1.wav")) //tada
+	if (!level1Music.openFromFile(SOUND_DIR + "Level 1.wav")) //tada
 	{
 		cout << "Error loading sound file" << endl;
 		while (!_kbhit());
@@ -102,21 +102,21 @@ void LoadAllSounds()
 	sf::Listener::setDirection(listenerForward);	// ???
 	sf::Listener::setUpVector(listenerUp);			// ???
 
-	if (!jumpBuffer.loadFromFile("jump.wav")) //tada
+	if (!jumpBuffer.loadFromFile(SOUND_DIR + "jump.wav")) //tada
 	{
 		cout << "Error loading sound file \"jump.wav\"" << endl;
 		while (!_kbhit());
 		return;
 	}
 
-	if (!coinPickupBuffer.loadFromFile("coin_pickup.wav")) //tada
+	if (!coinPickupBuffer.loadFromFile(SOUND_DIR + "coin_pickup.wav")) //tada
 	{
 		cout << "Error loading sound file \"coin_pickup.wav\"" << endl;
 		while (!_kbhit());
 		return;
 	}
 
-	if (!deathBuffer.loadFromFile("death.wav")) //tada
+	if (!deathBuffer.loadFromFile(SOUND_DIR + "death.wav")) //tada
 	{
 		cout << "Error loading sound file \"death.wav\"" << endl;
 		while (!_kbhit());
