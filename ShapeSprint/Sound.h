@@ -11,6 +11,7 @@ void LoadAllSounds();
 //// MUSIC ////
 void PlayMenuMusic();
 
+void StopAllMusic();
 void RestartMusic();
 
 // Level Music

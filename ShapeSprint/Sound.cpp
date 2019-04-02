@@ -71,6 +71,18 @@ void RestartMusic()
 	PlayLevel1Music();
 }
 
+void StopAllMusic()
+{
+	if (menuMusic.Playing)
+	{
+		menuMusic.stop();
+	}
+	if (level1Music.Playing)
+	{
+		level1Music.stop();
+	}
+}
+
 void PlayLevel1Music()
 {
 	menuMusic.stop();

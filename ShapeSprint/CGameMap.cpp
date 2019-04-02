@@ -280,6 +280,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 		}
 		
 	}
+
 	coinReset = coins;
 
 	//Once the models are loaded into their corresponding vectors, adjusts the scaling on them to make the level look sane.
@@ -307,42 +308,49 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 
 bool CGameMap::ResetLevel(I3DEngine* myEngine, CPlayer* p)
 {
-	//call when the player dies
-	for each(IModel* coin in coins) // go through each block in the map
+	// Called when the player dies to reset the level and player
+	for each(IModel* coin in coins) // Iterate through every coin in the coin vector
 	{
-		if (coin->GetY() < 0.0f)
+		if (coin->GetY() < 0.0f) // If the coin was collected and moved
 		{
-			coin->Move(0.0f, 100.0f, 0.0f);
+			coin->Move(0.0f, 100.0f, 0.0f); // Reset the coin's position
 		}
 	}
 
-	//reset score 
-	p->ResetCoins();
-	//reset player position
-	p->ResetPlayerPosition();
-	//reset player death state 
+
+	p->ResetCoins(); // Reset the number of coins the player has to 0
+
+	p->ResetPlayerPosition(); // Reset the player's position to the start of the level
+
 	p->ResetDeathState();
+
 	return true;
 }
 
 void CGameMap::DestroyLevel(I3DEngine* myEngine)
 {
-	
+	// Remove all blocks and reset vector
 	for (vector<IModel*>::iterator it = blocks.begin(); it != blocks.end(); ++it)
 	{
 		blockMesh->RemoveModel((*it));
 	}
 	blocks.clear();
+
+	// Remove all coins and reset vector
 	for (vector<IModel*>::iterator it = coins.begin(); it != coins.end(); ++it)
 	{
 		coinMesh->RemoveModel((*it));
 	}
 	coins.clear();
+
+	// Remove all spikes and reset vector
 	for (vector<IModel*>::iterator it = spikes.begin(); it != spikes.end(); ++it)
 	{
 		spikeMesh->RemoveModel((*it));
 	}
 	spikes.clear();
+
+	// Remove all floor blocks and reset vector
 	for (vector<IModel*>::iterator it = floor.begin(); it != floor.end(); ++it)
 	{
 		floorMesh->RemoveModel((*it));
