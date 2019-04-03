@@ -20,4 +20,5 @@ void PlayLevel1Music();
 //// SFX ////
 void PlayJumpSound();
 void PlayCoinPickupSound();
+void PlayTransitionSound();
 void PlayDeathSound();

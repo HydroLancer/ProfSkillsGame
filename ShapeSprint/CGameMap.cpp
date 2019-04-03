@@ -147,15 +147,13 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	/*Passes the engine into this function so that the class can load the meshes and push the models into the vectors that have been
 	defined in main.*/
 
-	playerMesh = myEngine->LoadMesh("Planet.x");
+	playerMesh = myEngine->LoadMesh("Cube.x");
 	floorMesh = myEngine->LoadMesh("Cube.x");
 	coinMesh = myEngine->LoadMesh("TwoPence.x");
 	blockMesh = myEngine->LoadMesh("Cube.x");
 	jumpPadMesh = myEngine->LoadMesh("spike.x");
 	spikeMesh = myEngine->LoadMesh("spike.x");
 	wheelMesh = myEngine->LoadMesh("Cube.x");
-
-	// SKYBOX CODE MOVED INTO SHAPESPRINT.CPP
 
 	/*This essentially goes through the 2d vector formed by loading the text file, and makes the level appear on screen by loading
 	all the models needed for the level's layout into vectors of their types*/

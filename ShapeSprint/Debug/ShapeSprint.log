@@ -1,5 +1,18 @@
-﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  ShapeSprint.cpp
-s:\james\mega\documents\univerity\year 2\git\profskillsgame\shapesprint\shapesprint.cpp(123): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  ShapeSprint.vcxproj -> S:\James\MEGA\Documents\Univerity\Year 2\Git\ProfSkillsGame\ShapeSprint\\ShapeSprintDebug.exe
+﻿  CGameMap.cpp
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(162): warning C4018: '<': signed/unsigned mismatch
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(170): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(174): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(183): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(188): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(193): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(198): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(204): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(210): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(219): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(230): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(246): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(255): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(262): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+d:\jjeaston\documents\github\profskillsgame\shapesprint\cgamemap.cpp(269): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+  ShapeSprint.vcxproj -> D:\JJEaston\Documents\GitHub\ProfSkillsGame\ShapeSprint\\ShapeSprintDebug.exe
   Copying DLLs & shaders...

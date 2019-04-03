@@ -22,11 +22,12 @@ void main()
 {
 	//// ENUM DECL  ////
 	gameState game = MenuScreen;
+	EPausedState isPaused = playing;
 
 	//// TL-ENGINE SETUP ////
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
-	//myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
-	myEngine->StartFullscreen(1920, 1080);
+	myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
+	//myEngine->StartFullscreen(1920, 1080);
 	myEngine->AddMediaFolder(".\\media");			// Add default folder for meshes and other media
 
 	//// CONSTANTS ////
@@ -36,7 +37,7 @@ void main()
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
 	// Strings
-	string LEVEL_NAME = "level2.txt";	// File name for the map Test.txt level1.txt
+	string levelName = "level1.txt";	// File name for the map Test.txt level1.txt
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer
@@ -91,97 +92,115 @@ void main()
 
 		/**** Update your scene each frame here ****/
 
-		//// DEBUG HUD ////
-		if (showDebugHUD) // Display debug HUD if true
+		if (isPaused == playing)
 		{
-			HUD->DisplayDebug(fps, frameTime, player->GetX(), player->GetY(), LEVEL_NAME, map->GetMapWidth());
-		}
-
-		if (myEngine->KeyHit(TOGGLE_DEBUG_HUD)) // Toggle debug HUD
-		{
-			if (showDebugHUD)
+			if (myEngine->KeyHit(Key_P))
 			{
-				showDebugHUD = false;
-			}
-			else
-			{
-				showDebugHUD = true;
-			}
-		}
-
-		//Builds the menu screen with nothing over the top of it.
-		if (game == MenuScreen)
-		{
-			menu->MenuSystem(map, level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME, myEngine, game, myCamera);
-			skyBox->RotateY(100.0f * frameTime);
-		}
-		else if (game == NextLevel)
-		{
-			//So the game doesn't go into evil loops.
-			if (map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, LEVEL_NAME))
-			{
-				map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
-				game = Game;
-			}
-			else
-			{
-				StopAllMusic();
-				HUD->Hide(myEngine);
-				menu->SetMenuState(0);
-				game = MenuScreen;
-			}
-		}
-		else // Game is on at this point.
-		{
-
-			//// GAME HUD ////
-			if (showHUD) // Display HUD if true
-			{
-				HUD->Display(myEngine, player->GetNumCoins(), frameTime, myCamera);
-			}
-			else
-			{
-				HUD->Hide(myEngine);
+				isPaused = paused;
 			}
 
-			if (myEngine->KeyHit(TOGGLE_HUD)) // Toggle HUD on or off
+			//// DEBUG HUD ////
+			if (showDebugHUD) // Display debug HUD if true
 			{
-				if (showHUD)
+				HUD->DisplayDebug(fps, frameTime, player->GetX(), player->GetY(), levelName, map->GetMapWidth());
+			}
+
+			if (myEngine->KeyHit(TOGGLE_DEBUG_HUD)) // Toggle debug HUD
+			{
+				if (showDebugHUD)
 				{
-					showHUD = false;
+					showDebugHUD = false;
 				}
 				else
 				{
-					showHUD = true;
+					showDebugHUD = true;
 				}
 			}
 
-			// Move the skybox
-			skyBox->RotateY(100.0f * frameTime);
-			skyBox->SetY((player->GetY()) * 25.0f);
-			skyBox->SetX(player->GetX());
-
-			scenery->UpdateScenery(frameTime);
-
-			// Rotate all coins in the level constantly
-			for (auto it = map->coins.begin(); it != map->coins.end(); ++it)
+			//Builds the menu screen with nothing over the top of it.
+			if (game == MenuScreen)
 			{
-				(*it)->RotateY(230.0f * frameTime);
+				menu->MenuSystem(map, level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName, myEngine, game, myCamera);
+				skyBox->RotateY(100.0f * frameTime);
 			}
-
-			player->Update(myEngine, frameTime, map, myCamera);
-			
-			//// END OF LEVEL ////
-			if (player->GetX() >= map->endCoords[0])
+			else if (game == NextLevel)
 			{
-				currentLevel++;
-				player->ResetPlayerPosition();
-				LEVEL_NAME = "level";
-				LEVEL_NAME = LEVEL_NAME + currentLevel;
-				LEVEL_NAME = LEVEL_NAME + ".txt";
-				map->DestroyLevel(myEngine);
-				game = NextLevel;
-				StopAllMusic();
+				//So the game doesn't go into evil loops.
+				if (map->LoadTheMap(level, map->startCoods, map->checkpointCoords, map->endCoords, map->timeLimit, map->mapWidth, map->mapHeight, levelName))
+				{
+					map->LevelBuild(myEngine, map->startCoods, level, map->mapWidth);
+					game = Game;
+					PlayLevel1Music();
+				}
+				else
+				{
+					currentLevel = '1';
+					StopAllMusic();
+					HUD->Hide(myEngine);
+					menu->SetMenuState(0);
+					game = MenuScreen;
+				}
+			}
+			else // Game is on at this point.
+			{
+
+				//// GAME HUD ////
+				if (showHUD) // Display HUD if true
+				{
+					HUD->Display(myEngine, player->GetNumCoins(), frameTime, myCamera);
+				}
+				else
+				{
+					HUD->Hide(myEngine);
+				}
+
+				if (myEngine->KeyHit(TOGGLE_HUD)) // Toggle HUD on or off
+				{
+					if (showHUD)
+					{
+						showHUD = false;
+					}
+					else
+					{
+						showHUD = true;
+					}
+				}
+
+				// Move the skybox
+				skyBox->RotateY(100.0f * frameTime);
+				skyBox->SetY((player->GetY()) * 25.0f);
+				skyBox->SetX(player->GetX());
+
+				scenery->UpdateScenery(frameTime);
+
+				// Rotate all coins in the level constantly
+				for (auto it = map->coins.begin(); it != map->coins.end(); ++it)
+				{
+					(*it)->RotateY(230.0f * frameTime);
+				}
+
+				player->Update(myEngine, frameTime, map, myCamera);
+
+				//// END OF LEVEL ////
+				if (player->GetX() >= map->endCoords[0])
+				{
+					currentLevel++;
+					player->ResetPlayerPosition();
+					levelName = "level";
+					levelName = levelName + currentLevel;
+					levelName = levelName + ".txt";
+					map->DestroyLevel(myEngine);
+					game = NextLevel;
+					StopAllMusic();
+					PlayTransitionSound();
+				}
+			}
+		}
+		else
+		{
+			if (myEngine->KeyHit(Key_P))
+			{
+				isPaused = playing;
 			}
 		}
 

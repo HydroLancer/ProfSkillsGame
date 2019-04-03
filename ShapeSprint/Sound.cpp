@@ -8,6 +8,7 @@
 // Supported file formats: .WAV, .OGG
 sf::SoundBuffer jumpBuffer;
 sf::SoundBuffer coinPickupBuffer;
+sf::SoundBuffer transitionSoundBuffer;
 sf::SoundBuffer deathBuffer;
 
 ////////////////////////////////////////
@@ -27,6 +28,7 @@ sf::Music level1Music;
 ////////////////////////////////////////
 sf::Sound jumpSound;
 sf::Sound coinPickupSound;
+sf::Sound transitionSound;
 sf::Sound deathSound;
 
 // Position and velocity of sounds
@@ -114,21 +116,28 @@ void LoadAllSounds()
 	sf::Listener::setDirection(listenerForward);	// ???
 	sf::Listener::setUpVector(listenerUp);			// ???
 
-	if (!jumpBuffer.loadFromFile(SOUND_DIR + "jump.wav")) //tada
+	if (!jumpBuffer.loadFromFile(SOUND_DIR + "jump.wav"))
 	{
 		cout << "Error loading sound file \"jump.wav\"" << endl;
 		while (!_kbhit());
 		return;
 	}
 
-	if (!coinPickupBuffer.loadFromFile(SOUND_DIR + "coin_pickup.wav")) //tada
+	if (!coinPickupBuffer.loadFromFile(SOUND_DIR + "coin_pickup.wav"))
 	{
 		cout << "Error loading sound file \"coin_pickup.wav\"" << endl;
 		while (!_kbhit());
 		return;
 	}
 
-	if (!deathBuffer.loadFromFile(SOUND_DIR + "death.wav")) //tada
+	if (!transitionSoundBuffer.loadFromFile(SOUND_DIR + "portal.wav"))
+	{
+		cout << "Error loading sound file \"portal.wav\"" << endl;
+		while (!_kbhit());
+		return;
+	}
+
+	if (!deathBuffer.loadFromFile(SOUND_DIR + "death.wav"))
 	{
 		cout << "Error loading sound file \"death.wav\"" << endl;
 		while (!_kbhit());
@@ -159,6 +168,18 @@ void PlayCoinPickupSound()
 	coinPickupSound.setPosition(soundPos);
 
 	coinPickupSound.play();
+}
+
+void PlayTransitionSound()
+{
+	// Indicate that our sound source will use the buffer we just loaded
+	transitionSound.setBuffer(transitionSoundBuffer);
+	// Set the properties of the source. Details of all available properties are in the SFML documentation of the Sound class
+	transitionSound.setVolume(25.0f); // 0 to 100
+	transitionSound.setPitch(1.0f);
+	transitionSound.setLoop(false);
+	transitionSound.setPosition(soundPos);
+	transitionSound.play();
 }
 
 void PlayDeathSound()
