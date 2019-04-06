@@ -151,7 +151,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	floorMesh = myEngine->LoadMesh("Cube.x");
 	coinMesh = myEngine->LoadMesh("TwoPence.x");
 	blockMesh = myEngine->LoadMesh("Cube.x");
-	jumpPadMesh = myEngine->LoadMesh("spike.x");
+	jumpPadMesh = myEngine->LoadMesh("jumpPad.x");
 	spikeMesh = myEngine->LoadMesh("spike.x");
 	wheelMesh = myEngine->LoadMesh("Cube.x");
 
@@ -347,6 +347,34 @@ void CGameMap::DestroyLevel(I3DEngine* myEngine)
 		spikeMesh->RemoveModel((*it));
 	}
 	spikes.clear();
+
+	// Remove all jump pads (3) and reset vector
+	for (vector<IModel*>::iterator it = jumpPads3.begin(); it != jumpPads3.end(); ++it)
+	{
+		jumpPadMesh->RemoveModel((*it));
+	}
+	jumpPads3.clear();
+
+	// Remove all jump pads (4) and reset vector
+	for (vector<IModel*>::iterator it = jumpPads4.begin(); it != jumpPads4.end(); ++it)
+	{
+		jumpPadMesh->RemoveModel((*it));
+	}
+	jumpPads4.clear();
+
+	// Remove all jump pads (5) and reset vector
+	for (vector<IModel*>::iterator it = jumpPads5.begin(); it != jumpPads5.end(); ++it)
+	{
+		jumpPadMesh->RemoveModel((*it));
+	}
+	jumpPads5.clear();
+
+	// Remove all jump pads (6) and reset vector
+	for (vector<IModel*>::iterator it = jumpPads6.begin(); it != jumpPads6.end(); ++it)
+	{
+		jumpPadMesh->RemoveModel((*it));
+	}
+	jumpPads6.clear();
 
 	// Remove all floor blocks and reset vector
 	for (vector<IModel*>::iterator it = floor.begin(); it != floor.end(); ++it)

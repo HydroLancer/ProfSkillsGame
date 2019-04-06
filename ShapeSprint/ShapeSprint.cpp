@@ -28,7 +28,7 @@ void main()
 	I3DEngine* myEngine = New3DEngine( kTLX );	// Create a 3D engine (using TLX engine here) and open a window for it
 	myEngine->StartWindowed(1920, 1080);		// Run the engine windowed
 	//myEngine->StartFullscreen(1920, 1080);
-	myEngine->AddMediaFolder(".\\media");			// Add default folder for meshes and other media
+	myEngine->AddMediaFolder(".\\media");		// Add default folder for meshes and other media
 
 	//// CONSTANTS ////
 	// Keys
@@ -36,8 +36,11 @@ void main()
 	const EKeyCode TOGGLE_HUD = Key_F1;
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
+	//// CHARS ////
+	char currentLevel = '1';
+
 	// Strings
-	string levelName = "level1.txt";	// File name for the map Test.txt level1.txt
+	string levelName = "level" + to_string(currentLevel) + ".txt";	// File name for the map Test.txt level1.txt
 
 	//// FLOATS ////
 	float frameTime = myEngine->Timer(); // Initialise the frame time using the engine's timer
@@ -52,9 +55,6 @@ void main()
 	bool showHUD = true;
 	bool showDebugHUD = false;
 	bool start = false;
-
-	//// CHARS ////
-	char currentLevel = '1';
 
 	//// SCENE SETUP ////
 	CHeadsUpDisplay* HUD = new CHeadsUpDisplay(myEngine);

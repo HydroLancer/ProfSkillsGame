@@ -28,14 +28,17 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{f267cd67-c41d-4622-9bce-a6155a4902a0}</UniqueIdentifier>
+    <Filter Include="Levels">
+      <UniqueIdentifier>{1b6d706d-2492-4357-bcb3-88937ea46b61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{4c884166-e9b0-47f0-a254-2f32c061b9fb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Class Source Files">
       <UniqueIdentifier>{f858dccc-e465-4e14-9aa7-a5b4831c6807}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utility">
-      <UniqueIdentifier>{4c884166-e9b0-47f0-a254-2f32c061b9fb}</UniqueIdentifier>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{f267cd67-c41d-4622-9bce-a6155a4902a0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +68,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ShapeTest.txt" />
     <Text Include="Scenery.txt" />
+    <Text Include="ShapeTest.txt">
+      <Filter>Levels</Filter>
+    </Text>
   </ItemGroup>
 </Project>
