@@ -383,7 +383,14 @@ void CGameMap::DestroyLevel(I3DEngine* myEngine)
 	}
 	floor.clear();
 }
-
+void CGameMap::mapAnimationUpdate(I3DEngine* myEngine, float frameTime)
+{
+	//rotating the spinning wheel
+	for (auto wheel : wheels)
+	{
+		wheel->RotateY(10.0f);
+	}
+}
 CGameMap::~CGameMap()
 {
 }

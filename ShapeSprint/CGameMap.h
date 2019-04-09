@@ -56,8 +56,8 @@ public:
 	//// GETTERS ////
 	float GetItemWidth() { return GENERIC_WIDTH; } // Returns entity width
 	float GetItemHeight() { return GENERIC_HEIGHT; } // Returns entity height
-
 	int GetMapWidth() { return mapWidth; } // Returns the width of the map
+	void mapAnimationUpdate(I3DEngine* myEngine, float frameTime); // for the spinning wheel animation
 
 	~CGameMap(); // Class Destructor
 };
