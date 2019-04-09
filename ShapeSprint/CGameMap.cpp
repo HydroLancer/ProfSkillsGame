@@ -273,7 +273,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 				{
 					cout << "Failed to load block - Unknown block type: " << level[i][j] << endl;
 				}
-				//std::reverse(coinReset.begin(), coinReset.end()); // reset the coin positions vector
+				
 			}
 		}
 		
@@ -382,14 +382,6 @@ void CGameMap::DestroyLevel(I3DEngine* myEngine)
 		floorMesh->RemoveModel((*it));
 	}
 	floor.clear();
-}
-void CGameMap::mapAnimationUpdate(I3DEngine* myEngine, float frameTime)
-{
-	//rotating the spinning wheel
-	for (auto wheel : wheels)
-	{
-		wheel->RotateY(10.0f);
-	}
 }
 CGameMap::~CGameMap()
 {

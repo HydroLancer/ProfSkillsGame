@@ -37,7 +37,7 @@ void main()
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
 	//// CHARS ////
-	char currentLevel = '1';
+	char currentLevel = '2'; //2 for my new map? originally
 
 	// Strings
 	string levelName = "level" + to_string(currentLevel) + ".txt";	// File name for the map Test.txt level1.txt
@@ -177,6 +177,10 @@ void main()
 				for (auto it = map->coins.begin(); it != map->coins.end(); ++it)
 				{
 					(*it)->RotateY(230.0f * frameTime);
+				}
+				for (auto it = map->wheels.begin(); it != map->wheels.end(); ++it)
+				{
+					(*it)->RotateZ(230.0f * frameTime);
 				}
 
 				player->Update(myEngine, frameTime, map, myCamera);
