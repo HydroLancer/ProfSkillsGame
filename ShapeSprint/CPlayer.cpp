@@ -33,6 +33,8 @@ CPlayer::CPlayer(I3DEngine* myEngine, CGameMap* m)
 	collisionHorizontalFloor = noMSide; //Floor Block
 	collisionVerticalFloor = noJSide;
 
+	collisionJumpPad = false; // jumpingPad
+
 	numCoins = 0; // Initialise the number of coins a player has to 0
 
 	lifeState = Alive;
@@ -61,7 +63,7 @@ CPlayer::CPlayer(I3DEngine* myEngine, CGameMap* m)
 //}
 
 void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, boxMovementSide collisionCoin, 
-	boxMovementSide collisionWheel, boxMovementSide collisionFloor,  CGameMap* map) // Controls player movement
+	boxMovementSide collisionWheel, boxMovementSide collisionFloor,  CGameMap* map, bool jumpPad) // Controls player movement
 {
 	if (lifeState != Dead)
 	{
@@ -70,6 +72,7 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		collisionCoin = CheckHorizontalCoinCol(myEngine, map); // Check which side the collision is on
 		collisionWheel = CheckHorizontalWheelCol(myEngine, map);
 		collisionFloor = CheckHorizontalFloorCol(myEngine, map);
+		jumpPad = PlayerPointCollision(myEngine, map);
 		if (collisionBlock == topSide)
 		{
 			player->SetY(static_cast<int>(player->GetY()) + 0.5f);
@@ -94,7 +97,10 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 		{
 			lifeState = Dead;
 		}
-
+		if (jumpPad)
+		{
+			jumpSpeed + 10.0f;
+		}
 		if (collisionCoin != noMSide)
 		{
 			numCoins++;
@@ -146,11 +152,11 @@ void CPlayer::PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSi
 
 void CPlayer::Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera) // Updates the scene each frame
 {
-	PlayerJump(myEngine, frameTime, collisionVerticalBlock, collisionVerticalSpike, collisionVerticalWheel, collisionVerticalFloor, map); // Update the jump state every frame
-
+	PlayerJump(myEngine, frameTime, collisionVerticalBlock, collisionVerticalSpike, collisionVerticalWheel, collisionVerticalFloor, map, collisionJumpPad); // Update the jump state every frame
+	
 	if (initCollide)
 	{
-		PlayerMovement(myEngine, frameTime, collisionHorizontalBlock, collsionHorizontalSpike, collsionHorizontalCoin, collsionHorizontalWheel, collisionHorizontalFloor, map); // Update the player movement
+		PlayerMovement(myEngine, frameTime, collisionHorizontalBlock, collsionHorizontalSpike, collsionHorizontalCoin, collsionHorizontalWheel, collisionHorizontalFloor, map, collisionJumpPad); // Update the player movement
 	}
 
 	camera->SetX(player->GetX());
@@ -162,7 +168,7 @@ void CPlayer::Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamer
 }
 
 void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collisionBlock, boxJumpingSide collisionSpike, 
-	boxJumpingSide collisionWheel, boxJumpingSide collisionFloor, CGameMap* map) // Controls player jumping mechanic
+	boxJumpingSide collisionWheel, boxJumpingSide collisionFloor, CGameMap* map, bool jumpPad) // Controls player jumping mechanic
 {
 	if (lifeState != Dead)
 	{
@@ -170,7 +176,7 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 		collisionSpike = CheckVerticalSpikeCol(myEngine, map);
 		collisionWheel = CheckVerticalWheelCol(myEngine, map);
 		collisionFloor = CheckVerticalFloorCol(myEngine, map);
-
+		jumpPad = PlayerPointCollision(myEngine, map);
 		
 		// Move model according to jump state
 		////////////////////////////////
@@ -214,7 +220,10 @@ void CPlayer::PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide co
 			player->RotateZ(rotate * frameTime); // do a cool spin for the player
 			rotation += rotate * frameTime;
 		}
-
+		if (jumpPad)
+		{
+			jumpSpeed + 10.0f;
+		}
 
 		if (collisionBlock == noJSide || collisionSpike == noJSide || collisionWheel == noJSide || collisionFloor == noJSide)
 		{
@@ -347,7 +356,6 @@ boxJumpingSide CPlayer::CheckVerticalWheelCol(I3DEngine* myEngine, CGameMap* map
 			break;
 		}
 	}
-
 	return collision;
 }
 
@@ -372,6 +380,19 @@ boxJumpingSide CPlayer::CheckVerticalFloorCol(I3DEngine* myEngine, CGameMap* map
 	{
 		collision = VerticalCollision(GetX(), GetY(), HEIGHT, WIDTH, fl->GetX(), fl->GetY(), map->GetItemHeight(), map->GetItemWidth());
 		if (collision != noJSide)
+		{
+			break;
+		}
+	}
+	return collision;
+}
+bool CPlayer::PlayerPointCollision(I3DEngine* myEngine, CGameMap* map)
+{
+	bool collision = false;
+	for each(IModel* jumpPad in map->jumpPads3)
+	{
+		collision = SphereToPointCollision(GetX(), GetY(), RADIUS, jumpPad->GetX(), jumpPad->GetZ());
+		if (collision)
 		{
 			break;
 		}

@@ -64,3 +64,19 @@ boxJumpingSide VerticalCollision(float x1, float y1, float height1, float width1
 	}
 	return(side);
 }
+bool SphereToPointCollision(float x1, float z1, float radius, float x2, float z2)
+{
+	float distance;
+	float vX, vZ;
+	vX = x2 - x1;
+	vZ = z2 - z1;
+	distance = sqrt((vX*vX) + (vZ*vZ));
+	if (distance <= radius)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
