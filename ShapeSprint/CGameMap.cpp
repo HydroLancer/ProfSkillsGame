@@ -153,7 +153,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 	blockMesh = myEngine->LoadMesh("Cube.x");
 	jumpPadMesh = myEngine->LoadMesh("jumpPad.x");
 	spikeMesh = myEngine->LoadMesh("spike.x");
-	wheelMesh = myEngine->LoadMesh("Cube.x");
+	wheelMesh = myEngine->LoadMesh("Saw.x");
 
 	/*This essentially goes through the 2d vector formed by loading the text file, and makes the level appear on screen by loading
 	all the models needed for the level's layout into vectors of their types*/
@@ -209,7 +209,6 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 					
 					spike->Scale(0.5f);
 					spike->RotateY(90.0f);
-
 					spikes.push_back(spike);
 				}
 				else if (level[i][j] == Spike1x2)
@@ -243,7 +242,7 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 				{
 					IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
 					
-					wheel->RotateLocalX(90.0f);
+					wheel->RotateY(90.0f);
 					wheel->Scale(0.05f);
 
 					wheels.push_back(wheel);
@@ -252,21 +251,18 @@ bool CGameMap::LevelBuild(I3DEngine* myEngine, float startCoods[], FullLevel& le
 				{
 					IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
 					wheel->Scale(0.1f);
-					wheel->RotateLocalX(90.0f);
 					wheels.push_back(wheel);
 				}
 				else if (level[i][j] == Wheel3x3)
 				{
 					IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
 					wheel->Scale(0.2f);
-					wheel->RotateLocalX(90.0f);
 					wheels.push_back(wheel);
 				}
 				else if (level[i][j] == Wheel5x3)
 				{
 					IModel* wheel = wheelMesh->CreateModel(j, i, 0.0f);
 					wheel->Scale(0.35f);
-					wheel->RotateLocalX(90.0f);
 					wheels.push_back(wheel);
 				}
 				else

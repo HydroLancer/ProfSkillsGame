@@ -41,6 +41,7 @@ private:
 	float oldY;	// Models previous 'X' position
 
 	float jumpSpeed; // The speed at which the player model jumps
+	float jumpSpeedMulti; // multiplier for the jumppad;
 	float rotation;	 // How much the cube has been rotated by
 	float rotate;	 // move the rotation of the player //
 
@@ -58,6 +59,8 @@ private:
 	boxJumpingSide collisionVerticalWheel;
 	boxMovementSide collisionHorizontalFloor;	// For when the player is moving left and right
 	boxJumpingSide  collisionVerticalFloor;
+	boxMovementSide collisionHorizontalPad;
+	boxJumpingSide  collisionVerticalPad;
 
 public:
 	CPlayer(I3DEngine* myEngine, CGameMap* m); // Class Constructor
@@ -65,15 +68,10 @@ public:
 	enum EplayerJump { noJump, Jump, DoubleJump}; // Jump state for the player model
 	enum EplayerLife {Alive, Dead};
 	//// FUNCTIONS ////
-	void ResolveCollision(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, boxMovementSide collisionCoin,
-		boxMovementSide collisionWheel, boxMovementSide collisionFloor, CGameMap* map);
-	void CheckCollision(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, boxMovementSide collisionCoin,
-		boxMovementSide collisionWheel, boxMovementSide collisionFloor, CGameMap* map);
-
 	void PlayerMovement(I3DEngine* myEngine, float frameTime, boxMovementSide collisionBlock, boxMovementSide collisionSpike, boxMovementSide collisionCoin, 
-	boxMovementSide collisionWheel, boxMovementSide collisionFloor, CGameMap* map); // Controls player movement
+	boxMovementSide collisionWheel, boxMovementSide collisionFloor, boxMovementSide collisionJumpPad, CGameMap* map); // Controls player movement
 	void PlayerJump(I3DEngine* myEngine, float frameTime, boxJumpingSide collisionBlock, boxJumpingSide collisionSpike, 
-	boxJumpingSide collisionWheel, boxJumpingSide collisionFloor, CGameMap* map); // Controls player jumping mechanic
+	boxJumpingSide collisionWheel, boxJumpingSide collisionFloor, boxJumpingSide collisionJumpPad, CGameMap* map); // Controls player jumping mechanic
 	void Update(I3DEngine* myEngine, float frameTime, CGameMap* map, ICamera* camera); // Updates the scene each frame
 	void SetX(float x) { player->SetX(x); }	// Sets the 'X' value of a given model
 	void setY(float y) { player->SetY(y); } // Sets the 'Y' value of a given model
@@ -107,6 +105,9 @@ public:
 
 	boxMovementSide CheckHorizontalFloorCol(I3DEngine* myEngine, CGameMap* map); // Floor Blocks
 	boxJumpingSide CheckVerticalFloorCol(I3DEngine* myEngine, CGameMap* map);
+
+	boxMovementSide CheckHorizontalPadCol(I3DEngine* myEngine, CGameMap* map); // Jump Pad
+	boxJumpingSide CheckVerticalPadCol(I3DEngine* myEngine, CGameMap* map);
 	~CPlayer();	// Class destructor
 private:
 	EplayerJump jumpState; // Jump state object
