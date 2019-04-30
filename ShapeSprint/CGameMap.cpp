@@ -376,6 +376,12 @@ void CGameMap::DestroyLevel(I3DEngine* myEngine)
 		floorMesh->RemoveModel((*it));
 	}
 	floor.clear();
+
+	for (vector<IModel*>::iterator it = wheels.begin(); it != wheels.end(); ++it)
+	{
+		wheelMesh->RemoveModel((*it));
+	}
+	wheels.clear();
 }
 
 CGameMap::~CGameMap()
