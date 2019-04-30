@@ -7,8 +7,9 @@ private:
 	IMesh* skyscraper02Mesh;
 	IMesh* tankMesh;
 	IMesh* buildingMesh;
+	IMesh* buildingMesh2;
+	IMesh* buildingMesh3;
 	IMesh* floorMesh;
-
 	//// MODELS ////
 	IModel* floor;
 

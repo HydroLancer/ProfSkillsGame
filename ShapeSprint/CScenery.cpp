@@ -10,9 +10,10 @@ CScenery::CScenery(I3DEngine* myEngine)
 	myEngine->AddMediaFolder(MODEL_DIR);	// Add default folder for meshes and other media
 
 	skyscraper02Mesh = myEngine->LoadMesh("skyscraper02.x");
-	tankMesh = myEngine->LoadMesh("HoverTank03.x");
 	floorMesh = myEngine->LoadMesh("floor.x");
-	//buildingMesh = myEngine->LoadMesh("");
+    buildingMesh = myEngine->LoadMesh("Building03.x");
+	buildingMesh2 = myEngine->LoadMesh("Building09.x");
+	buildingMesh3 = myEngine->LoadMesh("Building07.x");
 
 	while (getline(infile, line)) // Reads in the new line from csv file
 	{
@@ -43,8 +44,9 @@ void CScenery::CreateScenery(int sceneItem, int x, int y)
 	}
 	else if (sceneItem == 2)
 	{
-		sceneModel = tankMesh->CreateModel(x* 5.0f, y*10.0f,  10.0f);
+		sceneModel = skyscraper02Mesh->CreateModel(x* 5.0f, -5.0f,  25.0f);
 		sceneModel->RotateY(-90.0f);
+		sceneModel->Scale(0.15f);
 		SceneList.push_back(sceneModel);
 	}
 	else if (sceneItem == 3)
@@ -53,9 +55,30 @@ void CScenery::CreateScenery(int sceneItem, int x, int y)
 		floor->SetSkin(MODEL_DIR + "menu_floor.png");
 		floor->Scale(1.0f);
 	}
+	else if (sceneItem == 4)
+	{
+		sceneModel = buildingMesh->CreateModel(x* 5.0f, -5.0f, 18.0f);
+		sceneModel->Scale(0.15f);
+		sceneModel->RotateY(90.0f);
+		SceneList.push_back(sceneModel);
+	}
+	else if (sceneItem == 5)
+	{
+		sceneModel = buildingMesh2->CreateModel(x* 5.0f, -5.0f, 15.0f);
+		sceneModel->Scale(0.15f);
+		sceneModel->RotateY(90.0f);
+		SceneList.push_back(sceneModel);
+	}
+	else if (sceneItem == 6)
+	{
+		sceneModel = buildingMesh3->CreateModel(x* 5.0f, -5.0f, 18.0f);
+		sceneModel->Scale(0.10f);
+		sceneModel->RotateY(90.0f);
+		SceneList.push_back(sceneModel);
+	}
 	else
 	{
-
+		// do nothing
 	}
 }
 
