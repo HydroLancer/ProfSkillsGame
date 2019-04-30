@@ -37,7 +37,7 @@ void main()
 	const EKeyCode TOGGLE_DEBUG_HUD = Key_F3;
 
 	//// CHARS ////
-	char currentLevel = '2';
+	char currentLevel = '0';
 
 	// Strings
 	string levelName = "level" + to_string(currentLevel) + ".txt";	// File name for the map Test.txt level1.txt
